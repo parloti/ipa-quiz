@@ -1,0 +1,8 @@
+<div class="quiz-list-container">
+    <h1>Available Quizzes</h1>
+    <ul>
+      <li *ngFor="let quiz of quizzes" (click)="selectQuiz(quiz)">
+        {{ quiz.name }}
+      </li>
+    </ul>
+  </div>
