@@ -1,27 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { QuizService } from '../services/quiz.service';
 import { NgFor } from '@angular/common';
+import { Component } from '@angular/core';
+import {
+  HAMMER_GESTURE_CONFIG,
+  HammerGestureConfig,
+} from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { lucideGithub, lucideLinkedin, lucideTwitter } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-home',
-  imports: [NgFor],
+  imports: [NgFor, NgIcon],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  providers: [
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerGestureConfig,
+    },
+  ],
+  viewProviders: [
+    provideIcons({ lucideTwitter, lucideGithub, lucideLinkedin }),
+  ],
 })
-export class HomeComponent implements OnInit {
-  private _title: string =
-    'Master the IPA – Quiz Your Way to Phonetic Prowess!';
-  public get title(): string {
-    return this._title;
-  }
-
-  private _welcome: string =
-    "Dive into the world of sounds with our interactive IPA quiz app. Whether you're a linguistics enthusiast, a language learner, or just curious about phonetics, we've got a fun and challenging journey for you!";
-  public get welcome(): string {
-    return this._welcome;
-  }
-
+export class HomeComponent {
   private _features: { title: string; description: string }[] = [
     {
       title: 'Interactive Quizzes',
@@ -47,50 +49,48 @@ export class HomeComponent implements OnInit {
     return this._features;
   }
 
-  private _action: string = 'Start Quiz Now!';
-  public get action(): string {
-    return this._action;
-  }
-
-  private _links: { href: string; icon:string, title: string }[] = [
+  private _socialLinks: { href: string; icon: string; title: string }[] = [
     {
-      href: '',
+      href: 'https://github.com/parloti/ipa-quiz',
       title: 'GitHub',
-icon: 'fab fa-github'
+      icon: 'lucideGithub',
     },
     {
-      href: '',
+      href: 'https://www.linkedin.com/in/parloti/',
       title: 'LinkedIn',
-      icon: 'fab fa-linkedin'
+      icon: 'lucideLinkedin',
     },
     {
-      href: '',
+      href: 'https://x.com/parloti',
       title: 'Twitter',
-      icon: 'fab fa-twitter'
+      icon: 'lucideTwitter',
     },
   ];
-  public get links(): { href: string; title: string }[] {
-    return this._links;
+
+  public get socialLinks(): { href: string; icon: string; title: string }[] {
+    return this._socialLinks;
   }
 
-  quizzes: any[] = [];
-
-  constructor(private quizService: QuizService, private router: Router) {}
-
-  ngOnInit(): void {
-    this.quizzes = this.quizService.getQuizzes();
-  }
-
-  selectQuiz(quiz: any): void {
-    this.quizService.setSelectedQuiz(quiz);
-  }
+  constructor(private router: Router) {}
 
   startQuiz(): void {
-    this.router.navigate(['/quiz']);
+    this.router.navigate(['/quizzes-home']);
   }
 
   currentSlide: number = 0;
   setSlide(index: number): void {
     this.currentSlide = index;
+  }
+
+  onSwipeLeft(): void {
+    if (this.currentSlide < this.features.length - 1) {
+      this.currentSlide++;
+    }
+  }
+
+  onSwipeRight(): void {
+    if (this.currentSlide > 0) {
+      this.currentSlide--;
+    }
   }
 }

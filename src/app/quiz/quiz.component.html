@@ -1,0 +1,208 @@
+<div class="quiz-container">
+  <div>
+    <h1>{{ quiz$()?.name }}</h1>
+
+    <p>Question {{ (index$() ?? 0) + 1 }}</p>
+
+    @if (question$()?.type === questionElement.Letter) {
+    <p>
+      <span>{{ question$()?.vowel?.letter }}</span> (<span class="symbol-name">{{
+        question$()?.vowel?.symbol?.names?.join(', ') | lowercase }}</span>)
+    </p>
+    } @else if (question$()?.type === questionElement.Name) {
+    <p>{{ question$()?.vowel?.name }}</p>
+    } @else if (question$()?.type === questionElement.Sound) {
+    <audio controls
+           src="/vowel_audio/{{ question$()?.vowel?.audio?.file }}"></audio>
+    } @else {
+    <span>ERROR</span>
+    }
+
+    <mat-radio-group [value]="selectedAnswer$()"
+                     class="d-flex flex-column"
+                     (change)="selectAnswer($event)">
+      @for (option of question$()?.options; track $index) {
+      <mat-radio-button [disabledInteractive]="true"
+                        [disabled]="answered$()"
+                        color="primary"
+                        [ngClass]="{
+            border: selectedAnswer$() === option.id,
+            'border border-danger':
+              answered$() &&
+              selectedAnswer$() === option.id &&
+              question$()?.vowel?.id !== option.id,
+            'border border-success':
+              answered$() && option.id === question$()?.vowel?.id,
+          }"
+                        [value]="option.id">
+        @if (option.type === questionElement.Letter) {
+        {{ option.letter }}
+        } @else if (option.type === questionElement.Name) {
+        {{ option.name }}
+        } @else if (option.type === questionElement.Sound) {
+        <audio controls
+               src="/vowel_audio/{{ option.audio.file }}"></audio>
+        } @else {
+        <span>ERROR</span>
+        }
+      </mat-radio-button>
+      }
+    </mat-radio-group>
+
+    @if (finished$()) {
+    <button mat-raised-button
+            color="warn"
+            (click)="newQuiz()">
+      Start new quiz
+    </button>
+    } @else {
+    <button mat-raised-button
+            [color]="answered$() ? 'primary' : 'warn'"
+            [disabled]="!selectedAnswer$()"
+            (click)="answered$() ? next() : verify()">
+      {{ answered$() ? 'Next' : 'Verify' }}
+    </button>
+    }
+  </div>
+
+  <div id="test">
+    <ng-container #headers>
+      <div class="placement text-center">Front</div>
+      <div class="placement text-center">Near-front</div>
+      <div class="placement text-center">Central</div>
+      <div class="placement text-center">Near-back</div>
+      <div class="placement text-center">Back</div>
+
+      <div class="constriction text-end">Close</div>
+      <div class="constriction text-end">Near-close</div>
+      <div class="constriction text-end">Close-mid</div>
+      <div class="constriction text-end">Mid</div>
+      <div class="constriction text-end">Open-mid</div>
+      <div class="constriction text-end">Near-open</div>
+      <div class="constriction text-end">Open</div>
+    </ng-container>
+
+    @for (vowels of vowelsByPosition | keyvalue; track $index) {
+    @if (answered$() || true) {
+    <div class="vowels text-center d-flex justify-content-around"
+         [attr.vowels]="vowels.key">
+      @for (vowel of vowels.value; track $index) {
+      <div [ngClass]="{
+        hidden: question$()?.vowel?.id !== vowel.id && selectedAnswer$() !== vowel.id && false,
+        'border': answered$(),
+        'border-danger': selectedAnswer$() === vowel.id && question$()?.vowel?.id !== vowel.id,
+        'border-success':
+            question$()?.vowel?.id === vowel.id,
+        }"
+           [attr.vowel]="vowel.name"
+           [matTooltip]="vowel.name">
+        <span [matTooltip]="vowel.symbol.names.join(', ')"
+              matTooltipPosition="above">{{ vowel.letter }}</span>
+      </div>
+      }
+    </div>
+    }
+    }
+
+    <div class="diagonal_1">
+      <div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="diagonal_2 pe-2">
+      <div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="horizontal_1">
+      <div></div>
+    </div>
+    <div class="horizontal_2">
+      <div></div>
+    </div>
+    <div class="horizontal_3">
+      <div></div>
+    </div>
+    <div class="horizontal_4">
+      <div></div>
+    </div>
+
+    <div class="vertical">
+      <div></div>
+    </div>
+
+  </div>
+
+  @if (true) {
+  <div class="mt-5 chart">
+    <ng-container #headers>
+      <div class="placement text-center">Front</div>
+      <div class="placement text-center">Near-front</div>
+      <div class="placement text-center">Central</div>
+      <div class="placement text-center">Near-back</div>
+      <div class="placement text-center">Back</div>
+
+      <div class="constriction text-end">Close</div>
+      <div class="constriction text-end">Near-close</div>
+      <div class="constriction text-end">Close-mid</div>
+      <div class="constriction text-end">Mid</div>
+      <div class="constriction text-end">Open-mid</div>
+      <div class="constriction text-end">Near-open</div>
+      <div class="constriction text-end">Open</div>
+    </ng-container>
+
+    @for (vowels of vowelsByPosition | keyvalue; track $index) {
+    @if (answered$() || true) {
+    <div class="vowels text-center d-flex justify-content-around"
+         [attr.vowels]="vowels.key">
+      @for (vowel of vowels.value; track $index) {
+      <div [ngClass]="{
+        hidden: question$()?.vowel?.id !== vowel.id && selectedAnswer$() !== vowel.id && false,
+        'border rounded-circle': answered$(),
+        'border-danger': selectedAnswer$() === vowel.id && question$()?.vowel?.id !== vowel.id,
+        'border-success':
+            question$()?.vowel?.id === vowel.id,
+        }"
+           [attr.vowel]="vowel.name"
+           [matTooltip]="vowel.name">
+        <span [matTooltip]="vowel.symbol.names.join(', ')"
+              matTooltipPosition="above">{{ vowel.letter }}</span>
+      </div>
+      }
+    </div>
+    }
+    }
+
+    <div class="diagonal_1">
+      <div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="diagonal_2 pe-2">
+      <div>
+        <div></div>
+      </div>
+    </div>
+
+    <div class="horizontal_1">
+      <div></div>
+    </div>
+    <div class="horizontal_2">
+      <div></div>
+    </div>
+    <div class="horizontal_3">
+      <div></div>
+    </div>
+    <div class="horizontal_4">
+      <div></div>
+    </div>
+
+    <div class="vertical">
+      <div></div>
+    </div>
+  </div>
+  }
+</div>

@@ -1,0 +1,210 @@
+import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  Actions,
+  createEffect,
+  ofType,
+  ROOT_EFFECTS_INIT,
+} from '@ngrx/effects';
+import { ROUTER_NAVIGATION } from '@ngrx/router-store';
+import { Action } from '@ngrx/store';
+import {
+  concatMap,
+  distinctUntilChanged,
+  exhaustMap,
+  filter,
+  map,
+  skip,
+  switchMap,
+  take,
+  withLatestFrom,
+} from 'rxjs';
+import { IQuestion } from '../models/iquestion';
+import { IQuiz } from '../models/iquiz';
+import { IVowel } from '../models/ivowel';
+import { QuestionElement } from '../models/question-element';
+import { QuizService } from '../services/quiz.service';
+import { randomInteger } from '../utils/random-integer';
+import { VOWELS } from '../vowels';
+import { actions } from './actions';
+import { pluckPath } from './pluck-path';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AppEffects {
+  private readonly actions$ = inject<Actions<Action>>(Actions);
+  private readonly router = inject(Router);
+
+  private readonly quizService = inject(QuizService);
+  loadState$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ROOT_EFFECTS_INIT),
+      map(() => {
+        try {
+          const stringifiedState = localStorage.getItem('state');
+          if (stringifiedState !== null) {
+            const restoring = JSON.parse(stringifiedState);
+            if (restoring !== void 0) {
+              return actions.restoreState({ restoring });
+            }
+          }
+        } catch (error) {
+          debugger;
+          console.error('Unable to retore state from local storage:', error);
+        }
+        return;
+      }),
+      filter(action => action !== void 0),
+    ),
+  );
+
+  createQuizSession$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.createQuizSession),
+      map(() => {
+        const nQuestions = 10;
+        const nAnswers = 5;
+
+        const questionStemVowelIds = new Set<number>();
+        const questionOptionVowelsById = new Map<number, IVowel[]>();
+
+        while (questionStemVowelIds.size < nQuestions) {
+          const optionVowelIds = new Set<number>();
+          const minVowelId = 1;
+          const maxVowelId = VOWELS.length;
+          const stemId = randomInteger(minVowelId, maxVowelId + 1);
+
+          questionStemVowelIds.add(stemId);
+          optionVowelIds.add(stemId);
+
+          while (optionVowelIds.size < nAnswers) {
+            const answerId = randomInteger(minVowelId, maxVowelId + 1);
+            optionVowelIds.add(answerId);
+          }
+
+          const optionIds = [...optionVowelIds]
+            .map(optionVowelId => VOWELS.find(v => v.id === optionVowelId))
+            .filter(v => v !== undefined);
+          if (optionIds.length !== nAnswers) {
+            debugger;
+          }
+
+          questionOptionVowelsById.set(stemId, optionIds);
+        }
+
+        const questionStemIds = [...questionStemVowelIds]
+          .map(questionStemVowelId =>
+            VOWELS.find(v => v.id === questionStemVowelId),
+          )
+          .filter(v => v !== undefined);
+        if (questionStemIds.length !== nQuestions) {
+          debugger;
+        }
+
+        const elements = [
+          QuestionElement.Letter,
+          QuestionElement.Sound,
+          QuestionElement.Name,
+        ] as const;
+
+        const minElementIndex = 0;
+        const maxElementIndex = 2;
+        const questions = questionStemIds.map((vowel, index) => {
+          const questionElements = new Set<QuestionElement>();
+
+          while (questionElements.size < 3) {
+            const index = randomInteger(minElementIndex, maxElementIndex + 1);
+            questionElements.add(elements[index]);
+          }
+
+          const [askType, ...answerType] = [...questionElements.values()];
+
+          const question: IQuestion = {
+            vowel,
+            answered: false,
+            type: askType,
+            index: index,
+            selectedAnswer: void 0,
+            options:
+              questionOptionVowelsById.get(vowel.id)?.map(
+                vowel =>
+                  ({
+                    ...vowel,
+                    type: Math.random() < 0.5 ? answerType[0] : answerType[1],
+                  }) as IVowel & { type: QuestionElement },
+              ) || [],
+          };
+
+          return question;
+        });
+
+        return questions;
+      }),
+      map(questions =>
+        actions.addSession({
+          session: {
+            creationDate: new Date().toISOString(),
+            currentQuestionIndex: 0,
+            id: Date.now(),
+            questions,
+          },
+        }),
+      ),
+      map(session => actions.addSession(session)),
+    ),
+  );
+
+  dispatchCreateQuizSession$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ROUTER_NAVIGATION),
+      pluckPath(),
+      filter(p => p === 'quiz'),
+      switchMap(() =>
+        this.quizService.session$.pipe(
+          take(1),
+          filter(session => session === void 0),
+        ),
+      ),
+      withLatestFrom(
+        this.quizService.openedQuiz$.pipe(
+          filter((quiz): quiz is IQuiz => quiz !== void 0),
+        ),
+      ),
+      map(([, quiz]) => actions.createQuizSession({ quiz })),
+    ),
+  );
+
+  saveState$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.restoreState),
+        exhaustMap(() => this.actions$),
+        skip(1),
+        exhaustMap(() =>
+          this.quizService.state$.pipe(
+            filter(state => state !== void 0),
+            distinctUntilChanged(),
+            map(state => {
+              try {
+                localStorage.setItem('state', JSON.stringify(state));
+                console.log('Saved state to local storage:', state);
+              } catch (error) {
+                console.error('Unable to save state to local storage:', error);
+              }
+            }),
+          ),
+        ),
+      ),
+    { dispatch: false },
+  );
+
+  openQuiz$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.openQuiz),
+        concatMap(() => this.router.navigate(['/quiz'])),
+      ),
+    { dispatch: false },
+  );
+}

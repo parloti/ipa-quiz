@@ -1,0 +1,13 @@
+{
+  "!*.{css,scss,sass,js,ts,html}": "npx prettier --ignore-unknown --write",
+  "*.{css,scss,sass}": [
+    "npx stylelint --max-warnings=0",
+    "npx prettier --ignore-unknown --write"
+  ],
+  "*.{htm,html}": "npx htmlhint",
+  "*.{js,ts,htm,html}": [
+    "npx eslint --max-warnings=0 --fix",
+    "npx prettier --ignore-unknown --write"
+  ],
+  "*.spec.ts": "jest --bail ."
+}

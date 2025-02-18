@@ -1,42 +1,56 @@
-<div class="home-container">
-    <header>
-        <h1>Master the IPA – Quiz Your Way to Phonetic Prowess!</h1>
-        <img src="hero_image.jpeg"
-             alt="IPA Chart"
-             class="hero-image">
-    </header>
+<div
+  class="home-container d-flex flex-column home-container justify-content-between vh-100"
+>
+  <header>
+    <h1>Master the IPA – Quiz Your Way to Phonetic Prowess!</h1>
+  </header>
 
-    <section class="welcome-message">
-        <p>Dive into the world of sounds with our interactive IPA quiz app. Whether you're a linguistics enthusiast, a
-            language learner, or just curious about phonetics, we've got a fun and challenging journey for you!</p>
-    </section>
+  <section class="welcome-message">
+    <p>
+      Dive into the world of sounds with our interactive IPA quiz app. Whether
+      you're a linguistics enthusiast, a language learner, or just curious about
+      phonetics, we've got a fun and challenging journey for you!
+    </p>
+  </section>
 
-    <section class="key-features">
-        <h2>Key Features</h2>
-        <div class="carousel">
-            <div class="carousel-item"
-                 *ngFor="let feature of features; let i = index"
-                 [class.active]="i === currentSlide">
-                <p><strong>{{feature.title}}: </strong>{{ feature.description }}</p>
-            </div>
-        </div>
-        <div class="carousel-indicators">
-            <span *ngFor="let feature of features; let i = index"
-                  [class.active]="i === currentSlide"
-                  (click)="setSlide(i)"></span>
-        </div>
-    </section>
+  <section class="key-features">
+    <h2>Key Features</h2>
+    <div
+      (swipeleft)="onSwipeLeft()"
+      (swiperight)="onSwipeRight()"
+      class="carousel"
+    >
+      <div
+        class="carousel-item"
+        *ngFor="let feature of features; let i = index"
+        [class.active]="i === currentSlide"
+      >
+        <p>
+          <strong>{{ feature.title }}: </strong>{{ feature.description }}
+        </p>
+      </div>
+    </div>
+    <div class="carousel-indicators">
+      <span
+        *ngFor="let feature of features; let i = index"
+        [class.active]="i === currentSlide"
+        (click)="setSlide(i)"
+      ></span>
+    </div>
+  </section>
 
-    <button (click)="startQuiz()"
-            class="cta-button">Start Quiz Now!</button>
+  <button (click)="startQuiz()" class="cta-button">Start Quiz Now!</button>
 
-    <footer>
-        <ul class="social-links">
-            <li><a href="https://www.linkedin.com"
-                   target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-            <li><a href="https://www.twitter.com"
-                   target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
-        </ul>
-        <p>&copy; 2023 IPA Quiz App. All rights reserved.</p>
-    </footer>
+  <footer>
+    <ul class="social-links">
+      @for (link of socialLinks; track $index) {
+        <li>
+          <a [href]="link.href" target="_blank"
+            ><ng-icon [name]="link.icon"></ng-icon> {{ link.title }}</a
+          >
+        </li>
+      }
+    </ul>
+    <p>&copy; 2025 IPA Quiz App. All rights reserved.</p>
+  </footer>
 </div>

@@ -15,8 +15,24 @@
     "experimentalDecorators": true,
     "moduleResolution": "bundler",
     "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022"
+    "target": "ESNext",
+    "module": "ESNext",
+    "baseUrl": "./",
+    "paths": {
+      "@app/core": ["src/app/core"],
+      "@app/environments": ["src/environments"],
+      "@app/models": ["src/app/models"],
+      "@app/pages": ["src/app/pages"],
+      "@app/root": ["src/app"],
+      "@app/services": ["src/app/core/services"],
+      "@app/shared": ["src/app/shared"],
+      "@app/state": ["src/app/state"],
+      "@app/state/facade": ["src/app/state/facade"],
+      "@app/state/mocks": ["src/app/state/mocks"],
+      "@app/testing": ["src/testing"],
+      "@app/utilities": ["src/app/utils"],
+      "@app/utils": ["src/app/utils"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

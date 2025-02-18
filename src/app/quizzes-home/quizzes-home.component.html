@@ -1,0 +1,36 @@
+<div class="quizzes-home-container">
+  <header>
+    <h1>Available Quizzes</h1>
+  </header>
+
+  <section class="quizzes-list">
+    <ul>
+      @for (quiz of quizzes$(); track $index) {
+        <li (click)="selectQuiz(quiz)">
+          <h2>{{ quiz.name }}</h2>
+          <p>{{ quiz.description }}</p>
+          @if (quiz.started) {
+            <section class="user-statistics">
+              <h2>Your Progress</h2>
+              <p>
+                Total correct answers: {{ quiz.statistics.totalCorrectAnswers }}
+              </p>
+              <p>
+                Total wrong answers:
+                {{
+                  quiz.statistics.totalQuestionsAnswered -
+                    quiz.statistics.totalCorrectAnswers
+                }}
+              </p>
+              <p>
+                Total questions answered:
+                {{ quiz.statistics.totalQuestionsAnswered }}
+              </p>
+              <p>Total elements: {{ quiz.statistics.totalElements }}</p>
+            </section>
+          }
+        </li>
+      }
+    </ul>
+  </section>
+</div>

@@ -36,13 +36,13 @@ export class QuestionsComponent {
     if (this.answer === this.question.answer) {
       ++this.score;
     }
-    console.log("Score : ", this.score);
+    console.log('Score : ', this.score);
     // console.log(this.questions);
-    console.log("Answer : ", this.answer);
+    console.log('Answer : ', this.answer);
     ++this.i;
     this.question = this.questions[this.i];
     console.log(this.i);
-    console.log("Question : ", this.question);
-    console.log("on click");
+    console.log('Question : ', this.question);
+    console.log('on click');
   }
 }

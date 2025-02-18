@@ -1,398 +1,531 @@
-export const VOWELS = [
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/91/Close_front_unrounded_vowel.ogg/Close_front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "i",
-            "entity": "&#105;",
-            "href": "https://en.wikipedia.org/wiki/Close_front_unrounded_vowel",
-            "name": "Close front unrounded vowel",
-            "unicode": "U+0069"
-        }
+import { IVowel } from './models/ivowel';
+
+export const VOWELS: IVowel[] = [
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/9/91/Close_front_unrounded_vowel.ogg/Close_front_unrounded_vowel.ogg.mp3',
+      file: 'Close_front_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/Close_front_rounded_vowel.ogg/Close_front_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "y",
-            "entity": "&#121;",
-            "href": "https://en.wikipedia.org/wiki/Close_front_rounded_vowel",
-            "name": "Close front rounded vowel",
-            "unicode": "U+0079"
-        }
+    letter: 'i',
+    name: 'Close front unrounded',
+    symbol: {
+      entities: ['&#105;'],
+      href: 'https://en.wikipedia.org/wiki/Close_front_unrounded_vowel',
+      unicodes: ['U+0069'],
+      names: ['Latin Small Letter I'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Close_central_unrounded_vowel.ogg/Close_central_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɨ",
-            "entity": "&#616;",
-            "href": "https://en.wikipedia.org/wiki/Close_central_unrounded_vowel",
-            "name": "Close central unrounded vowel",
-            "unicode": "U+0268"
-        }
+    id: 1,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ea/Close_front_rounded_vowel.ogg/Close_front_rounded_vowel.ogg.mp3',
+      file: 'Close_front_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/66/Close_central_rounded_vowel.ogg/Close_central_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ʉ",
-            "entity": "&#649;",
-            "href": "https://en.wikipedia.org/wiki/Close_central_rounded_vowel",
-            "name": "Close central rounded vowel",
-            "unicode": "U+0289"
-        }
+    letter: 'y',
+    name: 'Close front rounded',
+    symbol: {
+      entities: ['&#121;'],
+      href: 'https://en.wikipedia.org/wiki/Close_front_rounded_vowel',
+      unicodes: ['U+0079'],
+      names: ['Latin Small Letter Y'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e8/Close_back_unrounded_vowel.ogg/Close_back_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɯ",
-            "entity": "&#623;",
-            "href": "https://en.wikipedia.org/wiki/Close_back_unrounded_vowel",
-            "name": "Close back unrounded vowel",
-            "unicode": "U+026f"
-        }
+    id: 2,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Close_central_unrounded_vowel.ogg/Close_central_unrounded_vowel.ogg.mp3',
+      file: 'Close_central_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5d/Close_back_rounded_vowel.ogg/Close_back_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "u",
-            "entity": "&#117;",
-            "href": "https://en.wikipedia.org/wiki/Close_back_rounded_vowel",
-            "name": "Close back rounded vowel",
-            "unicode": "U+0075"
-        }
+    letter: 'ɨ',
+    name: 'Close central unrounded',
+    symbol: {
+      entities: ['&#616;'],
+      href: 'https://en.wikipedia.org/wiki/Close_central_unrounded_vowel',
+      unicodes: ['U+0268'],
+      names: ['Latin Small Letter I with Stroke'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4c/Near-close_near-front_unrounded_vowel.ogg/Near-close_near-front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɪ",
-            "entity": "&#618;",
-            "href": "https://en.wikipedia.org/wiki/Near-close_near-front_unrounded_vowel",
-            "name": "Near-close near-front unrounded vowel",
-            "unicode": "U+026a"
-        }
+    id: 3,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/6/66/Close_central_rounded_vowel.ogg/Close_central_rounded_vowel.ogg.mp3',
+      file: 'Close_central_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e3/Near-close_near-front_rounded_vowel.ogg/Near-close_near-front_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ʏ",
-            "entity": "&#655;",
-            "href": "https://en.wikipedia.org/wiki/Near-close_near-front_rounded_vowel",
-            "name": "Near-close near-front rounded vowel",
-            "unicode": "U+028f"
-        }
+    letter: 'ʉ',
+    name: 'Close central rounded',
+    symbol: {
+      entities: ['&#649;'],
+      href: 'https://en.wikipedia.org/wiki/Close_central_rounded_vowel',
+      unicodes: ['U+0289'],
+      names: ['Latin Small Letter U Bar'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d5/Near-close_near-back_rounded_vowel.ogg/Near-close_near-back_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ʊ",
-            "entity": "&#650;",
-            "href": "https://en.wikipedia.org/wiki/Near-close_near-back_rounded_vowel",
-            "name": "Near-close near-back rounded vowel",
-            "unicode": "U+028a"
-        }
+    id: 4,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e8/Close_back_unrounded_vowel.ogg/Close_back_unrounded_vowel.ogg.mp3',
+      file: 'Close_back_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Close-mid_front_unrounded_vowel.ogg/Close-mid_front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "e",
-            "entity": "&#101;",
-            "href": "https://en.wikipedia.org/wiki/Close-mid_front_unrounded_vowel",
-            "name": "Close-mid front unrounded vowel",
-            "unicode": "U+0065"
-        }
+    letter: 'ɯ',
+    name: 'Close back unrounded',
+    symbol: {
+      entities: ['&#623;'],
+      href: 'https://en.wikipedia.org/wiki/Close_back_unrounded_vowel',
+      unicodes: ['U+026f'],
+      names: ['Latin Small Letter Turned M'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Close-mid_front_rounded_vowel.ogg/Close-mid_front_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ø",
-            "entity": "&#248;",
-            "href": "https://en.wikipedia.org/wiki/Close-mid_front_rounded_vowel",
-            "name": "Close-mid front rounded vowel",
-            "unicode": "U+00f8"
-        }
+    id: 5,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/5/5d/Close_back_rounded_vowel.ogg/Close_back_rounded_vowel.ogg.mp3',
+      file: 'Close_back_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/6/60/Close-mid_central_unrounded_vowel.ogg/Close-mid_central_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɘ",
-            "entity": "&#600;",
-            "href": "https://en.wikipedia.org/wiki/Close-mid_central_unrounded_vowel",
-            "name": "Close-mid central unrounded vowel",
-            "unicode": "U+0258"
-        }
+    letter: 'u',
+    name: 'Close back rounded',
+    symbol: {
+      entities: ['&#117;'],
+      href: 'https://en.wikipedia.org/wiki/Close_back_rounded_vowel',
+      unicodes: ['U+0075'],
+      names: ['Latin Small Letter U'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b5/Close-mid_central_rounded_vowel.ogg/Close-mid_central_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɵ",
-            "entity": "&#629;",
-            "href": "https://en.wikipedia.org/wiki/Close-mid_central_rounded_vowel",
-            "name": "Close-mid central rounded vowel",
-            "unicode": "U+0275"
-        }
+    id: 6,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/4/4c/Near-close_near-front_unrounded_vowel.ogg/Near-close_near-front_unrounded_vowel.ogg.mp3',
+      file: 'Near-close_near-front_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/26/Close-mid_back_unrounded_vowel.ogg/Close-mid_back_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɤ",
-            "entity": "&#612;",
-            "href": "https://en.wikipedia.org/wiki/Close-mid_back_unrounded_vowel",
-            "name": "Close-mid back unrounded vowel",
-            "unicode": "U+0264"
-        }
+    letter: 'ɪ',
+    name: 'Near-close near-front unrounded',
+    symbol: {
+      entities: ['&#618;'],
+      href: 'https://en.wikipedia.org/wiki/Near-close_near-front_unrounded_vowel',
+      unicodes: ['U+026a'],
+      names: ['Latin Letter Small Capital I'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/84/Close-mid_back_rounded_vowel.ogg/Close-mid_back_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "o",
-            "entity": "&#111;",
-            "href": "https://en.wikipedia.org/wiki/Close-mid_back_rounded_vowel",
-            "name": "Close-mid back rounded vowel",
-            "unicode": "U+006f"
-        }
+    id: 7,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e3/Near-close_near-front_rounded_vowel.ogg/Near-close_near-front_rounded_vowel.ogg.mp3',
+      file: 'Near-close_near-front_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Mid_front_unrounded_vowel.ogg/Mid_front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "e̞",
-            "entity": "&#101;",
-            "href": "https://en.wikipedia.org/wiki/Mid_front_unrounded_vowel",
-            "name": "Mid front unrounded vowel",
-            "unicode": "U+0065"
-        }
+    letter: 'ʏ',
+    name: 'Near-close near-front rounded',
+    symbol: {
+      entities: ['&#655;'],
+      href: 'https://en.wikipedia.org/wiki/Near-close_near-front_rounded_vowel',
+      unicodes: ['U+028f'],
+      names: ['Latin Letter Small Capital Y'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ee/Mid_front_rounded_vowel.ogg/Mid_front_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ø̞",
-            "entity": "&#248;",
-            "href": "https://en.wikipedia.org/wiki/Mid_front_rounded_vowel",
-            "name": "Mid front rounded vowel",
-            "unicode": "U+00f8"
-        }
+    id: 8,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d5/Near-close_near-back_rounded_vowel.ogg/Near-close_near-back_rounded_vowel.ogg.mp3',
+      file: 'Near-close_near-back_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d9/Mid-central_vowel.ogg/Mid-central_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ə",
-            "entity": "&#601;",
-            "href": "https://en.wikipedia.org/wiki/Mid_central_vowel",
-            "name": "Mid central vowel",
-            "unicode": "U+0259"
-        }
+    letter: 'ʊ',
+    name: 'Near-close near-back rounded',
+    symbol: {
+      entities: ['&#650;'],
+      href: 'https://en.wikipedia.org/wiki/Near-close_near-back_rounded_vowel',
+      unicodes: ['U+028a'],
+      names: ['Latin Small Letter Upsilon'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/%C9%A4%CC%9E_IPA_sound.opus/%C9%A4%CC%9E_IPA_sound.opus.mp3"
-        },
-        "symbol": {
-            "char": "ɤ̞",
-            "entity": "&#612;",
-            "href": "https://en.wikipedia.org/wiki/Mid_back_unrounded_vowel",
-            "name": "Mid back unrounded vowel",
-            "unicode": "U+0264"
-        }
+    id: 9,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/6/6c/Close-mid_front_unrounded_vowel.ogg/Close-mid_front_unrounded_vowel.ogg.mp3',
+      file: 'Close-mid_front_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a6/Mid_back_rounded_vowel.ogg/Mid_back_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "o̞",
-            "entity": "&#111;",
-            "href": "https://en.wikipedia.org/wiki/Mid_back_rounded_vowel",
-            "name": "Mid back rounded vowel",
-            "unicode": "U+006f"
-        }
+    letter: 'e',
+    name: 'Close-mid front unrounded',
+    symbol: {
+      entities: ['&#101;'],
+      href: 'https://en.wikipedia.org/wiki/Close-mid_front_unrounded_vowel',
+      unicodes: ['U+0065'],
+      names: ['Latin Small Letter E'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/71/Open-mid_front_unrounded_vowel.ogg/Open-mid_front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɛ",
-            "entity": "&#603;",
-            "href": "https://en.wikipedia.org/wiki/Open-mid_front_unrounded_vowel",
-            "name": "Open-mid front unrounded vowel",
-            "unicode": "U+025b"
-        }
+    id: 10,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/5/53/Close-mid_front_rounded_vowel.ogg/Close-mid_front_rounded_vowel.ogg.mp3',
+      file: 'Close-mid_front_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Open-mid_front_rounded_vowel_%282%29.ogg/Open-mid_front_rounded_vowel_%282%29.ogg.mp3"
-        },
-        "symbol": {
-            "char": "œ",
-            "entity": "&#339;",
-            "href": "https://en.wikipedia.org/wiki/Open-mid_front_rounded_vowel",
-            "name": "Open-mid front rounded vowel",
-            "unicode": "U+0153"
-        }
+    letter: 'ø',
+    name: 'Close-mid front rounded',
+    symbol: {
+      entities: ['&#248;'],
+      href: 'https://en.wikipedia.org/wiki/Close-mid_front_rounded_vowel',
+      unicodes: ['U+00f8'],
+      names: ['Latin Small Letter O with Stroke'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/01/Open-mid_central_unrounded_vowel.ogg/Open-mid_central_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɜ",
-            "entity": "&#604;",
-            "href": "https://en.wikipedia.org/wiki/Open-mid_central_unrounded_vowel",
-            "name": "Open-mid central unrounded vowel",
-            "unicode": "U+025c"
-        }
+    id: 11,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/6/60/Close-mid_central_unrounded_vowel.ogg/Close-mid_central_unrounded_vowel.ogg.mp3',
+      file: 'Close-mid_central_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d9/Open-mid_central_rounded_vowel.ogg/Open-mid_central_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɞ",
-            "entity": "&#606;",
-            "href": "https://en.wikipedia.org/wiki/Open-mid_central_rounded_vowel",
-            "name": "Open-mid central rounded vowel",
-            "unicode": "U+025e"
-        }
+    letter: 'ɘ',
+    name: 'Close-mid central unrounded',
+    symbol: {
+      entities: ['&#600;'],
+      href: 'https://en.wikipedia.org/wiki/Close-mid_central_unrounded_vowel',
+      unicodes: ['U+0258'],
+      names: ['Latin Small Letter Reversed E'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/8/80/PR-open-mid_back_unrounded_vowel2.ogg/PR-open-mid_back_unrounded_vowel2.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ʌ",
-            "entity": "&#652;",
-            "href": "https://en.wikipedia.org/wiki/Open-mid_back_unrounded_vowel",
-            "name": "Open-mid back unrounded vowel",
-            "unicode": "U+028c"
-        }
+    id: 12,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b5/Close-mid_central_rounded_vowel.ogg/Close-mid_central_rounded_vowel.ogg.mp3',
+      file: 'Close-mid_central_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d0/PR-open-mid_back_rounded_vowel.ogg/PR-open-mid_back_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɔ",
-            "entity": "&#596;",
-            "href": "https://en.wikipedia.org/wiki/Open-mid_back_rounded_vowel",
-            "name": "Open-mid back rounded vowel",
-            "unicode": "U+0254"
-        }
+    letter: 'ɵ',
+    name: 'Close-mid central rounded',
+    symbol: {
+      entities: ['&#629;'],
+      href: 'https://en.wikipedia.org/wiki/Close-mid_central_rounded_vowel',
+      unicodes: ['U+0275'],
+      names: ['Latin Small Letter Barred O'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/Near-open_front_unrounded_vowel.ogg/Near-open_front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "æ",
-            "entity": "&#230;",
-            "href": "https://en.wikipedia.org/wiki/Near-open_front_unrounded_vowel",
-            "name": "Near-open front unrounded vowel",
-            "unicode": "U+00e6"
-        }
+    id: 13,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/2/26/Close-mid_back_unrounded_vowel.ogg/Close-mid_back_unrounded_vowel.ogg.mp3',
+      file: 'Close-mid_back_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/2/22/Near-open_central_unrounded_vowel.ogg/Near-open_central_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɐ",
-            "entity": "&#592;",
-            "href": "https://en.wikipedia.org/wiki/Near-open_central_vowel",
-            "name": "Near-open central vowel",
-            "unicode": "U+0250"
-        }
+    letter: 'ɤ',
+    name: 'Close-mid back unrounded',
+    symbol: {
+      entities: ['&#612;'],
+      href: 'https://en.wikipedia.org/wiki/Close-mid_back_unrounded_vowel',
+      unicodes: ['U+0264'],
+      names: ['Latin Small Letter Rams Horn'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0e/PR-open_front_unrounded_vowel.ogg/PR-open_front_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "a",
-            "entity": "&#97;",
-            "href": "https://en.wikipedia.org/wiki/Open_front_unrounded_vowel",
-            "name": "Open front unrounded vowel",
-            "unicode": "U+0061"
-        }
+    id: 14,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/8/84/Close-mid_back_rounded_vowel.ogg/Close-mid_back_rounded_vowel.ogg.mp3',
+      file: 'Close-mid_back_rounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c1/Open_front_rounded_vowel.ogg/Open_front_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɶ",
-            "entity": "&#630;",
-            "href": "https://en.wikipedia.org/wiki/Open_front_rounded_vowel",
-            "name": "Open front rounded vowel",
-            "unicode": "U+0276"
-        }
+    letter: 'o',
+    name: 'Close-mid back rounded',
+    symbol: {
+      entities: ['&#111;'],
+      href: 'https://en.wikipedia.org/wiki/Close-mid_back_rounded_vowel',
+      unicodes: ['U+006f'],
+      names: ['Latin Small Letter O'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/5/50/Open_central_unrounded_vowel.ogg/Open_central_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ä",
-            "entity": "&#228;",
-            "href": "https://en.wikipedia.org/wiki/Open_central_unrounded_vowel",
-            "name": "Open central unrounded vowel",
-            "unicode": "U+00e4"
-        }
+    id: 15,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e0/Mid_front_unrounded_vowel.ogg/Mid_front_unrounded_vowel.ogg.mp3',
+      file: 'Mid_front_unrounded_vowel.ogg.mp3',
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e5/Open_back_unrounded_vowel.ogg/Open_back_unrounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɑ",
-            "entity": "&#593;",
-            "href": "https://en.wikipedia.org/wiki/Open_back_unrounded_vowel",
-            "name": "Open back unrounded vowel",
-            "unicode": "U+0251"
-        }
+    letter: 'e̞',
+    name: 'Mid front unrounded',
+    symbol: {
+      entities: ['&#101;', '&#798;'],
+      href: 'https://en.wikipedia.org/wiki/Mid_front_unrounded_vowel',
+      unicodes: ['U+0065', 'U+031e'],
+      names: ['Latin Small Letter E', 'Combining Down Tack Below'],
     },
-    {
-        "audio": {
-            "href": "https://upload.wikimedia.org/wikipedia/commons/transcoded/3/31/PR-open_back_rounded_vowel.ogg/PR-open_back_rounded_vowel.ogg.mp3"
-        },
-        "symbol": {
-            "char": "ɒ",
-            "entity": "&#594;",
-            "href": "https://en.wikipedia.org/wiki/Open_back_rounded_vowel",
-            "name": "Open back rounded vowel",
-            "unicode": "U+0252"
+    id: 16,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/ee/Mid_front_rounded_vowel.ogg/Mid_front_rounded_vowel.ogg.mp3',
+      file: 'Mid_front_rounded_vowel.ogg.mp3',
+    },
+    letter: 'ø̞',
+    name: 'Mid front rounded',
+    symbol: {
+      entities: ['&#248;', '&#798;'],
+      href: 'https://en.wikipedia.org/wiki/Mid_front_rounded_vowel',
+      unicodes: ['U+00f8', 'U+031e'],
+      names: ['Latin Small Letter O with Stroke', 'Combining Down Tack Below'],
+    },
+    id: 17,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d9/Mid-central_vowel.ogg/Mid-central_vowel.ogg.mp3',
+      file: 'Mid-central_vowel.ogg.mp3',
+    },
+    letter: 'ə',
+    name: 'Mid central',
+    symbol: {
+      entities: ['&#601;'],
+      href: 'https://en.wikipedia.org/wiki/Mid_central_vowel',
+      unicodes: ['U+0259'],
+      names: ['Latin Small Letter Schwa'],
+    },
+    id: 18,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d8/%C9%A4%CC%9E_IPA_sound.opus/%C9%A4%CC%9E_IPA_sound.opus.mp3',
+      file: 'Mid_back_unrounded_vowel.opus.mp3',
+    },
+    letter: 'ɤ̞',
+    name: 'Mid back unrounded',
+    symbol: {
+      entities: ['&#612;', '&#798;'],
+      href: 'https://en.wikipedia.org/wiki/Mid_back_unrounded_vowel',
+      unicodes: ['U+0264', 'U+031e'],
+      names: ['Latin Small Letter Rams Horn', 'Combining Down Tack Below'],
+    },
+    id: 19,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/a/a6/Mid_back_rounded_vowel.ogg/Mid_back_rounded_vowel.ogg.mp3',
+      file: 'Mid_back_rounded_vowel.ogg.mp3',
+    },
+    letter: 'o̞',
+    name: 'Mid back rounded',
+    symbol: {
+      entities: ['&#111;', '&#798;'],
+      href: 'https://en.wikipedia.org/wiki/Mid_back_rounded_vowel',
+      unicodes: ['U+006f', 'U+031e'],
+      names: ['Latin Small Letter O', 'Combining Down Tack Below'],
+    },
+    id: 20,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/7/71/Open-mid_front_unrounded_vowel.ogg/Open-mid_front_unrounded_vowel.ogg.mp3',
+      file: 'Open-mid_front_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'ɛ',
+    name: 'Open-mid front unrounded',
+    symbol: {
+      entities: ['&#603;'],
+      href: 'https://en.wikipedia.org/wiki/Open-mid_front_unrounded_vowel',
+      unicodes: ['U+025b'],
+      names: ['Latin Small Letter Open E'],
+    },
+    id: 21,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/9/9f/Open-mid_front_rounded_vowel_%282%29.ogg/Open-mid_front_rounded_vowel_%282%29.ogg.mp3',
+      file: 'Open-mid_front_rounded_vowel.ogg.mp3',
+    },
+    letter: 'œ',
+    name: 'Open-mid front rounded',
+    symbol: {
+      entities: ['&#339;'],
+      href: 'https://en.wikipedia.org/wiki/Open-mid_front_rounded_vowel',
+      unicodes: ['U+0153'],
+      names: ['Latin Small Ligature Oe'],
+    },
+    id: 22,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/0/01/Open-mid_central_unrounded_vowel.ogg/Open-mid_central_unrounded_vowel.ogg.mp3',
+      file: 'Open-mid_central_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'ɜ',
+    name: 'Open-mid central unrounded',
+    symbol: {
+      entities: ['&#604;'],
+      href: 'https://en.wikipedia.org/wiki/Open-mid_central_unrounded_vowel',
+      unicodes: ['U+025c'],
+      names: ['Latin Small Letter Reversed Open E'],
+    },
+    id: 23,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d9/Open-mid_central_rounded_vowel.ogg/Open-mid_central_rounded_vowel.ogg.mp3',
+      file: 'Open-mid_central_rounded_vowel.ogg.mp3',
+    },
+    letter: 'ɞ',
+    name: 'Open-mid central rounded',
+    symbol: {
+      entities: ['&#606;'],
+      href: 'https://en.wikipedia.org/wiki/Open-mid_central_rounded_vowel',
+      unicodes: ['U+025e'],
+      names: ['Latin Small Letter Closed Reversed Open E'],
+    },
+    id: 24,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/8/80/PR-open-mid_back_unrounded_vowel2.ogg/PR-open-mid_back_unrounded_vowel2.ogg.mp3',
+      file: 'Open-mid_back_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'ʌ',
+    name: 'Open-mid back unrounded',
+    symbol: {
+      entities: ['&#652;'],
+      href: 'https://en.wikipedia.org/wiki/Open-mid_back_unrounded_vowel',
+      unicodes: ['U+028c'],
+      names: ['Latin Small Letter Turned V'],
+    },
+    id: 25,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/d/d0/PR-open-mid_back_rounded_vowel.ogg/PR-open-mid_back_rounded_vowel.ogg.mp3',
+      file: 'Open-mid_back_rounded_vowel.ogg.mp3',
+    },
+    letter: 'ɔ',
+    name: 'Open-mid back rounded',
+    symbol: {
+      entities: ['&#596;'],
+      href: 'https://en.wikipedia.org/wiki/Open-mid_back_rounded_vowel',
+      unicodes: ['U+0254'],
+      names: ['Latin Small Letter Open O'],
+    },
+    id: 26,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c9/Near-open_front_unrounded_vowel.ogg/Near-open_front_unrounded_vowel.ogg.mp3',
+      file: 'Near-open_front_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'æ',
+    name: 'Near-open front unrounded',
+    symbol: {
+      entities: ['&#230;'],
+      href: 'https://en.wikipedia.org/wiki/Near-open_front_unrounded_vowel',
+      unicodes: ['U+00e6'],
+      names: ['Latin Small Letter Ae'],
+    },
+    id: 27,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/2/22/Near-open_central_unrounded_vowel.ogg/Near-open_central_unrounded_vowel.ogg.mp3',
+      file: 'Near-open_central_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'ɐ',
+    name: 'Near-open central',
+    symbol: {
+      entities: ['&#592;'],
+      href: 'https://en.wikipedia.org/wiki/Near-open_central_vowel',
+      unicodes: ['U+0250'],
+      names: ['Latin Small Letter Turned A'],
+    },
+    id: 28,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/0/0e/PR-open_front_unrounded_vowel.ogg/PR-open_front_unrounded_vowel.ogg.mp3',
+      file: 'Open_front_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'a',
+    name: 'Open front unrounded',
+    symbol: {
+      entities: ['&#97;'],
+      href: 'https://en.wikipedia.org/wiki/Open_front_unrounded_vowel',
+      unicodes: ['U+0061'],
+      names: ['Latin Small Letter A'],
+    },
+    id: 29,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/c/c1/Open_front_rounded_vowel.ogg/Open_front_rounded_vowel.ogg.mp3',
+      file: 'Open_front_rounded_vowel.ogg.mp3',
+    },
+    letter: 'ɶ',
+    name: 'Open front rounded',
+    symbol: {
+      entities: ['&#630;'],
+      href: 'https://en.wikipedia.org/wiki/Open_front_rounded_vowel',
+      unicodes: ['U+0276'],
+      names: ['Latin Letter Small Capital Oe'],
+    },
+    id: 30,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/5/50/Open_central_unrounded_vowel.ogg/Open_central_unrounded_vowel.ogg.mp3',
+      file: 'Open_central_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'ä',
+    name: 'Open central unrounded',
+    symbol: {
+      entities: ['&#228;'],
+      href: 'https://en.wikipedia.org/wiki/Open_central_unrounded_vowel',
+      unicodes: ['U+00e4'],
+      names: ['Latin Small Letter A with Diaeresis'],
+    },
+    id: 31,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/e/e5/Open_back_unrounded_vowel.ogg/Open_back_unrounded_vowel.ogg.mp3',
+      file: 'Open_back_unrounded_vowel.ogg.mp3',
+    },
+    letter: 'ɑ',
+    name: 'Open back unrounded',
+    symbol: {
+      entities: ['&#593;'],
+      href: 'https://en.wikipedia.org/wiki/Open_back_unrounded_vowel',
+      unicodes: ['U+0251'],
+      names: ['Latin Small Letter Alpha'],
+    },
+    id: 32,
+  },
+  {
+    audio: {
+      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/3/31/PR-open_back_rounded_vowel.ogg/PR-open_back_rounded_vowel.ogg.mp3',
+      file: 'Open_back_rounded_vowel.ogg.mp3',
+    },
+    letter: 'ɒ',
+    name: 'Open back rounded',
+    symbol: {
+      entities: ['&#594;'],
+      href: 'https://en.wikipedia.org/wiki/Open_back_rounded_vowel',
+      unicodes: ['U+0252'],
+      names: ['Latin Small Letter Turned Alpha'],
+    },
+    id: 33,
+  },
+];
+
+/**
+ https://en.wikipedia.org/wiki/IPA_vowel_chart_with_audio
+ [...document.querySelectorAll(".IPA-audiocell")].map(cell=>{
+    const symbol = cell.querySelector(".IPA-audiocell-symbol a");
+    const audio = cell.querySelector(".IPA-audiocell-audio a");
+    const letter = symbol.textContent.trim();
+    const chars = letter.split("");
+    return {
+        audio: { href: audio.href, },
+        letter,
+        name: symbol.title,
+        symbol: {
+            entities: chars.map((c)=>`&#${c.charCodeAt()};`),
+            href: symbol.href,
+            unicodes: chars.map(c=>`U+${c.charCodeAt(0).toString(16).padStart(4,0)}`)
         }
     }
-]
+})
+
+https://www.compart.com/
+Promise.all(a.map(ipa=>{
+    return Promise.all(ipa.symbol.unicodes
+                       .map(u=>fetch("https://www.compart.com/en/unicode/"+u)
+                           .then(r=>r.text())
+                           .then(r=>r.match(`<td class="label first-column">Name:</td><td class="second-column">([^<]+)<sup>`)[1])
+                           )
+                      )
+        .then(names=>({...ipa,symbol:{...ipa.symbol,names}}))
+}))
+    .then(x=>console.log(x))
+ */

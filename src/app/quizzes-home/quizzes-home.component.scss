@@ -1,0 +1,35 @@
+.quizzes-home-container {
+  margin: 0 auto;
+  max-width: 800px;
+  padding: 20px;
+  text-align: center;
+}
+
+header {
+  margin-bottom: 20px;
+}
+
+.quizzes-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.quizzes-list li {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.quizzes-list li:hover {
+  background-color: #f9f9f9;
+}
+
+.user-statistics {
+  margin-top: 20px;
+}
+
+.user-statistics p {
+  margin: 5px 0;
+}

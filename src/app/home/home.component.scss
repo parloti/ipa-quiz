@@ -1,6 +1,11 @@
 .home-container {
-  max-width: 800px;
+  background-blend-mode: lighten;
+  background-color: rgb(255 255 255 / 95%);
+  background-image: url('/hero_image.jpeg');
+  background-position: center;
+  background-size: cover;
   margin: 0 auto;
+  max-width: 800px;
   padding: 20px;
   text-align: center;
 }
@@ -18,31 +23,21 @@ header {
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
   cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
 }
 
 footer {
-  margin-top: 20px;
-  font-size: 14px;
   color: #777;
-}
-.home-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-}
-
-header {
-  margin-bottom: 20px;
+  font-size: 14px;
+  margin-top: 20px;
 }
 
 .hero-image {
-  width: 100%;
   height: auto;
   margin-bottom: 20px;
+  width: 100%;
 }
 
 .welcome-message {
@@ -63,27 +58,21 @@ header {
 }
 
 .cta-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
   background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 5px;
-}
-
-footer {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #777;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
 }
 
 .social-links {
-  list-style-type: none;
-  padding: 0;
   display: flex;
   justify-content: center;
+  list-style-type: none;
   margin-bottom: 10px;
+  padding: 0;
 }
 
 .social-links li {
@@ -97,115 +86,21 @@ footer {
 
 .social-links a:hover {
   text-decoration: underline;
-}
-.home-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-}
-
-header {
-  margin-bottom: 20px;
-}
-
-.hero-image {
-  width: auto;
-  max-height: 30vh;
-  margin-bottom: 20px;
-}
-
-.welcome-message {
-  margin-bottom: 20px;
-}
-
-.key-features {
-  margin-bottom: 20px;
-}
-
-.key-features ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.key-features li {
-  margin-bottom: 10px;
-}
-
-.cta-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-footer {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #777;
-}
-
-.social-links {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.social-links li {
-  margin: 0 10px;
-}
-
-.social-links a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.social-links a:hover {
-  text-decoration: underline;
-}
-.home-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center;
-}
-
-header {
-  margin-bottom: 20px;
-}
-
-.hero-image {
-  width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-}
-
-.welcome-message {
-  margin-bottom: 20px;
-}
-
-.key-features {
-  margin-bottom: 20px;
 }
 
 .carousel {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
   height: 150px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
 }
 
 .carousel-item {
-  position: absolute;
-  width: 100%;
   height: 100%;
   opacity: 0;
+  position: absolute;
   transition: opacity 0.5s ease-in-out;
+  width: 100%;
 }
 
 .carousel-item.active {
@@ -219,52 +114,15 @@ header {
 }
 
 .carousel-indicators span {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 0 5px;
   background-color: #ccc;
   border-radius: 50%;
   cursor: pointer;
+  display: inline-block;
+  height: 10px;
+  margin: 0 5px;
+  width: 10px;
 }
 
 .carousel-indicators span.active {
   background-color: #007bff;
-}
-
-.cta-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-
-footer {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #777;
-}
-
-.social-links {
-  list-style-type: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.social-links li {
-  margin: 0 10px;
-}
-
-.social-links a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.social-links a:hover {
-  text-decoration: underline;
 }
