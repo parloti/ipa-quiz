@@ -14,7 +14,7 @@ export interface IVowel {
     unicodes: string[];
     names: string[];
   };
-  id: number;
+  id: `vowel-${number}`;
 }
 /**
 

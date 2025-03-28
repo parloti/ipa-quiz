@@ -14,7 +14,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 1,
+    id: 'vowel-1',
   },
   {
     audio: {
@@ -29,7 +29,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0079'],
       names: ['Latin Small Letter Y'],
     },
-    id: 2,
+    id: 'vowel-2',
   },
   {
     audio: {
@@ -44,7 +44,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0268'],
       names: ['Latin Small Letter I with Stroke'],
     },
-    id: 3,
+    id: 'vowel-3',
   },
   {
     audio: {
@@ -59,7 +59,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0289'],
       names: ['Latin Small Letter U Bar'],
     },
-    id: 4,
+    id: 'vowel-4',
   },
   {
     audio: {
@@ -74,7 +74,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+026f'],
       names: ['Latin Small Letter Turned M'],
     },
-    id: 5,
+    id: 'vowel-5',
   },
   {
     audio: {
@@ -89,7 +89,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0075'],
       names: ['Latin Small Letter U'],
     },
-    id: 6,
+    id: 'vowel-6',
   },
   {
     audio: {
@@ -104,7 +104,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+026a'],
       names: ['Latin Letter Small Capital I'],
     },
-    id: 7,
+    id: 'vowel-7',
   },
   {
     audio: {
@@ -119,7 +119,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+028f'],
       names: ['Latin Letter Small Capital Y'],
     },
-    id: 8,
+    id: 'vowel-8',
   },
   {
     audio: {
@@ -134,7 +134,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+028a'],
       names: ['Latin Small Letter Upsilon'],
     },
-    id: 9,
+    id: 'vowel-9',
   },
   {
     audio: {
@@ -149,7 +149,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0065'],
       names: ['Latin Small Letter E'],
     },
-    id: 10,
+    id: 'vowel-10',
   },
   {
     audio: {
@@ -164,7 +164,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+00f8'],
       names: ['Latin Small Letter O with Stroke'],
     },
-    id: 11,
+    id: 'vowel-11',
   },
   {
     audio: {
@@ -179,7 +179,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0258'],
       names: ['Latin Small Letter Reversed E'],
     },
-    id: 12,
+    id: 'vowel-12',
   },
   {
     audio: {
@@ -194,7 +194,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0275'],
       names: ['Latin Small Letter Barred O'],
     },
-    id: 13,
+    id: 'vowel-13',
   },
   {
     audio: {
@@ -209,7 +209,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0264'],
       names: ['Latin Small Letter Rams Horn'],
     },
-    id: 14,
+    id: 'vowel-14',
   },
   {
     audio: {
@@ -224,7 +224,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+006f'],
       names: ['Latin Small Letter O'],
     },
-    id: 15,
+    id: 'vowel-15',
   },
   {
     audio: {
@@ -239,7 +239,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0065', 'U+031e'],
       names: ['Latin Small Letter E', 'Combining Down Tack Below'],
     },
-    id: 16,
+    id: 'vowel-16',
   },
   {
     audio: {
@@ -254,7 +254,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+00f8', 'U+031e'],
       names: ['Latin Small Letter O with Stroke', 'Combining Down Tack Below'],
     },
-    id: 17,
+    id: 'vowel-17',
   },
   {
     audio: {
@@ -269,7 +269,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0259'],
       names: ['Latin Small Letter Schwa'],
     },
-    id: 18,
+    id: 'vowel-18',
   },
   {
     audio: {
@@ -284,7 +284,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0264', 'U+031e'],
       names: ['Latin Small Letter Rams Horn', 'Combining Down Tack Below'],
     },
-    id: 19,
+    id: 'vowel-19',
   },
   {
     audio: {
@@ -299,7 +299,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+006f', 'U+031e'],
       names: ['Latin Small Letter O', 'Combining Down Tack Below'],
     },
-    id: 20,
+    id: 'vowel-20',
   },
   {
     audio: {
@@ -314,7 +314,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+025b'],
       names: ['Latin Small Letter Open E'],
     },
-    id: 21,
+    id: 'vowel-21',
   },
   {
     audio: {
@@ -329,7 +329,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0153'],
       names: ['Latin Small Ligature Oe'],
     },
-    id: 22,
+    id: 'vowel-22',
   },
   {
     audio: {
@@ -344,7 +344,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+025c'],
       names: ['Latin Small Letter Reversed Open E'],
     },
-    id: 23,
+    id: 'vowel-23',
   },
   {
     audio: {
@@ -359,7 +359,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+025e'],
       names: ['Latin Small Letter Closed Reversed Open E'],
     },
-    id: 24,
+    id: 'vowel-24',
   },
   {
     audio: {
@@ -374,7 +374,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+028c'],
       names: ['Latin Small Letter Turned V'],
     },
-    id: 25,
+    id: 'vowel-25',
   },
   {
     audio: {
@@ -389,7 +389,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0254'],
       names: ['Latin Small Letter Open O'],
     },
-    id: 26,
+    id: 'vowel-26',
   },
   {
     audio: {
@@ -404,7 +404,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+00e6'],
       names: ['Latin Small Letter Ae'],
     },
-    id: 27,
+    id: 'vowel-27',
   },
   {
     audio: {
@@ -419,7 +419,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0250'],
       names: ['Latin Small Letter Turned A'],
     },
-    id: 28,
+    id: 'vowel-28',
   },
   {
     audio: {
@@ -434,7 +434,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0061'],
       names: ['Latin Small Letter A'],
     },
-    id: 29,
+    id: 'vowel-29',
   },
   {
     audio: {
@@ -449,7 +449,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0276'],
       names: ['Latin Letter Small Capital Oe'],
     },
-    id: 30,
+    id: 'vowel-30',
   },
   {
     audio: {
@@ -464,7 +464,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+00e4'],
       names: ['Latin Small Letter A with Diaeresis'],
     },
-    id: 31,
+    id: 'vowel-31',
   },
   {
     audio: {
@@ -479,7 +479,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0251'],
       names: ['Latin Small Letter Alpha'],
     },
-    id: 32,
+    id: 'vowel-32',
   },
   {
     audio: {
@@ -494,7 +494,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0252'],
       names: ['Latin Small Letter Turned Alpha'],
     },
-    id: 33,
+    id: 'vowel-33',
   },
 ];
 

@@ -1,6 +1,5 @@
 import { Component, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
 import { IQuiz } from '../models/iquiz';
 import { QuizService } from '../services/quiz.service';
 
@@ -15,20 +14,11 @@ export class QuizzesHomeComponent {
     return this._quizzes$;
   }
 
-  userStatistics: any;
-
-  constructor(
-    private quizService: QuizService,
-    private router: Router,
-  ) {
+  constructor(private quizService: QuizService) {
     this._quizzes$ = toSignal(this.quizService.quizzes$);
   }
 
-  ngOnInit(): void {
-    this.userStatistics = this.quizService.getUserStatistics();
-  }
-
   selectQuiz(quiz: IQuiz): void {
-    this.quizService.openQuiz(quiz);
+    this.quizService.openQuiz(quiz.id);
   }
 }

@@ -1,0 +1,56 @@
+import plugin from 'eslint-plugin-jest';
+import { defineConfig } from 'eslint/config';
+
+const { configs } = plugin;
+export const jest = defineConfig(
+  configs['flat/recommended'],
+  configs['flat/style'],
+  {
+    name: 'jest/custom',
+    rules: {
+      'jest/consistent-test-it': 'error',
+      'jest/max-expects': 'error',
+      'jest/max-nested-describe': 'error',
+      'jest/no-conditional-in-test': 'error',
+      'jest/no-confusing-set-timeout': 'error',
+      'jest/no-duplicate-hooks': 'error',
+      'jest/no-large-snapshots': 'error',
+      'jest/no-restricted-jest-methods': 'error',
+      'jest/no-restricted-matchers': 'error',
+      'jest/no-test-return-statement': 'error',
+      'jest/no-untyped-mock-factory': 'error',
+      'jest/padding-around-after-all-blocks': 'error',
+      'jest/padding-around-after-each-blocks': 'error',
+      'jest/padding-around-all': 'error',
+      'jest/padding-around-before-all-blocks': 'error',
+      'jest/padding-around-before-each-blocks': 'error',
+      'jest/padding-around-describe-blocks': 'error',
+      'jest/padding-around-expect-groups': 'error',
+      'jest/padding-around-test-blocks': 'error',
+      'jest/prefer-called-with': 'error',
+      'jest/prefer-comparison-matcher': 'error',
+      'jest/prefer-each': 'error',
+      'jest/prefer-equality-matcher': 'error',
+      'jest/prefer-expect-resolves': 'error',
+      'jest/prefer-hooks-in-order': 'error',
+      'jest/prefer-hooks-on-top': 'error',
+      'jest/prefer-jest-mocked': 'error',
+      'jest/prefer-lowercase-title': ['error', { ignore: ['describe'] }],
+      'jest/prefer-mock-promise-shorthand': 'error',
+      'jest/prefer-snapshot-hint': 'error',
+      'jest/prefer-spy-on': 'error',
+      'jest/prefer-strict-equal': 'error',
+      'jest/prefer-todo': 'error',
+      'jest/require-hook': 'error',
+      'jest/require-top-level-describe': 'error',
+      'jest/unbound-method': 'error',
+      'jest/valid-title': [
+        'error',
+        {
+          ignoreTypeOfDescribeName: true,
+          mustNotMatch: ['\\.$', 'Titles should not end with a full-stop'],
+        },
+      ],
+    },
+  },
+);

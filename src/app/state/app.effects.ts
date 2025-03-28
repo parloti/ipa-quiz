@@ -14,6 +14,7 @@ import {
   exhaustMap,
   filter,
   map,
+  mergeMap,
   skip,
   switchMap,
   take,
@@ -21,13 +22,101 @@ import {
 } from 'rxjs';
 import { IQuestion } from '../models/iquestion';
 import { IQuiz } from '../models/iquiz';
+import { ISession } from '../models/isession';
 import { IVowel } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
 import { randomInteger } from '../utils/random-integer';
 import { VOWELS } from '../vowels';
 import { actions } from './actions';
+import { APP_ROUTER_NAVIGATED } from './app-router-actions';
 import { pluckPath } from './pluck-path';
+
+const fromToRoutes = new Map([
+  ['quizzes-home', ''],
+  ['quiz/:id', 'quiz-home/:id'],
+  ['quiz-home/:id', 'quizzes-home'],
+]);
+
+function createQuestions(): IQuestion[] {
+  const nQuestions = 10;
+  const nAnswers = 5;
+
+  const questionStemVowelIds = new Set<IVowel['id']>();
+  const questionOptionVowelsById = new Map<IVowel['id'], IVowel[]>();
+
+  while (questionStemVowelIds.size < nQuestions) {
+    const optionVowelIds = new Set<IVowel['id']>();
+    const minVowelId = 1;
+    const maxVowelId = VOWELS.length;
+    const stemId =
+      `vowel-${randomInteger(minVowelId, maxVowelId + 1)}` as IVowel['id'];
+
+    questionStemVowelIds.add(stemId);
+    optionVowelIds.add(stemId);
+
+    while (optionVowelIds.size < nAnswers) {
+      const answerId =
+        `vowel-${randomInteger(minVowelId, maxVowelId + 1)}` as IVowel['id'];
+      optionVowelIds.add(answerId);
+    }
+
+    const optionIds = [...optionVowelIds]
+      .map(optionVowelId => VOWELS.find(v => v.id === optionVowelId))
+      .filter(v => v !== undefined);
+    if (optionIds.length !== nAnswers) {
+      debugger;
+    }
+
+    questionOptionVowelsById.set(stemId, optionIds);
+  }
+
+  const questionStemIds = [...questionStemVowelIds]
+    .map(questionStemVowelId => VOWELS.find(v => v.id === questionStemVowelId))
+    .filter(v => v !== undefined);
+  if (questionStemIds.length !== nQuestions) {
+    debugger;
+  }
+
+  const elements = [
+    QuestionElement.Letter,
+    QuestionElement.Sound,
+    QuestionElement.Name,
+  ] as const;
+
+  const minElementIndex = 0;
+  const maxElementIndex = 2;
+  const questions = questionStemIds.map((vowel, index) => {
+    const questionElements = new Set<QuestionElement>();
+
+    while (questionElements.size < 3) {
+      const index = randomInteger(minElementIndex, maxElementIndex + 1);
+      questionElements.add(elements[index]);
+    }
+
+    const [askType, ...answerType] = [...questionElements.values()];
+
+    const question: IQuestion = {
+      vowel,
+      answered: false,
+      type: askType,
+      index: index,
+      selectedAnswer: void 0,
+      options:
+        questionOptionVowelsById.get(vowel.id)?.map(
+          vowel =>
+            ({
+              ...vowel,
+              type: Math.random() < 0.5 ? answerType[0] : answerType[1],
+            }) as IVowel & { type: QuestionElement },
+        ) || [],
+    };
+
+    return question;
+  });
+
+  return questions;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -62,96 +151,52 @@ export class AppEffects {
   createQuizSession$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.createQuizSession),
-      map(() => {
-        const nQuestions = 10;
-        const nAnswers = 5;
-
-        const questionStemVowelIds = new Set<number>();
-        const questionOptionVowelsById = new Map<number, IVowel[]>();
-
-        while (questionStemVowelIds.size < nQuestions) {
-          const optionVowelIds = new Set<number>();
-          const minVowelId = 1;
-          const maxVowelId = VOWELS.length;
-          const stemId = randomInteger(minVowelId, maxVowelId + 1);
-
-          questionStemVowelIds.add(stemId);
-          optionVowelIds.add(stemId);
-
-          while (optionVowelIds.size < nAnswers) {
-            const answerId = randomInteger(minVowelId, maxVowelId + 1);
-            optionVowelIds.add(answerId);
-          }
-
-          const optionIds = [...optionVowelIds]
-            .map(optionVowelId => VOWELS.find(v => v.id === optionVowelId))
-            .filter(v => v !== undefined);
-          if (optionIds.length !== nAnswers) {
-            debugger;
-          }
-
-          questionOptionVowelsById.set(stemId, optionIds);
-        }
-
-        const questionStemIds = [...questionStemVowelIds]
-          .map(questionStemVowelId =>
-            VOWELS.find(v => v.id === questionStemVowelId),
-          )
-          .filter(v => v !== undefined);
-        if (questionStemIds.length !== nQuestions) {
-          debugger;
-        }
-
-        const elements = [
-          QuestionElement.Letter,
-          QuestionElement.Sound,
-          QuestionElement.Name,
-        ] as const;
-
-        const minElementIndex = 0;
-        const maxElementIndex = 2;
-        const questions = questionStemIds.map((vowel, index) => {
-          const questionElements = new Set<QuestionElement>();
-
-          while (questionElements.size < 3) {
-            const index = randomInteger(minElementIndex, maxElementIndex + 1);
-            questionElements.add(elements[index]);
-          }
-
-          const [askType, ...answerType] = [...questionElements.values()];
-
-          const question: IQuestion = {
-            vowel,
-            answered: false,
-            type: askType,
-            index: index,
-            selectedAnswer: void 0,
-            options:
-              questionOptionVowelsById.get(vowel.id)?.map(
-                vowel =>
-                  ({
-                    ...vowel,
-                    type: Math.random() < 0.5 ? answerType[0] : answerType[1],
-                  }) as IVowel & { type: QuestionElement },
-              ) || [],
-          };
-
-          return question;
-        });
-
-        return questions;
-      }),
-      map(questions =>
+      map(({ quiz }) => ({ questions: createQuestions(), quizId: quiz.id })),
+      map(({ questions, quizId }) =>
         actions.addSession({
           session: {
             creationDate: new Date().toISOString(),
             currentQuestionIndex: 0,
-            id: Date.now(),
+            id: `session-${Date.now()}`,
             questions,
+            quizId,
           },
         }),
       ),
-      map(session => actions.addSession(session)),
+      mergeMap(session => [actions.addSession(session)]),
+    ),
+  );
+
+  goToNewSession$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.goToNewSession),
+      withLatestFrom(
+        this.quizService.openedQuiz$.pipe(
+          filter((quiz): quiz is IQuiz => quiz !== void 0),
+        ),
+      ),
+      map(([, quiz]) => ({
+        questions: createQuestions(),
+        quizId: ('quiz-' + quiz.id) as IQuiz['id'],
+      })),
+      mergeMap(({ questions, quizId }) => {
+        const date = new Date();
+        return [
+          actions.addSession({
+            session: {
+              creationDate: date.toISOString(),
+              currentQuestionIndex: 0,
+              id: `session-${date.getTime()}`,
+              questions,
+              quizId,
+            },
+          }),
+          actions.openSession({
+            quizId,
+            sessionId: ('session-' + date.getTime()) as ISession['id'],
+          }),
+        ];
+      }),
     ),
   );
 
@@ -203,7 +248,23 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(actions.openQuiz),
-        concatMap(() => this.router.navigate(['/quiz'])),
+        concatMap(({ quizId }) =>
+          this.router.navigate(['/quiz-home/' + quizId]),
+        ),
+      ),
+    { dispatch: false },
+  );
+
+  goBack$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.goBack),
+        withLatestFrom(
+          this.actions$.pipe(ofType(APP_ROUTER_NAVIGATED), pluckPath()),
+        ),
+        concatMap(() => {
+          return this.router.navigate(['']);
+        }),
       ),
     { dispatch: false },
   );

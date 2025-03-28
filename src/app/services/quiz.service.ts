@@ -1,10 +1,13 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { IMovingAverage } from '../models/imoving-average';
 import { IQuestion } from '../models/iquestion';
 import { IQuiz } from '../models/iquiz';
 import { ISession } from '../models/isession';
 import { IState } from '../models/istate';
+import { IStatistics } from '../models/istatistics';
+import { IVowel } from '../models/ivowel';
 import { actions } from '../state/actions';
 import { quizFeature } from '../state/quiz-feature';
 
@@ -12,20 +15,32 @@ import { quizFeature } from '../state/quiz-feature';
   providedIn: 'root',
 })
 export class QuizService {
-  next() {
+  goBack() {
+    this.store$.dispatch(actions.goBack());
+  }
+  private readonly store$ = inject(Store);
+  public goToNewSession() {
+    this.store$.dispatch(actions.goToNewSession());
+  }
+
+  public previousQuestion() {
+    this.store$.dispatch(actions.previousQuestion());
+  }
+
+  public next() {
     this.store$.dispatch(actions.nextQuestion());
   }
 
-  answerCurrent() {
+  public answerCurrent() {
     this.store$.dispatch(
       actions.answerCurrent({ date: new Date().toISOString() }),
     );
   }
-  openQuiz(quiz: IQuiz) {
-    this.store$.dispatch(actions.openQuiz({ quiz }));
+  public openQuiz(quizId: IQuiz['id']) {
+    this.store$.dispatch(actions.openQuiz({ quizId }));
   }
 
-  public selectAnswer(selectedAnswer: number | undefined): void {
+  public selectAnswer(selectedAnswer: IVowel['id']): void {
     this.store$.dispatch(actions.selectAnswer({ selectedAnswer }));
   }
 
@@ -44,8 +59,8 @@ export class QuizService {
     return this._openedQuiz$;
   }
 
-  private readonly _selectedAnswer$: Observable<number | undefined>;
-  public get selectedAnswer$(): Observable<number | undefined> {
+  private readonly _selectedAnswer$: Observable<IVowel['id'] | undefined>;
+  public get selectedAnswer$(): Observable<IVowel['id'] | undefined> {
     return this._selectedAnswer$;
   }
 
@@ -79,18 +94,39 @@ export class QuizService {
     return this._answered$;
   }
 
-  getUserStatistics(): any {}
+  private readonly _questionsLength$: Observable<number>;
+  public get questionsLength$(): Observable<number> {
+    return this._questionsLength$;
+  }
+  private readonly _movingAverages$: Observable<IMovingAverage[]> =
+    this.store$.select(quizFeature.selectMovingAverages);
 
-  constructor(private readonly store$: Store<{ root: IState }>) {
+  private readonly _statsBySession$: Observable<IStatistics[]> =
+    this.store$.select(quizFeature.selectStatsBySession);
+  public get statsBySession$(): Observable<IStatistics[]> {
+    return this._statsBySession$;
+  }
+
+  public get movingAverages$(): Observable<IMovingAverage[]> {
+    return this._movingAverages$;
+  }
+
+  private readonly _totalStats$: Observable<IStatistics> = this.store$.select(
+    quizFeature.selectTotalStats,
+  );
+  public get totalStats$(): Observable<IStatistics> {
+    return this._totalStats$;
+  }
+  constructor() {
     this._finished$ = this.store$.select(quizFeature.selectFinished);
 
     this._quizzes$ = this.store$.select(quizFeature.selectQuizzes);
-    this._openedQuiz$ = this.store$.select(quizFeature.selectOpenedQuiz);
+    this._openedQuiz$ = this.store$.select(quizFeature.selectCurrentQuiz);
     this._selectedAnswer$ = this.store$.select(
       quizFeature.selectCurrentQuestionSelectedAnswer,
     );
     this._state$ = this.store$.select(quizFeature.selectQuizState);
-    this._session$ = this.store$.select(quizFeature.selectSession);
+    this._session$ = this.store$.select(quizFeature.selectCurrentSession);
     this._questions$ = this.store$.select(quizFeature.selectSessionQuestions);
     this._question$ = this.store$.select(quizFeature.selectCurrentQuestion);
     this._currentQuestionIndex$ = this.store$.select(
@@ -99,6 +135,9 @@ export class QuizService {
 
     this._answered$ = this.store$.select(
       quizFeature.selectCurrentQuestionAnswered,
+    );
+    this._questionsLength$ = this.store$.select(
+      quizFeature.selectQuestionsLength,
     );
   }
 }

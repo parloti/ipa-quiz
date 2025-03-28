@@ -1,0 +1,87 @@
+<div class="quiz-result-container">
+  <h1>Quiz Stats</h1>
+
+  <section>
+    <h2>Total</h2>
+
+    <span
+      matTooltip="Correct"
+      class="ms-4 text-success"
+      [matBadge]="totalStats$()?.correct"
+      matBadgeOverlap="false"
+      ><strong>✓</strong></span
+    >
+    <span
+      matTooltip="Wrong"
+      class="ms-4 text-danger"
+      [matBadge]="totalStats$()?.wrong"
+      matBadgeOverlap="false"
+      ><strong>X</strong></span
+    >
+    <span
+      matTooltip="Longest Streak"
+      class="ms-4 text-warning"
+      [matBadge]="totalStats$()?.longestStreak"
+      matBadgeOverlap="false"
+      ><strong>ϟ</strong></span
+    >
+
+    <span
+      matTooltip="Current Streak"
+      class="ms-4 text-warning"
+      [matBadge]="totalStats$()?.currentStreak"
+      matBadgeOverlap="false"
+      ><strong>🗲</strong></span
+    >
+  </section>
+
+  <section>
+    <h2>Sessions</h2>
+    @for (stats of statsBySession$(); track $index) {
+      <div>
+        <span
+          matTooltip="Correct"
+          class="ms-4 text-success"
+          [matBadge]="stats.correct"
+          matBadgeOverlap="false"
+          ><strong>✓</strong></span
+        >
+        <span
+          matTooltip="Wrong"
+          class="ms-4 text-danger"
+          [matBadge]="stats.wrong"
+          matBadgeOverlap="false"
+          ><strong>X</strong></span
+        >
+        <span
+          matTooltip="Longest Streak"
+          class="ms-4 text-warning"
+          [matBadge]="stats.longestStreak"
+          matBadgeOverlap="false"
+          ><strong>ϟ</strong></span
+        >
+
+        <span
+          matTooltip="Current Streak"
+          class="ms-4 text-warning"
+          [matBadge]="stats.currentStreak"
+          matBadgeOverlap="false"
+          ><strong>🗲</strong></span
+        >
+      </div>
+    }
+
+    <hr class="mat-divider" />
+    @for (average of movingAverages$(); track $index) {
+      <div class="ms-4">
+        <ng-icon name="lucideChartSpline"></ng-icon
+        ><span>{{ average.type }}-{{ average.length }}:</span
+        ><span> {{ average.value | percent: '2.2-2' }}</span>
+      </div>
+    }
+  </section>
+
+  <button mat-raised-button color="primary" (click)="practice()">
+    Practice
+  </button>
+</div>

@@ -2,12 +2,16 @@ import { KeyValuePipe, LowerCasePipe, NgClass } from '@angular/common';
 import { Component, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatRipple } from '@angular/material/core';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { lucideCirclePlay } from '@ng-icons/lucide';
 import { IQuestion } from '../models/iquestion';
 import { IQuiz } from '../models/iquiz';
 import { ISession } from '../models/isession';
+import { IVowel } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
 import { VOWELS } from '../vowels';
@@ -24,12 +28,16 @@ import { VOWELS } from '../vowels';
     NgClass,
     ReactiveFormsModule,
     KeyValuePipe,
+    NgIconComponent,
+    MatRipple,
+    MatIconButton
   ],
   styleUrl: './quiz.component.scss',
+  viewProviders: [provideIcons({ lucideCirclePlay })],
 })
 export class QuizComponent {
-  private _selectedAnswer$: Signal<number | undefined>;
-  public get selectedAnswer$(): Signal<number | undefined> {
+  private _selectedAnswer$: Signal<IVowel['id'] | undefined>;
+  public get selectedAnswer$(): Signal<IVowel['id'] | undefined> {
     return this._selectedAnswer$;
   }
 
@@ -68,6 +76,11 @@ export class QuizComponent {
     return this._answered$;
   }
 
+  private readonly _questionsLength$: Signal<number | undefined>;
+  public get questionsLength$(): Signal<number | undefined> {
+    return this._questionsLength$;
+  }
+
   constructor(private readonly quizService: QuizService) {
     this._finished$ = toSignal(this.quizService.finished$);
     this._quiz$ = toSignal(this.quizService.openedQuiz$);
@@ -76,6 +89,7 @@ export class QuizComponent {
     this._session$ = toSignal(this.quizService.session$);
     this._selectedAnswer$ = toSignal(this.quizService.selectedAnswer$);
     this._answered$ = toSignal(this.quizService.answered$);
+    this._questionsLength$ = toSignal(this.quizService.questionsLength$);
   }
 
   public next(): void {
@@ -86,7 +100,9 @@ export class QuizComponent {
     this.quizService.answerCurrent();
   }
 
-  public newQuiz(): void {}
+  public newSession(): void {
+    this.quizService.goToNewSession();
+  }
 
   private readonly _vowelsByPosition = Object.groupBy(VOWELS, vowel =>
     vowel.name.replace(/ (un)*rounded$/, ''),
@@ -100,11 +116,11 @@ export class QuizComponent {
   }
 
   public selectAnswer($event: MatRadioChange) {
-    const selectedAnswer = $event.value;
-    if (typeof selectedAnswer === 'number') {
-      this.quizService.selectAnswer(selectedAnswer);
-    } else {
-      debugger;
-    }
+    const selectedAnswer = $event.value as IVowel['id'];
+    this.quizService.selectAnswer(selectedAnswer);
+  }
+
+  public previous(): void {
+    this.quizService.previousQuestion();
   }
 }

@@ -14,7 +14,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 0,
+    id: 'vowel-0',
   },
   {
     name: 'Close front rounded',
@@ -29,7 +29,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 1,
+    id: 'vowel-1',
   },
   {
     name: 'Close near-front unrounded',
@@ -44,7 +44,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 2,
+    id: 'vowel-2',
   },
   {
     name: 'Close near-front rounded',
@@ -59,7 +59,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 3,
+    id: 'vowel-3',
   },
   {
     name: 'Close central unrounded',
@@ -74,7 +74,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 4,
+    id: 'vowel-4',
   },
   {
     name: 'Close central rounded',
@@ -89,7 +89,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 5,
+    id: 'vowel-5',
   },
   {
     name: 'Close near-back unrounded',
@@ -104,7 +104,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 6,
+    id: 'vowel-6',
   },
   {
     name: 'Close near-back rounded',
@@ -119,7 +119,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 7,
+    id: 'vowel-7',
   },
   {
     name: 'Close back unrounded',
@@ -134,7 +134,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 8,
+    id: 'vowel-8',
   },
   {
     name: 'Close back rounded',
@@ -149,7 +149,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 9,
+    id: 'vowel-9',
   },
   {
     name: 'Near-close front unrounded',
@@ -164,7 +164,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 10,
+    id: 'vowel-10',
   },
   {
     name: 'Near-close front rounded',
@@ -179,7 +179,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 11,
+    id: 'vowel-11',
   },
   {
     name: 'Near-close near-front unrounded',
@@ -194,7 +194,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 12,
+    id: 'vowel-12',
   },
   {
     name: 'Near-close near-front rounded',
@@ -209,7 +209,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 13,
+    id: 'vowel-13',
   },
   {
     name: 'Near-close central unrounded',
@@ -224,7 +224,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 14,
+    id: 'vowel-14',
   },
   {
     name: 'Near-close central rounded',
@@ -239,7 +239,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 15,
+    id: 'vowel-15',
   },
   {
     name: 'Near-close near-back unrounded',
@@ -254,7 +254,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 16,
+    id: 'vowel-16',
   },
   {
     name: 'Near-close near-back rounded',
@@ -269,7 +269,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 17,
+    id: 'vowel-17',
   },
   {
     name: 'Near-close back unrounded',
@@ -284,7 +284,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 18,
+    id: 'vowel-18',
   },
   {
     name: 'Near-close back rounded',
@@ -299,7 +299,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 19,
+    id: 'vowel-19',
   },
   {
     name: 'Close-mid front unrounded',
@@ -314,7 +314,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 20,
+    id: 'vowel-20',
   },
   {
     name: 'Close-mid front rounded',
@@ -329,7 +329,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 21,
+    id: 'vowel-21',
   },
   {
     name: 'Close-mid near-front unrounded',
@@ -344,7 +344,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 22,
+    id: 'vowel-22',
   },
   {
     name: 'Close-mid near-front rounded',
@@ -359,7 +359,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 23,
+    id: 'vowel-23',
   },
   {
     name: 'Close-mid central unrounded',
@@ -374,7 +374,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 24,
+    id: 'vowel-24',
   },
   {
     name: 'Close-mid central rounded',
@@ -389,7 +389,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 25,
+    id: 'vowel-25',
   },
   {
     name: 'Close-mid near-back unrounded',
@@ -404,7 +404,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 26,
+    id: 'vowel-26',
   },
   {
     name: 'Close-mid near-back rounded',
@@ -419,7 +419,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 27,
+    id: 'vowel-27',
   },
   {
     name: 'Close-mid back unrounded',
@@ -434,7 +434,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 28,
+    id: 'vowel-28',
   },
   {
     name: 'Close-mid back rounded',
@@ -449,7 +449,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 29,
+    id: 'vowel-29',
   },
   {
     name: 'Mid front unrounded',
@@ -464,7 +464,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 30,
+    id: 'vowel-30',
   },
   {
     name: 'Mid front rounded',
@@ -479,7 +479,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 31,
+    id: 'vowel-31',
   },
   {
     name: 'Mid near-front unrounded',
@@ -494,7 +494,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 32,
+    id: 'vowel-32',
   },
   {
     name: 'Mid near-front rounded',
@@ -509,7 +509,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 33,
+    id: 'vowel-33',
   },
   {
     name: 'Mid central unrounded',
@@ -524,7 +524,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 34,
+    id: 'vowel-34',
   },
   {
     name: 'Mid central rounded',
@@ -539,7 +539,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 35,
+    id: 'vowel-35',
   },
   {
     name: 'Mid near-back unrounded',
@@ -554,7 +554,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 36,
+    id: 'vowel-36',
   },
   {
     name: 'Mid near-back rounded',
@@ -569,7 +569,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 37,
+    id: 'vowel-37',
   },
   {
     name: 'Mid back unrounded',
@@ -584,7 +584,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 38,
+    id: 'vowel-38',
   },
   {
     name: 'Mid back rounded',
@@ -599,7 +599,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 39,
+    id: 'vowel-39',
   },
   {
     name: 'Open-mid front unrounded',
@@ -614,7 +614,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 40,
+    id: 'vowel-40',
   },
   {
     name: 'Open-mid front rounded',
@@ -629,7 +629,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 41,
+    id: 'vowel-41',
   },
   {
     name: 'Open-mid near-front unrounded',
@@ -644,7 +644,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 42,
+    id: 'vowel-42',
   },
   {
     name: 'Open-mid near-front rounded',
@@ -659,7 +659,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 43,
+    id: 'vowel-43',
   },
   {
     name: 'Open-mid central unrounded',
@@ -674,7 +674,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 44,
+    id: 'vowel-44',
   },
   {
     name: 'Open-mid central rounded',
@@ -689,7 +689,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 45,
+    id: 'vowel-45',
   },
   {
     name: 'Open-mid near-back unrounded',
@@ -704,7 +704,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 46,
+    id: 'vowel-46',
   },
   {
     name: 'Open-mid near-back rounded',
@@ -719,7 +719,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 47,
+    id: 'vowel-47',
   },
   {
     name: 'Open-mid back unrounded',
@@ -734,7 +734,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 48,
+    id: 'vowel-48',
   },
   {
     name: 'Open-mid back rounded',
@@ -749,7 +749,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 49,
+    id: 'vowel-49',
   },
   {
     name: 'Near-open front unrounded',
@@ -764,7 +764,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 50,
+    id: 'vowel-50',
   },
   {
     name: 'Near-open front rounded',
@@ -779,7 +779,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 51,
+    id: 'vowel-51',
   },
   {
     name: 'Near-open near-front unrounded',
@@ -794,7 +794,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 52,
+    id: 'vowel-52',
   },
   {
     name: 'Near-open near-front rounded',
@@ -809,7 +809,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 53,
+    id: 'vowel-53',
   },
   {
     name: 'Near-open central unrounded',
@@ -824,7 +824,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 54,
+    id: 'vowel-54',
   },
   {
     name: 'Near-open central rounded',
@@ -839,7 +839,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 55,
+    id: 'vowel-55',
   },
   {
     name: 'Near-open near-back unrounded',
@@ -854,7 +854,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 56,
+    id: 'vowel-56',
   },
   {
     name: 'Near-open near-back rounded',
@@ -869,7 +869,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 57,
+    id: 'vowel-57',
   },
   {
     name: 'Near-open back unrounded',
@@ -884,7 +884,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 58,
+    id: 'vowel-58',
   },
   {
     name: 'Near-open back rounded',
@@ -899,7 +899,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 59,
+    id: 'vowel-59',
   },
   {
     name: 'Open front unrounded',
@@ -914,7 +914,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 60,
+    id: 'vowel-60',
   },
   {
     name: 'Open front rounded',
@@ -929,7 +929,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 61,
+    id: 'vowel-61',
   },
   {
     name: 'Open near-front unrounded',
@@ -944,7 +944,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 62,
+    id: 'vowel-62',
   },
   {
     name: 'Open near-front rounded',
@@ -959,7 +959,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 63,
+    id: 'vowel-63',
   },
   {
     name: 'Open central unrounded',
@@ -974,7 +974,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 64,
+    id: 'vowel-64',
   },
   {
     name: 'Open central rounded',
@@ -989,7 +989,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 65,
+    id: 'vowel-65',
   },
   {
     name: 'Open near-back unrounded',
@@ -1004,7 +1004,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 66,
+    id: 'vowel-66',
   },
   {
     name: 'Open near-back rounded',
@@ -1019,7 +1019,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 67,
+    id: 'vowel-67',
   },
   {
     name: 'Open back unrounded',
@@ -1034,7 +1034,7 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 68,
+    id: 'vowel-68',
   },
   {
     name: 'Open back rounded',
@@ -1049,6 +1049,6 @@ export const VOWELS: IVowel[] = [
       unicodes: ['U+0069'],
       names: ['Latin Small Letter I'],
     },
-    id: 69,
+    id: 'vowel-69',
   },
 ];

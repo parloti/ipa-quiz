@@ -1,11 +1,15 @@
 {
-  "!*.{css,scss,sass,js,ts,html}": "npx prettier --ignore-unknown --write",
+  "!*.{css,scss,sass,htm,html,js,ts}": "npx prettier --ignore-unknown --write",
   "*.{css,scss,sass}": [
     "npx stylelint --max-warnings=0",
     "npx prettier --ignore-unknown --write"
   ],
-  "*.{htm,html}": "npx htmlhint",
-  "*.{js,ts,htm,html}": [
+  "*.{htm,html}": [
+    "npx htmlhint",
+    "npx eslint --max-warnings=0 --fix",
+    "npx prettier --ignore-unknown --write"
+  ],
+  "*.{js,ts}": [
     "npx eslint --max-warnings=0 --fix",
     "npx prettier --ignore-unknown --write"
   ],

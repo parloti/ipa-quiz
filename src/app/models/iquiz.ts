@@ -1,9 +1,9 @@
-import { IStatistics } from './istatistics';
+import { ISession } from './isession';
 
 export interface IQuiz {
   name: string;
   description: string;
-  id: number;
-  started?: boolean;
-  statistics: IStatistics;
+  id: `quiz-${number}`;
+  currentSessionId?: ISession['id'];
+  sessions: ISession[];
 }

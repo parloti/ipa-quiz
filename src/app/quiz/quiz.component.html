@@ -5,183 +5,177 @@
     <p>Question {{ (index$() ?? 0) + 1 }}</p>
 
     @if (question$()?.type === questionElement.Letter) {
-    <p>
-      <span>{{ question$()?.vowel?.letter }}</span> (<span class="symbol-name">{{
-        question$()?.vowel?.symbol?.names?.join(', ') | lowercase }}</span>)
-    </p>
+      <p>
+        <span>{{ question$()?.vowel?.letter }}</span> (<span
+          class="symbol-name"
+          >{{ question$()?.vowel?.symbol?.names?.join(', ') | lowercase }}</span
+        >)
+      </p>
     } @else if (question$()?.type === questionElement.Name) {
-    <p>{{ question$()?.vowel?.name }}</p>
+      <p>{{ question$()?.vowel?.name }}</p>
     } @else if (question$()?.type === questionElement.Sound) {
-    <audio controls
-           src="/vowel_audio/{{ question$()?.vowel?.audio?.file }}"></audio>
+      <button matRipple mat-icon-button>
+        <ng-icon
+          name="lucideCirclePlay"
+          (click)="audio.play()"
+          (click)="$event.preventDefault()"
+        ></ng-icon>
+      </button>
+      <audio
+        #audio
+        src="/vowel_audio/{{ question$()?.vowel?.audio?.file }}"
+      ></audio>
     } @else {
-    <span>ERROR</span>
+      <span>ERROR</span>
     }
 
-    <mat-radio-group [value]="selectedAnswer$()"
-                     class="d-flex flex-column"
-                     (change)="selectAnswer($event)">
+    <mat-radio-group
+      [value]="selectedAnswer$()"
+      class="d-flex flex-column"
+      (change)="selectAnswer($event)"
+    >
       @for (option of question$()?.options; track $index) {
-      <mat-radio-button [disabledInteractive]="true"
-                        [disabled]="answered$()"
-                        color="primary"
-                        [ngClass]="{
-            border: selectedAnswer$() === option.id,
-            'border border-danger':
+        <mat-radio-button
+          [disabledInteractive]="true"
+          [disabled]="answered$()"
+          color="primary"
+          [ngClass]="{
+            border:
               answered$() &&
+              (selectedAnswer$() === option.id ||
+                question$()?.vowel?.id === option.id),
+            'border-danger':
               selectedAnswer$() === option.id &&
               question$()?.vowel?.id !== option.id,
-            'border border-success':
-              answered$() && option.id === question$()?.vowel?.id,
+            'border-success': option.id === question$()?.vowel?.id,
           }"
-                        [value]="option.id">
-        @if (option.type === questionElement.Letter) {
-        {{ option.letter }}
-        } @else if (option.type === questionElement.Name) {
-        {{ option.name }}
-        } @else if (option.type === questionElement.Sound) {
-        <audio controls
-               src="/vowel_audio/{{ option.audio.file }}"></audio>
-        } @else {
-        <span>ERROR</span>
-        }
-      </mat-radio-button>
+          [value]="option.id"
+        >
+          @if (option.type === questionElement.Letter) {
+            {{ option.letter }}
+          } @else if (option.type === questionElement.Name) {
+            {{ option.name }}
+          } @else if (option.type === questionElement.Sound) {
+            <button
+              matRipple
+              mat-icon-button
+              (click)="audio.play()"
+              (click)="$event.preventDefault()"
+            >
+              <ng-icon name="lucideCirclePlay"></ng-icon>
+            </button>
+            <audio #audio src="/vowel_audio/{{ option.audio.file }}"></audio>
+          } @else {
+            <span>ERROR</span>
+          }
+        </mat-radio-button>
       }
     </mat-radio-group>
 
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="index$() === 0"
+      (click)="previous()"
+    >
+      Previous
+    </button>
+
+    @if (!finished$()) {
+      <button
+        mat-raised-button
+        [color]="answered$() ? 'primary' : 'warn'"
+        [disabled]="
+          !selectedAnswer$() ||
+          (answered$() && index$() === (questionsLength$() ?? 0) - 1)
+        "
+        (click)="answered$() ? next() : verify()"
+      >
+        {{ answered$() ? 'Next' : 'Verify' }}
+      </button>
+    }
+
     @if (finished$()) {
-    <button mat-raised-button
-            color="warn"
-            (click)="newQuiz()">
-      Start new quiz
-    </button>
-    } @else {
-    <button mat-raised-button
-            [color]="answered$() ? 'primary' : 'warn'"
-            [disabled]="!selectedAnswer$()"
-            (click)="answered$() ? next() : verify()">
-      {{ answered$() ? 'Next' : 'Verify' }}
-    </button>
+      <button mat-raised-button color="warn" (click)="newSession()">
+        New Session
+      </button>
     }
   </div>
 
-  <div id="test">
-    <ng-container #headers>
-      <div class="placement text-center">Front</div>
-      <div class="placement text-center">Near-front</div>
-      <div class="placement text-center">Central</div>
-      <div class="placement text-center">Near-back</div>
-      <div class="placement text-center">Back</div>
+  <div class="chart">
+    <ng-container headers>
+      <ng-container placement rows="[1, 2[" column="[4, last[" index="[1, 5]">
+        <div class="placement text-center">Front</div>
+        <div class="placement text-center">Near-front</div>
+        <!-- <div class="placement text-center"></div> -->
+        <div class="placement text-center">Central</div>
+        <!-- <div class="placement text-center"></div> -->
+        <div class="placement text-center">Near-back</div>
+        <div class="placement text-center">Back</div>
+      </ng-container>
 
-      <div class="constriction text-end">Close</div>
-      <div class="constriction text-end">Near-close</div>
-      <div class="constriction text-end">Close-mid</div>
-      <div class="constriction text-end">Mid</div>
-      <div class="constriction text-end">Open-mid</div>
-      <div class="constriction text-end">Near-open</div>
-      <div class="constriction text-end">Open</div>
+      <ng-container
+        constriction
+        rows="[2, last["
+        column="[1, 4["
+        index="[6, 12]"
+      >
+        <div class="constriction text-nowrap text-end">Close</div>
+        <div class="constriction text-nowrap text-end">Near-close</div>
+        <div class="constriction text-nowrap text-end">Close-mid</div>
+        <div class="constriction text-nowrap text-end">Mid</div>
+        <div class="constriction text-nowrap text-end">Open-mid</div>
+        <div class="constriction text-nowrap text-end">Near-open</div>
+        <div class="constriction text-nowrap text-end">Open</div>
+      </ng-container>
     </ng-container>
 
-    @for (vowels of vowelsByPosition | keyvalue; track $index) {
-    @if (answered$() || true) {
-    <div class="vowels text-center d-flex justify-content-around"
-         [attr.vowels]="vowels.key">
-      @for (vowel of vowels.value; track $index) {
-      <div [ngClass]="{
-        hidden: question$()?.vowel?.id !== vowel.id && selectedAnswer$() !== vowel.id && false,
-        'border': answered$(),
-        'border-danger': selectedAnswer$() === vowel.id && question$()?.vowel?.id !== vowel.id,
-        'border-success':
-            question$()?.vowel?.id === vowel.id,
-        }"
-           [attr.vowel]="vowel.name"
-           [matTooltip]="vowel.name">
-        <span [matTooltip]="vowel.symbol.names.join(', ')"
-              matTooltipPosition="above">{{ vowel.letter }}</span>
-      </div>
+    <ng-container
+      vowel
+      rows="[2, last["
+      column="[4, last["
+      index="[13, last-8]"
+    >
+      @for (vowels of vowelsByPosition | keyvalue; track $index) {
+        @if (answered$()) {
+          <div
+            class="vowels text-center d-flex justify-content-around"
+            [attr.vowels]="vowels.key"
+          >
+            @for (vowel of vowels.value; track $index) {
+              <div
+                class="bg-light rounded"
+                [ngClass]="{
+                  border:
+                    selectedAnswer$() === vowel.id ||
+                    question$()?.vowel?.id === vowel.id,
+                  'border-danger':
+                    selectedAnswer$() === vowel.id &&
+                    question$()?.vowel?.id !== selectedAnswer$(),
+                  'border-success': question$()?.vowel?.id === vowel.id,
+                }"
+                [attr.vowel]="vowel.name"
+                [matTooltip]="vowel.name"
+                [matTooltipHideDelay]="5000"
+              >
+                <span
+                  [matTooltipHideDelay]="5000"
+                  [matTooltip]="vowel.symbol.names.join(', ')"
+                  matTooltipPosition="above"
+                  >{{ vowel.letter }}</span
+                >
+              </div>
+            }
+          </div>
+        }
       }
-    </div>
-    }
-    }
-
-    <div class="diagonal_1">
-      <div>
-        <div></div>
-      </div>
-    </div>
-
-    <div class="diagonal_2 pe-2">
-      <div>
-        <div></div>
-      </div>
-    </div>
-
-    <div class="horizontal_1">
-      <div></div>
-    </div>
-    <div class="horizontal_2">
-      <div></div>
-    </div>
-    <div class="horizontal_3">
-      <div></div>
-    </div>
-    <div class="horizontal_4">
-      <div></div>
-    </div>
-
-    <div class="vertical">
-      <div></div>
-    </div>
-
-  </div>
-
-  @if (true) {
-  <div class="mt-5 chart">
-    <ng-container #headers>
-      <div class="placement text-center">Front</div>
-      <div class="placement text-center">Near-front</div>
-      <div class="placement text-center">Central</div>
-      <div class="placement text-center">Near-back</div>
-      <div class="placement text-center">Back</div>
-
-      <div class="constriction text-end">Close</div>
-      <div class="constriction text-end">Near-close</div>
-      <div class="constriction text-end">Close-mid</div>
-      <div class="constriction text-end">Mid</div>
-      <div class="constriction text-end">Open-mid</div>
-      <div class="constriction text-end">Near-open</div>
-      <div class="constriction text-end">Open</div>
     </ng-container>
 
-    @for (vowels of vowelsByPosition | keyvalue; track $index) {
-    @if (answered$() || true) {
-    <div class="vowels text-center d-flex justify-content-around"
-         [attr.vowels]="vowels.key">
-      @for (vowel of vowels.value; track $index) {
-      <div [ngClass]="{
-        hidden: question$()?.vowel?.id !== vowel.id && selectedAnswer$() !== vowel.id && false,
-        'border rounded-circle': answered$(),
-        'border-danger': selectedAnswer$() === vowel.id && question$()?.vowel?.id !== vowel.id,
-        'border-success':
-            question$()?.vowel?.id === vowel.id,
-        }"
-           [attr.vowel]="vowel.name"
-           [matTooltip]="vowel.name">
-        <span [matTooltip]="vowel.symbol.names.join(', ')"
-              matTooltipPosition="above">{{ vowel.letter }}</span>
-      </div>
-      }
-    </div>
-    }
-    }
-
-    <div class="diagonal_1">
+    <div class="diagonals d-flex">
       <div>
         <div></div>
       </div>
-    </div>
 
-    <div class="diagonal_2 pe-2">
       <div>
         <div></div>
       </div>
@@ -204,5 +198,4 @@
       <div></div>
     </div>
   </div>
-  }
 </div>

@@ -1,12 +1,21 @@
 import { IVowel } from './ivowel';
 import { QuestionElement } from './question-element';
 
-export interface IQuestion {
-  selectedAnswer: number | undefined;
+interface IAnsweredQuestion {
+  selectedAnswer: IVowel['id'];
+  answered: true;
+  answeredDate: string;
+}
+
+interface IUnansweredQuestion {
+  selectedAnswer: undefined;
+  answered: false;
+  answeredDate?: undefined;
+}
+
+export type IQuestion = {
   vowel: IVowel;
   type: QuestionElement;
   index: number;
-  answered: boolean;
-  answeredDate?: string;
   options: (IVowel & { type: QuestionElement })[];
-}
+} & (IAnsweredQuestion | IUnansweredQuestion);
