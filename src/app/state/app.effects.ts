@@ -6,7 +6,6 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
-import { ROUTER_NAVIGATION } from '@ngrx/router-store';
 import { Action } from '@ngrx/store';
 import {
   concatMap,
@@ -16,8 +15,6 @@ import {
   map,
   mergeMap,
   skip,
-  switchMap,
-  take,
   withLatestFrom,
 } from 'rxjs';
 import { IQuestion } from '../models/iquestion';
@@ -27,16 +24,11 @@ import { IVowel } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
 import { randomInteger } from '../utils/random-integer';
+import { shuffle } from '../utils/shuffle';
 import { VOWELS } from '../vowels';
 import { actions } from './actions';
 import { APP_ROUTER_NAVIGATED } from './app-router-actions';
 import { pluckPath } from './pluck-path';
-
-const fromToRoutes = new Map([
-  ['quizzes-home', ''],
-  ['quiz/:id', 'quiz-home/:id'],
-  ['quiz-home/:id', 'quizzes-home'],
-]);
 
 function createQuestions(): IQuestion[] {
   const nQuestions = 10;
@@ -111,6 +103,7 @@ function createQuestions(): IQuestion[] {
             }) as IVowel & { type: QuestionElement },
         ) || [],
     };
+    shuffle(question.options);
 
     return question;
   });
@@ -142,7 +135,7 @@ export class AppEffects {
           debugger;
           console.error('Unable to retore state from local storage:', error);
         }
-        return;
+        return actions.restoreStateFailed();
       }),
       filter(action => action !== void 0),
     ),
@@ -152,18 +145,24 @@ export class AppEffects {
     this.actions$.pipe(
       ofType(actions.createQuizSession),
       map(({ quiz }) => ({ questions: createQuestions(), quizId: quiz.id })),
-      map(({ questions, quizId }) =>
-        actions.addSession({
-          session: {
-            creationDate: new Date().toISOString(),
-            currentQuestionIndex: 0,
-            id: `session-${Date.now()}`,
-            questions,
+      mergeMap(({ questions, quizId }) => {
+        const date = new Date();
+        return [
+          actions.addSession({
+            session: {
+              creationDate: date.toISOString(),
+              currentQuestionIndex: 0,
+              id: `session-${date.getTime()}`,
+              questions,
+              quizId,
+            },
+          }),
+          actions.openSession({
             quizId,
-          },
-        }),
-      ),
-      mergeMap(session => [actions.addSession(session)]),
+            sessionId: ('session-' + date.getTime()) as ISession['id'],
+          }),
+        ];
+      }),
     ),
   );
 
@@ -177,7 +176,7 @@ export class AppEffects {
       ),
       map(([, quiz]) => ({
         questions: createQuestions(),
-        quizId: ('quiz-' + quiz.id) as IQuiz['id'],
+        quizId: quiz.id as IQuiz['id'],
       })),
       mergeMap(({ questions, quizId }) => {
         const date = new Date();
@@ -200,35 +199,14 @@ export class AppEffects {
     ),
   );
 
-  dispatchCreateQuizSession$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ROUTER_NAVIGATION),
-      pluckPath(),
-      filter(p => p === 'quiz'),
-      switchMap(() =>
-        this.quizService.session$.pipe(
-          take(1),
-          filter(session => session === void 0),
-        ),
-      ),
-      withLatestFrom(
-        this.quizService.openedQuiz$.pipe(
-          filter((quiz): quiz is IQuiz => quiz !== void 0),
-        ),
-      ),
-      map(([, quiz]) => actions.createQuizSession({ quiz })),
-    ),
-  );
-
   saveState$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actions.restoreState),
-        exhaustMap(() => this.actions$),
-        skip(1),
-        exhaustMap(() =>
-          this.quizService.state$.pipe(
+        ofType(actions.restoreState, actions.restoreStateFailed),
+        exhaustMap(() => {
+          return this.quizService.state$.pipe(
             filter(state => state !== void 0),
+            skip(2),
             distinctUntilChanged(),
             map(state => {
               try {
@@ -238,8 +216,8 @@ export class AppEffects {
                 console.error('Unable to save state to local storage:', error);
               }
             }),
-          ),
-        ),
+          );
+        }),
       ),
     { dispatch: false },
   );
@@ -253,6 +231,15 @@ export class AppEffects {
         ),
       ),
     { dispatch: false },
+  );
+
+  practiceOpened$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.practiceOpened),
+      withLatestFrom(this.quizService.session$),
+      filter(([_, session]) => session === void 0),
+      map(() => actions.goToNewSession()),
+    ),
   );
 
   goBack$ = createEffect(

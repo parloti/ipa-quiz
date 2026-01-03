@@ -14,12 +14,13 @@
     } @else if (question$()?.type === questionElement.Name) {
       <p>{{ question$()?.vowel?.name }}</p>
     } @else if (question$()?.type === questionElement.Sound) {
-      <button matRipple mat-icon-button>
-        <ng-icon
-          name="lucideCirclePlay"
-          (click)="audio.play()"
-          (click)="$event.preventDefault()"
-        ></ng-icon>
+      <button
+        (click)="audio.play()"
+        (click)="$event.preventDefault()"
+        matRipple
+        mat-icon-button
+      >
+        <ng-icon name="lucideCirclePlay"></ng-icon>
       </button>
       <audio
         #audio
@@ -64,7 +65,7 @@
             >
               <ng-icon name="lucideCirclePlay"></ng-icon>
             </button>
-            <audio #audio src="/vowel_audio/{{ option.audio.file }}"></audio>
+            <audio #audio src="vowel_audio/{{ option.audio.file }}"></audio>
           } @else {
             <span>ERROR</span>
           }

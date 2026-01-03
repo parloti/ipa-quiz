@@ -15,6 +15,10 @@ import { quizFeature } from '../state/quiz-feature';
   providedIn: 'root',
 })
 export class QuizService {
+  practiceOpened(quizId: IQuiz['id']) {
+    this.store$.dispatch(actions.practiceOpened({ quizId }));
+  }
+
   goBack() {
     this.store$.dispatch(actions.goBack());
   }
@@ -89,32 +93,31 @@ export class QuizService {
     return this._currentQuestionIndex$;
   }
 
-  private readonly _answered$: Observable<boolean>;
-  public get answered$(): Observable<boolean> {
+  private readonly _answered$: Observable<boolean | undefined>;
+  public get answered$(): Observable<boolean | undefined> {
     return this._answered$;
   }
 
-  private readonly _questionsLength$: Observable<number>;
-  public get questionsLength$(): Observable<number> {
+  private readonly _questionsLength$: Observable<number | undefined>;
+  public get questionsLength$(): Observable<number | undefined> {
     return this._questionsLength$;
   }
-  private readonly _movingAverages$: Observable<IMovingAverage[]> =
+  private readonly _movingAverages$: Observable<IMovingAverage[] | undefined> =
     this.store$.select(quizFeature.selectMovingAverages);
 
-  private readonly _statsBySession$: Observable<IStatistics[]> =
+  private readonly _statsBySession$: Observable<IStatistics[] | undefined> =
     this.store$.select(quizFeature.selectStatsBySession);
-  public get statsBySession$(): Observable<IStatistics[]> {
+  public get statsBySession$(): Observable<IStatistics[] | undefined> {
     return this._statsBySession$;
   }
 
-  public get movingAverages$(): Observable<IMovingAverage[]> {
+  public get movingAverages$(): Observable<IMovingAverage[] | undefined> {
     return this._movingAverages$;
   }
 
-  private readonly _totalStats$: Observable<IStatistics> = this.store$.select(
-    quizFeature.selectTotalStats,
-  );
-  public get totalStats$(): Observable<IStatistics> {
+  private readonly _totalStats$: Observable<IStatistics | undefined> =
+    this.store$.select(quizFeature.selectTotalStats);
+  public get totalStats$(): Observable<IStatistics | undefined> {
     return this._totalStats$;
   }
   constructor() {

@@ -35,5 +35,10 @@ export const actions = {
     '[App] Restore State',
     props<{ restoring: IState }>(),
   ),
+  practiceOpened: createAction(
+    '[Quiz] Practice Opened',
+    props<{ quizId: IQuiz['id'] }>(),
+  ),
+  restoreStateFailed: createAction('[App] Restore State Failed'),
   saveState: createAction('[App] Save State', props<{ state: IState }>()),
 };

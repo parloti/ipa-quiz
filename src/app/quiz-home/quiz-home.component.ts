@@ -1,3 +1,4 @@
+import { PercentPipe } from '@angular/common';
 import { Component, inject, Input, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatBadge } from '@angular/material/badge';
@@ -11,7 +12,6 @@ import { IMovingAverage } from '../models/imoving-average';
 import { IQuiz } from '../models/iquiz';
 import { IStatistics } from '../models/istatistics';
 import { QuizService } from '../services/quiz.service';
-import { PercentPipe } from '@angular/common';
 
 @Component({
   selector: 'app-quiz-home',
@@ -24,7 +24,9 @@ export class QuizHomeComponent {
   private readonly quizService = inject(QuizService);
 
   private readonly _statsBySession$: Signal<IStatistics[] | undefined> =
-    toSignal(this.quizService.statsBySession$.pipe(map(v => [...v].reverse())));
+    toSignal(
+      this.quizService.statsBySession$.pipe(map(v => [...(v ?? [])].reverse())),
+    );
   public get statsBySession$(): Signal<IStatistics[] | undefined> {
     return this._statsBySession$;
   }

@@ -2,6 +2,7 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   isDevMode,
+  provideEnvironmentInitializer,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { HammerModule } from '@angular/platform-browser';
@@ -23,11 +24,13 @@ import { AppEffects } from './state/app.effects';
 import { provideMetaReducer } from './state/meta-reducers';
 import { quizFeature } from './state/quiz-feature';
 import { RouterSerializer } from './state/router-serializer';
+import { routerDebugTracing } from './router-debug-tracing';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes, withComponentInputBinding()),
+    provideEnvironmentInitializer(routerDebugTracing),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

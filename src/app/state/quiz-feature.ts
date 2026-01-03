@@ -17,6 +17,7 @@ import { IVowel } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { VOWELS } from '../vowels';
 import { actions } from './actions';
+import { APP_ROUTER_NAVIGATION } from './app-router-actions';
 import { updateState } from './update.state';
 
 function capitalize(text: string) {
@@ -34,8 +35,8 @@ type NestedSelectors<TName extends string, TState> = TState extends
       [K in keyof TState &
         string as `select${Capitalize<TName>}${Capitalize<K>}`]: MemoizedSelector<
         Record<string, any>,
-        TState[K],
-        (featureState: TState) => TState[K]
+        TState[K] | undefined,
+        (featureState: TState) => TState[K] | undefined
       >;
     };
 
@@ -167,6 +168,15 @@ export const quizFeature = createFeature({
       }
       return state;
     }),
+    on(APP_ROUTER_NAVIGATION, (state, { payload }) => {
+      const {
+        routerState: { url },
+      } = payload;
+      const id = url?.match(/quiz-\d+/)?.at(0) as `quiz-${number}` | undefined;
+      return updateState(state, {
+        currentQuizId: id ?? state.currentQuizId,
+      });
+    }),
   ),
   extraSelectors: base => {
     const selectCurrentQuiz = createSelector(
@@ -187,7 +197,7 @@ export const quizFeature = createFeature({
       quizSelectors.selectQuizSessions,
       quizSelectors.selectQuizCurrentSessionId,
       (sessions, id) =>
-        sessions.find(session => session.id === id) ?? sessions.at(-1),
+        sessions?.find(session => session.id === id) ?? sessions?.at(-1),
     );
     const sessionSelectors = createNestedSelectors(
       'session',
@@ -228,7 +238,7 @@ export const quizFeature = createFeature({
     const selectStatsBySession = createSelector(
       quizSelectors.selectQuizSessions,
       sessions =>
-        sessions.map(session => {
+        sessions?.map(session => {
           const stat = session.questions.reduce(
             (acc, curr) => {
               if (curr.answered) {
@@ -280,6 +290,9 @@ export const quizFeature = createFeature({
     const selectTotalStats = createSelector(
       quizSelectors.selectQuizSessions,
       sessions => {
+        if (sessions === void 0) {
+          return void 0;
+        }
         const stats = sessions
           .map(session => session.questions)
           .flat(1)
@@ -335,40 +348,41 @@ export const quizFeature = createFeature({
     const selectMovingAverages = createSelector(
       quizSelectors.selectQuizSessions,
       sessions => {
-        debugger;
+        if (sessions === void 0) {
+          return undefined;
+        }
         const completed = sessions.filter(
           session => !session.questions.some(question => !question.answered),
         );
 
         const length = completed.length;
-        const periods = [
-          ...defaultPeriods.filter(period => period < length),
-          length,
-        ];
-        const termsByPeriod = new Map<number, number[]>(
-          periods.map(p => [p, []]),
-        );
-
-        for (const section of completed) {
-          const i = completed.indexOf(section);
-          const corrects = section.questions.filter(
-            q => q.selectedAnswer === q.vowel.id,
-          ).length;
-          const questionsLength = section.questions.length;
-          const rate = corrects / questionsLength;
-
-          periods.forEach(period => {
-            if (i < period) {
-              termsByPeriod.get(period)?.push(rate);
-            }
-          });
+        if (length === 0) {
+          return [];
         }
 
-        const averages=termsByPeriod.entries().map(([key,terms])=>({
-          length:key,
-          type:'SMA',
-          value:terms.reduce((a,b)=>a+b)/key
-        } as IMovingAverage)).toArray();
+        const rates = completed.map(session => {
+          const corrects = session.questions.filter(
+            q => q.selectedAnswer === q.vowel.id,
+          ).length;
+          const questionsLength = session.questions.length;
+          return corrects / questionsLength;
+        });
+
+        const periods = Array.from(
+          new Set([...defaultPeriods.filter(period => period <= length), length]),
+        )
+          .filter(period => period > 0 && period <= length)
+          .sort((a, b) => a - b);
+
+        const averages = periods.map(
+          period =>
+            ({
+              length: period,
+              type: 'SMA',
+              value:
+                rates.slice(-period).reduce((a, b) => a + b, 0) / period,
+            }) as IMovingAverage,
+        );
 
         return averages;
       },
@@ -386,7 +400,9 @@ export const quizFeature = createFeature({
       selectTotalStats,
       selectFinished: createSelector(
         sessionSelectors.selectSessionQuestions,
-        questions => !questions.some(question => !question.answered),
+        questions =>
+          questions !== void 0 &&
+          !questions.some(question => !question.answered),
       ),
     };
   },
