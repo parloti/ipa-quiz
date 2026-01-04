@@ -30,7 +30,7 @@ import { VOWELS } from '../vowels';
     KeyValuePipe,
     NgIconComponent,
     MatRipple,
-    MatIconButton
+    MatIconButton,
   ],
   styleUrl: './quiz.component.scss',
   viewProviders: [provideIcons({ lucideCirclePlay })],

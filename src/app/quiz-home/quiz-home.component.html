@@ -38,6 +38,7 @@
   <section class="d-flex flex-column overflow-hidden">
     <h2>Sessions</h2>
     <div class="overflow-auto pt-1">
+      @let firstIncompleted = (statsBySession$()?.[0]?.answered ?? 0) < 10;
       @for (stats of statsBySession$(); track $index) {
         <div>
           <span
@@ -70,6 +71,16 @@
             ><strong>🗲</strong></span
           >
         </div>
+        @if (firstIncompleted && $index === 0) {
+          <span class="text-secondary small"><sup>Incomplete</sup> </span>
+        }
+        @if (
+          [10, 25, 50, 100].includes($index + 1 - (firstIncompleted ? 1 : 0))
+        ) {
+          <span class="text-secondary small"
+            ><sup>{{ 'SMA' + ($index + 1 - (firstIncompleted ? 1 : 0)) }}</sup>
+          </span>
+        }
       }
     </div>
 
