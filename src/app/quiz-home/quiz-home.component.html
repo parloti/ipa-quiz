@@ -1,4 +1,4 @@
-<div class="quiz-result-container">
+<div class="d-flex flex-column h-100">
   <h1>Quiz Stats</h1>
 
   <section>
@@ -35,8 +35,9 @@
     >
   </section>
 
-  <section>
+  <section class="d-flex flex-column overflow-hidden">
     <h2>Sessions</h2>
+    <div class="overflow-auto pt-1">
       @for (stats of statsBySession$(); track $index) {
         <div>
           <span
@@ -70,11 +71,26 @@
           >
         </div>
       }
+    </div>
 
-    <hr class="mat-divider" />
+    <div>
+      <hr class="mat-divider" />
+      @for (average of movingAverages$(); track $index) {
+        <div class="ms-4">
+          <ng-icon name="lucideChartSpline"></ng-icon
+          ><span>{{ average.type }}-{{ average.length }}:</span
+          ><span> {{ average.value | percent: '2.2-2' }}</span>
+        </div>
+      }
+    </div>
   </section>
 
-  <button mat-raised-button color="primary" (click)="practice()">
+  <button
+    mat-raised-button
+    color="primary"
+    class="flex-shrink-0"
+    (click)="practice()"
+  >
     Practice
   </button>
 </div>

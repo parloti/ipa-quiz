@@ -1,9 +1,10 @@
 import { PercentPipe } from '@angular/common';
 import { Component, inject, Input, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { MatBadge } from '@angular/material/badge';
-import { MatButton } from '@angular/material/button';
-import { MatTooltip } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartSpline } from '@ng-icons/lucide';
@@ -17,7 +18,14 @@ import { QuizService } from '../services/quiz.service';
   selector: 'app-quiz-home',
   templateUrl: './quiz-home.component.html',
   styleUrls: ['./quiz-home.component.scss'],
-  imports: [MatBadge, MatTooltip, MatButton, NgIcon, PercentPipe],
+  imports: [
+    MatBadgeModule,
+    MatTooltipModule,
+    MatButtonModule,
+    PercentPipe,
+    MatCardModule,
+    NgIcon,
+  ],
   viewProviders: [provideIcons({ lucideChartSpline })],
 })
 export class QuizHomeComponent {

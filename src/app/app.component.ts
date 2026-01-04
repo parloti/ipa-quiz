@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { MatFabButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterOutlet } from '@angular/router';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
 import { QuizService } from './services/quiz.service';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatFabButton, NgIconComponent],
+  imports: [RouterOutlet, MatButtonModule, MatIconModule],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

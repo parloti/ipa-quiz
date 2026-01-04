@@ -1,5 +1,11 @@
-<button mat-fab (click)="goBack()">
-  <ng-icon name="lucideChevronLeft"></ng-icon>
-</button>
+<div class="d-flex flex-column vh-100 p-2">
+  <div>
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+  </div>
 
-<router-outlet></router-outlet>
+  <div class="flex-grow-1 overflow-hidden p-3">
+    <router-outlet></router-outlet>
+  </div>
+</div>
