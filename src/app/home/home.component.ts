@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+
 import { Component } from '@angular/core';
 import {
   HAMMER_GESTURE_CONFIG,
@@ -10,7 +10,7 @@ import { lucideGithub, lucideLinkedin, lucideTwitter } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-home',
-  imports: [NgFor, NgIcon],
+  imports: [NgIcon],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [

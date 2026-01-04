@@ -1,11 +1,10 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component } from '@angular/core';
 
 const questions: string[] = [];
 
 @Component({
   selector: 'app-questions',
-  imports: [NgIf, NgFor],
   templateUrl: './questions.component.html',
   styleUrl: './questions.component.scss',
 })
