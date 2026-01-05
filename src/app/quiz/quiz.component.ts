@@ -15,6 +15,7 @@ import { IVowel } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
 import { VOWELS } from '../vowels';
+import { ChartComponent } from "../chart/chart.component";
 
 @Component({
   selector: 'app-quiz',
@@ -27,11 +28,11 @@ import { VOWELS } from '../vowels';
     MatTooltipModule,
     NgClass,
     ReactiveFormsModule,
-    KeyValuePipe,
     NgIconComponent,
     MatRipple,
     MatIconButton,
-  ],
+    ChartComponent
+],
   styleUrl: './quiz.component.scss',
   viewProviders: [provideIcons({ lucideCirclePlay })],
 })
@@ -104,15 +105,8 @@ export class QuizComponent {
     this.quizService.goToNewSession();
   }
 
-  private readonly _vowelsByPosition = Object.groupBy(VOWELS, vowel =>
-    vowel.name.replace(/ (un)*rounded$/, ''),
-  );
   public get vowels() {
     return VOWELS;
-  }
-
-  public get vowelsByPosition() {
-    return this._vowelsByPosition;
   }
 
   public selectAnswer($event: MatRadioChange) {

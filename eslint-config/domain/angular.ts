@@ -1,7 +1,7 @@
 import { configs, processInlineTemplates } from 'angular-eslint';
-import { config } from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
 
-export const angular = config({
+export const angular = defineConfig({
   extends: configs.tsRecommended,
   name: '@angular-eslint/custom',
   processor: processInlineTemplates,
@@ -26,7 +26,8 @@ export const angular = config({
   },
 });
 
-export const template = config({
+export const template = defineConfig({
+  files: ['**/*.html'],
   extends: [configs.templateRecommended, configs.templateAccessibility],
   name: '@angular-eslint/template/custom',
   rules: {

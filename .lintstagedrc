@@ -5,7 +5,6 @@
     "npx prettier --ignore-unknown --write"
   ],
   "*.{htm,html}": [
-    "npx htmlhint",
     "npx eslint --max-warnings=0 --fix",
     "npx prettier --ignore-unknown --write"
   ],

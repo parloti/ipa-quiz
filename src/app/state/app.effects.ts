@@ -42,14 +42,14 @@ function createQuestions(): IQuestion[] {
     const minVowelId = 1;
     const maxVowelId = VOWELS.length;
     const stemId =
-      `vowel-${randomInteger(minVowelId, maxVowelId + 1)}` as IVowel['id'];
+      `vowel-${randomInteger(minVowelId, maxVowelId + 1)}` as const;
 
     questionStemVowelIds.add(stemId);
     optionVowelIds.add(stemId);
 
     while (optionVowelIds.size < nAnswers) {
       const answerId =
-        `vowel-${randomInteger(minVowelId, maxVowelId + 1)}` as IVowel['id'];
+        `vowel-${randomInteger(minVowelId, maxVowelId + 1)}` as const;
       optionVowelIds.add(answerId);
     }
 
@@ -176,7 +176,7 @@ export class AppEffects {
       ),
       map(([, quiz]) => ({
         questions: createQuestions(),
-        quizId: quiz.id as IQuiz['id'],
+        quizId: quiz.id,
       })),
       mergeMap(({ questions, quizId }) => {
         const date = new Date();
@@ -203,8 +203,8 @@ export class AppEffects {
     () =>
       this.actions$.pipe(
         ofType(actions.restoreState, actions.restoreStateFailed),
-        exhaustMap(() => {
-          return this.quizService.state$.pipe(
+        exhaustMap(() =>
+          this.quizService.state$.pipe(
             filter(state => state !== void 0),
             skip(2),
             distinctUntilChanged(),
@@ -216,8 +216,8 @@ export class AppEffects {
                 console.error('Unable to save state to local storage:', error);
               }
             }),
-          );
-        }),
+          ),
+        ),
       ),
     { dispatch: false },
   );
@@ -249,9 +249,7 @@ export class AppEffects {
         withLatestFrom(
           this.actions$.pipe(ofType(APP_ROUTER_NAVIGATED), pluckPath()),
         ),
-        concatMap(() => {
-          return this.router.navigate(['']);
-        }),
+        concatMap(() => this.router.navigate([''])),
       ),
     { dispatch: false },
   );

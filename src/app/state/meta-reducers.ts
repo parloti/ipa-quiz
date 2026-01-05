@@ -27,9 +27,7 @@ const createMetaReducer = (
   logger: Console,
   redution: Redution,
   label: (type: string) => string[],
-) => {
-  return (reducer: Reducer): Reducer => {
-    return (state, action) => {
+) => (reducer: Reducer): Reducer => (state, action) => {
       const result = redution(reducer, state, action);
 
       logger.groupCollapsed(...label(action.type));
@@ -40,8 +38,6 @@ const createMetaReducer = (
 
       return result;
     };
-  };
-};
 
 const metaReducersFactory = (logger: Console): MetaReducer<object> => {
   const log = createMetaReducer(

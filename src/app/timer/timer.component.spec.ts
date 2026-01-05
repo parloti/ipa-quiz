@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimerComponent } from './timer.component';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 describe('TimerComponent', () => {
   let component: TimerComponent;

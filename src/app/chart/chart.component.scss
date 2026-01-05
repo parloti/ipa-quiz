@@ -1,0 +1,366 @@
+@use 'sass:list';
+@use 'sass:math';
+
+$border-debug: false;
+
+$distinct-colors: (
+  ('Red', '#E6194B'),
+  ('Green', '#3CB44B'),
+  ('Yellow', '#FFE119'),
+  ('Blue', '#4363D8'),
+  ('Orange', '#F58231'),
+  ('Purple', '#911EB4'),
+  ('Cyan', '#42D4F4'),
+  ('Magenta', '#F032E6'),
+  ('Lime', '#BFEF45'),
+  ('Pink', '#FABED4'),
+  ('Teal', '#469990'),
+  ('Lavender', '#DCBEFF'),
+  ('Brown', '#9A6324'),
+  ('Beige', '#FFFAC8'),
+  ('Maroon', '#800000'),
+  ('Mint', '#AAFFC3'),
+  ('Olive', '#808000'),
+  ('Apricot', '#FFD8B1'),
+  ('Navy', '#000075'),
+  ('Grey', '#A9A9A9'),
+  ('White', '#FFFFFF'),
+  ('Black', '#000000')
+);
+$n-distinct-colors: list.length($distinct-colors);
+$current-color: 0;
+@function getNextColor() {
+  $current-color: $current-color + 1 !global;
+
+  @if ($current-color > $n-distinct-colors) {
+    $current-color: 1 !global;
+    @warn 'No more distinct colors in the list, restarting.';
+  }
+
+  $name-hex: list.nth($distinct-colors, $current-color);
+  $hex: list.nth($name-hex, 2);
+  @return $hex;
+}
+
+@mixin nextBorder($width: 1px, $style: solid, $sides...) {
+  @if (list.length($sides) > 0) {
+    @each $side in $sides {
+      border-#{$side}: #{$width} #{$style} #{getNextColor()};
+    }
+  } @else {
+    border: #{$width} #{$style} #{getNextColor()};
+  }
+}
+
+.chart {
+  $constrictions: (
+    'Close',
+    'Near-close',
+    'Close-mid',
+    'Mid',
+    'Open-mid',
+    'Near-open',
+    'Open'
+  );
+
+  $placements: (
+    'front',
+    'near-front',
+    // 'front-central',
+    'central',
+    // 'back-central',
+    'near-back',
+    'back'
+  );
+
+  $position-width: 2;
+  $placement-width: 4;
+  $constriction-width: 3;
+  $left-gap: 1;
+  $right-gap: 1;
+  $n-constrictions: list.length($constrictions);
+  $n-placements: list.length($placements);
+  $n-grid-columns: $n-placements * $placement-width + $left-gap + $right-gap +
+    $constriction-width;
+
+  $placement-first-child-index: 1;
+  $constriction-first-child-index: $n-placements + 1;
+  $vowel-first-child-index: 13;
+
+  $constriction-first-row-index: 1;
+
+  $placement-first-column-index: $constriction-width + $left-gap + 1;
+  $vowel-first-col-index: $constriction-width + $left-gap + 1;
+
+  $central-placement-index: list.index($placements, 'central');
+
+  @function getIncrementalFactor($min, $max, $length, $index) {
+    @return $min + math.div(($max - $min) * ($index - 1), ($length - 1));
+  }
+
+  @function getConstrictionTranslationFactor($index) {
+    $minColumnDisplacement: 0;
+    $maxColumnDisplacement: math.div(
+      $n-placements * $placement-width,
+      2 * $position-width
+    );
+    @return getIncrementalFactor(
+      $minColumnDisplacement,
+      $maxColumnDisplacement,
+      $n-constrictions,
+      $index
+    );
+  }
+
+  @function getPlacementTranslationFactor($index) {
+    $minColumnDisplacement: 1;
+    $maxColumnDisplacement: 0;
+    @return getIncrementalFactor(
+      $minColumnDisplacement,
+      $maxColumnDisplacement,
+      $n-placements,
+      $index
+    );
+  }
+
+  @function getAlignerFactor($index) {
+    $min: -1;
+    $max: 3;
+    @return math.round(getIncrementalFactor($min, $max, $n-placements, $index));
+  }
+
+  @if ($border-debug) {
+    @include nextBorder(2px);
+  }
+
+  display: grid;
+  grid-template-columns: repeat($n-grid-columns, 1fr);
+  grid-template-rows: repeat($n-constrictions + 1, 1fr);
+  font-size: x-small;
+
+  .placement,
+  .constriction {
+    // font-size: 5px;
+  }
+
+  .placement {
+    @if ($border-debug) {
+      @include nextBorder();
+    }
+
+    $width: $placement-width;
+
+    grid-row: 1 / 2;
+
+    @for $i from 1 through $n-placements {
+      $child: $i - 1 + $placement-first-child-index;
+
+      &:nth-of-type(#{$child}) {
+        $start: ($i - 1) * $width + $placement-first-column-index;
+
+        grid-column: #{$start} / #{$start + $width};
+      }
+    }
+  }
+
+  .constriction {
+    @if ($border-debug) {
+      @include nextBorder();
+    }
+
+    $width: $constriction-width;
+
+    grid-column: 1 / #{$width + 1};
+
+    @for $i from 1 through $n-constrictions {
+      $child: $i - 1 + $constriction-first-child-index;
+
+      &:nth-of-type(#{$child}) {
+        $start: $i + $constriction-first-row-index;
+
+        grid-row: #{$start} / #{$start + 1};
+      }
+    }
+  }
+
+  // 480 * 360
+  .vowels {
+    aspect-ratio: 2 / 1;
+
+    > * {
+      aspect-ratio: 1 / 1;
+    }
+
+    span {
+      background-color: white;
+    }
+
+    $constriction-border-color: ();
+    $placement-border-color: ();
+
+    @for $i from 1 through $n-constrictions {
+      $constriction-border-color: list.append(
+        $constriction-border-color,
+        getNextColor()
+      );
+    }
+
+    @for $i from 1 through $n-placements {
+      $placement-border-color: list.append(
+        $placement-border-color,
+        getNextColor()
+      );
+    }
+
+    @for $i from 1 through $n-constrictions {
+      $constriction: list.nth($constrictions, $i);
+
+      &[vowels^='#{$constriction} '] {
+        $row-start: $i + $constriction-first-row-index;
+        $row-end: $row-start + 1;
+
+        grid-row: #{$row-start} / #{$row-end};
+
+        $constriction-factor: getConstrictionTranslationFactor($i);
+        @for $j from 1 through $n-placements {
+          $placement: list.nth($placements, $j);
+
+          &[vowels*=' #{$placement}'] {
+            $aligner: getAlignerFactor($j);
+            $col-start: $placement-width *
+              ($j - 1) +
+              $vowel-first-col-index +
+              $aligner;
+
+            $placement-factor: getPlacementTranslationFactor($j);
+            $translate: $constriction-factor * $placement-factor * 100;
+
+            grid-column: #{$col-start} / #{$col-start + $position-width};
+
+            @if ($border-debug) {
+              border-top: 1px solid #{list.nth($placement-border-color, $j)};
+              border-right: 1px solid #{list.nth($placement-border-color, $j)};
+              border-bottom: 1px
+                solid
+                #{list.nth($constriction-border-color, $i)};
+              border-left: 1px
+                solid
+                #{list.nth($constriction-border-color, $i)};
+            }
+            transform: translateX(#{$translate}#{'%'});
+          }
+        }
+      }
+    }
+
+    // > div {
+    //   flex: 1 1 0;
+    // }
+
+    > div:nth-child(2) {
+      @if ($border-debug) {
+        border-left: 1px solid #{getNextColor()};
+      }
+      // min-width: 50% !important;
+    }
+  }
+
+  .diagonals {
+    @if ($border-debug) {
+      @include nextBorder();
+    }
+
+    $width: $n-placements * $placement-width;
+    $column-start: $constriction-width + $left-gap + 1;
+    $column-end: $column-start + $width;
+
+    grid-row: 2 / 9;
+    grid-column: #{$column-start} / #{$column-end};
+    z-index: -1;
+
+    > div {
+      width: 50%;
+      height: 100%;
+      z-index: -1;
+
+      > div {
+        width: 100%;
+        height: 100%;
+        background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><line x1='0' y1='0' x2='100' y2='100' style='stroke:black' /></svg>");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+      }
+
+      &:nth-child(1) {
+        $heigth: $n-constrictions;
+
+        transform: scale(1, #{math.div($heigth - 1, $heigth)});
+        @if ($border-debug) {
+          @include nextBorder();
+        }
+      }
+
+      &:nth-child(2) > :nth-child(1) {
+        width: 50%;
+        $heigth: $n-constrictions;
+
+        transform: scale(1, #{math.div($heigth - 1, $heigth)});
+
+        @if ($border-debug) {
+          @include nextBorder();
+        }
+      }
+    }
+  }
+
+  [class^='horizontal'] {
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    transform-origin: right;
+    transform: translateY(50%);
+    z-index: -1;
+    grid-column: #{$constriction-width + $left-gap + 1} / #{$n-grid-columns -
+      $right-gap + 1};
+
+    @if ($border-debug) {
+      @include nextBorder();
+    }
+    border-top: 2px solid black;
+
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  $first-scale-factor: 1;
+  $last-scale-factor: 0.5;
+  $scaleX-step: math.div($first-scale-factor - $last-scale-factor, 4 - 1);
+  @for $i from 1 through 4 {
+    .horizontal_#{$i} {
+      grid-row: #{$i * 2} / #{$i * 2 + 1};
+      scale: #{1 - ($i - 1) * $scaleX-step} 1;
+    }
+  }
+
+  .vertical {
+    $heigth: $n-constrictions;
+
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    scale: 1 #{math.div($heigth - 1, $heigth)};
+
+    > div {
+      width: 100%;
+      height: 100%;
+    }
+
+    grid-row: 2 / 9;
+    grid-column: #{$n-grid-columns - $right-gap} / #{$n-grid-columns -
+      $right-gap + 1};
+    border-right: 2px solid black;
+  }
+}

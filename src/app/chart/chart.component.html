@@ -1,0 +1,86 @@
+<div class="chart">
+  <ng-container headers>
+    <ng-container column="[4, last[" index="[1, 5]" placement rows="[1, 2[">
+      <div class="placement text-center">Front</div>
+      <div class="placement text-center">Near-front</div>
+      <!-- <div class="placement text-center"></div> -->
+      <div class="placement text-center">Central</div>
+      <!-- <div class="placement text-center"></div> -->
+      <div class="placement text-center">Near-back</div>
+      <div class="placement text-center">Back</div>
+    </ng-container>
+
+    <ng-container column="[1, 4[" constriction index="[6, 12]" rows="[2, last[">
+      <div class="constriction text-nowrap text-end">Close</div>
+      <div class="constriction text-nowrap text-end">Near-close</div>
+      <div class="constriction text-nowrap text-end">Close-mid</div>
+      <div class="constriction text-nowrap text-end">Mid</div>
+      <div class="constriction text-nowrap text-end">Open-mid</div>
+      <div class="constriction text-nowrap text-end">Near-open</div>
+      <div class="constriction text-nowrap text-end">Open</div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container column="[4, last[" index="[13, last-8]" rows="[2, last[" vowel>
+    @for (vowels of vowelsByPosition | keyvalue; track $index) {
+      @if (answered()) {
+        <div
+          class="vowels text-center d-flex justify-content-around"
+          [attr.vowels]="vowels.key"
+        >
+          @for (vowel of vowels.value; track $index) {
+            <div
+              class="bg-light rounded-circle d-flex align-items-center justify-content-center p-1"
+              [attr.vowel]="vowel.name"
+              [matTooltip]="vowel.name"
+              [matTooltipHideDelay]="5000"
+              [ngClass]="{
+                border:
+                  selectedAnswer() === vowel.id ||
+                  question()?.vowel?.id === vowel.id,
+                'border-danger':
+                  selectedAnswer() === vowel.id &&
+                  question()?.vowel?.id !== selectedAnswer(),
+                'border-success': question()?.vowel?.id === vowel.id,
+              }"
+            >
+              <span
+                matTooltipPosition="above"
+                [matTooltip]="vowel.symbol.names.join(', ')"
+                [matTooltipHideDelay]="5000"
+                >{{ vowel.letter }}</span
+              >
+            </div>
+          }
+        </div>
+      }
+    }
+  </ng-container>
+
+  <div class="diagonals d-flex">
+    <div>
+      <div></div>
+    </div>
+
+    <div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="horizontal_1">
+    <div></div>
+  </div>
+  <div class="horizontal_2">
+    <div></div>
+  </div>
+  <div class="horizontal_3">
+    <div></div>
+  </div>
+  <div class="horizontal_4">
+    <div></div>
+  </div>
+
+  <div class="vertical">
+    <div></div>
+  </div>
+</div>

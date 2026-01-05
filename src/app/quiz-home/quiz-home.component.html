@@ -5,32 +5,32 @@
     <h2>Total</h2>
 
     <span
-      matTooltip="Correct"
       class="ms-4 text-success"
-      [matBadge]="totalStats$()?.correct"
       matBadgeOverlap="false"
+      matTooltip="Correct"
+      [matBadge]="totalStats$()?.correct"
       ><strong>✓</strong></span
     >
     <span
-      matTooltip="Wrong"
       class="ms-4 text-danger"
-      [matBadge]="totalStats$()?.wrong"
       matBadgeOverlap="false"
+      matTooltip="Wrong"
+      [matBadge]="totalStats$()?.wrong"
       ><strong>X</strong></span
     >
     <span
-      matTooltip="Longest Streak"
       class="ms-4 text-warning"
-      [matBadge]="totalStats$()?.longestStreak"
       matBadgeOverlap="false"
+      matTooltip="Longest Streak"
+      [matBadge]="totalStats$()?.longestStreak"
       ><strong>ϟ</strong></span
     >
 
     <span
-      matTooltip="Current Streak"
       class="ms-4 text-warning"
-      [matBadge]="totalStats$()?.currentStreak"
       matBadgeOverlap="false"
+      matTooltip="Current Streak"
+      [matBadge]="totalStats$()?.currentStreak"
       ><strong>🗲</strong></span
     >
   </section>
@@ -42,32 +42,32 @@
       @for (stats of statsBySession$(); track $index) {
         <div>
           <span
-            matTooltip="Correct"
             class="ms-4 text-success"
-            [matBadge]="stats.correct"
             matBadgeOverlap="false"
+            matTooltip="Correct"
+            [matBadge]="stats.correct"
             ><strong>✓</strong></span
           >
           <span
-            matTooltip="Wrong"
             class="ms-4 text-danger"
-            [matBadge]="stats.wrong"
             matBadgeOverlap="false"
+            matTooltip="Wrong"
+            [matBadge]="stats.wrong"
             ><strong>X</strong></span
           >
           <span
-            matTooltip="Longest Streak"
             class="ms-4 text-warning"
-            [matBadge]="stats.longestStreak"
             matBadgeOverlap="false"
+            matTooltip="Longest Streak"
+            [matBadge]="stats.longestStreak"
             ><strong>ϟ</strong></span
           >
 
           <span
-            matTooltip="Current Streak"
             class="ms-4 text-warning"
-            [matBadge]="stats.currentStreak"
             matBadgeOverlap="false"
+            matTooltip="Current Streak"
+            [matBadge]="stats.currentStreak"
             ><strong>🗲</strong></span
           >
         </div>
@@ -97,9 +97,9 @@
   </section>
 
   <button
-    mat-raised-button
-    color="primary"
     class="flex-shrink-0"
+    color="primary"
+    mat-raised-button
     (click)="practice()"
   >
     Practice

@@ -1,3 +1,22 @@
+# TODO
+
+- Adicionar vozes alterativas.
+- Adicionar meta de SMA
+- Sons no chart
+- Bandeiras indicando lingua de presença (EN, PT, IT, DE) https://www.vulgarlang.com/ipa/
+- Exemplos de uso
+- Toltip nas peguntas/opçoes
+- corrigira cor da pontuaçãoes de acordo com a cor dis iconess.
+- Conrrigri longest streak
+- Grafico de acerto / evolução sma
+- Mapa de error Ativos (correta) e passivos (escolhida)
+- Mais tipos de exercicios (cada vogal aredondada vs não arredondados, cada altura vs todas as Posteridade, cada Posteridade vs todas as alturas, testar apenas se é arredondada, qual a altura e qual a posteridade)
+- Estatisticas por tipo de erro
+- Dar prefencia para vogais/tipos menos testadas e mais erradas, ou pares mais confundidos.
+- Teste de posição no grafico
+- Remover primeiro incompelto da SMA
+
+
 # IpaQuiz
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.4.

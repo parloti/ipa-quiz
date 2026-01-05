@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import type { IQuestion } from '../models/iquestion';
 import type { IQuiz } from '../models/iquiz';
 import type { ISession } from '../models/isession';
@@ -13,7 +14,7 @@ function createVowel(id: IVowel['id']): IVowel {
     id,
     name: 'Test',
     audio: { href: '', file: '' },
-    letter: { upper: 'A', lower: 'a' },
+    letter: { upper: 'A', lower: 'a' } as any,
     symbol: { entities: [], href: '', unicodes: [], names: [] },
   };
 }
@@ -272,13 +273,13 @@ describe('quizFeature (quiz-feature.ts)', () => {
 
     // selectFinished true/false paths
     // current session is session2 which is finished
-    expect(quizFeature.selectFinished(root)).toBeTrue();
+    expect(quizFeature.selectFinished(root)).toBe(true);
 
     state = quizFeature.reducer(
       state,
       actions.openSession({ quizId: quiz.id, sessionId: session1.id }),
     );
-    expect(quizFeature.selectFinished({ quiz: state })).toBeFalse();
+    expect(quizFeature.selectFinished({ quiz: state })).toBe(false);
   });
 
   it('covers selectMovingAverages: undefined sessions, no completed sessions, and last-N behavior', () => {
@@ -315,7 +316,7 @@ describe('quizFeature (quiz-feature.ts)', () => {
         const correct = i >= 2;
         return createSession({
           quizId: quiz.id,
-          id: `session-${100 + i}` as ISession['id'],
+          id: `session-${100 + i}` as const,
           currentQuestionIndex: 0,
           questions: [
             answeredQuestion({

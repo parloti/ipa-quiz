@@ -30,7 +30,7 @@ type NestedSelectors<TName extends string, TState> = TState extends
   | Primitive
   | unknown[]
   | Date
-  ? {}
+  ? object
   : {
       [K in keyof TState &
         string as `select${Capitalize<TName>}${Capitalize<K>}`]: MemoizedSelector<
@@ -245,9 +245,11 @@ export const quizFeature = createFeature({
                 acc.answered++;
               }
               if (curr.selectedAnswer !== void 0) {
-                curr.selectedAnswer === curr.vowel.id
-                  ? acc.correct++
-                  : acc.wrong++;
+                if(curr.selectedAnswer === curr.vowel.id) {
+                  acc.correct++;
+                } else {
+                  acc.wrong++;
+                }
               }
 
               acc.seen.add(curr.vowel.id);
@@ -302,9 +304,11 @@ export const quizFeature = createFeature({
                 acc.answered++;
               }
               if (curr.selectedAnswer !== void 0) {
-                curr.selectedAnswer === curr.vowel.id
-                  ? acc.correct++
-                  : acc.wrong++;
+                if(curr.selectedAnswer === curr.vowel.id) {
+                  acc.correct++;
+                } else {
+                  acc.wrong++;
+                }
               }
 
               acc.seen.add(curr.vowel.id);

@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
 
 import { AppEffects } from './app.effects';
 
@@ -7,7 +8,7 @@ describe('AppEffectsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(AppEffectsService);
+    service = TestBed.inject(AppEffects);
   });
 
   it('should be created', () => {
