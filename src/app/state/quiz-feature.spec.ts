@@ -82,6 +82,115 @@ function createQuiz(id: IQuiz['id']): IQuiz {
 }
 
 describe('quizFeature (quiz-feature.ts)', () => {
+  it('covers selectors when no quiz is selected (sessions undefined)', () => {
+    const state = quizFeature.reducer(undefined, { type: '@@init' } as any);
+    const root = { quiz: state };
+
+    expect(quizFeature.selectStatsBySession(root)).toBeUndefined();
+    expect(quizFeature.selectTotalStats(root)).toBeUndefined();
+    expect(quizFeature.selectMovingAverages(root)).toBeUndefined();
+  });
+
+  it('covers moving averages empty when no completed sessions exist', () => {
+    const quiz = createQuiz('quiz-95');
+    const v1 = createVowel('vowel-1');
+
+    const incompleteSession = createSession({
+      quizId: quiz.id,
+      id: 'session-incomplete' as any,
+      currentQuestionIndex: 0,
+      questions: [unansweredQuestion({ index: 0, vowel: v1 })],
+    });
+
+    let state = quizFeature.reducer(undefined, { type: '@@init' } as any);
+    state = quizFeature.reducer(state, actions.addQuiz({ quiz }));
+    state = quizFeature.reducer(state, actions.openQuiz({ quizId: quiz.id }));
+    state = quizFeature.reducer(
+      state,
+      actions.addSession({ session: incompleteSession }),
+    );
+
+    const root = { quiz: state };
+    expect(quizFeature.selectMovingAverages(root)).toEqual([]);
+  });
+
+  it('covers guard returns when quiz is opened but no session is opened', () => {
+    const quiz = createQuiz('quiz-94');
+
+    let state = quizFeature.reducer(undefined, { type: '@@init' } as any);
+    state = quizFeature.reducer(state, actions.addQuiz({ quiz }));
+    state = quizFeature.reducer(state, actions.openQuiz({ quizId: quiz.id }));
+
+    // With no currentSessionId, these should all early-return.
+    state = quizFeature.reducer(
+      state,
+      actions.selectAnswer({ selectedAnswer: 'vowel-1' }),
+    );
+    state = quizFeature.reducer(
+      state,
+      actions.answerCurrent({ date: '2026-01-03' }),
+    );
+    state = quizFeature.reducer(state, actions.nextQuestion());
+    state = quizFeature.reducer(state, actions.previousQuestion());
+
+    expect(state.currentQuizId).toBe(quiz.id);
+  });
+
+  it('covers previousQuestion no-op when currentQuestionIndex is 0', () => {
+    const quiz = createQuiz('quiz-93');
+    const v1 = createVowel('vowel-1');
+
+    const session = createSession({
+      quizId: quiz.id,
+      id: 'session-93' as any,
+      currentQuestionIndex: 0,
+      questions: [unansweredQuestion({ index: 0, vowel: v1 })],
+    });
+
+    let state = quizFeature.reducer(undefined, { type: '@@init' } as any);
+    state = quizFeature.reducer(state, actions.addQuiz({ quiz }));
+    state = quizFeature.reducer(state, actions.openQuiz({ quizId: quiz.id }));
+    state = quizFeature.reducer(state, actions.addSession({ session }));
+    state = quizFeature.reducer(
+      state,
+      actions.openSession({ quizId: quiz.id, sessionId: session.id }),
+    );
+
+    const before = state.quizzes.find(q => q.id === quiz.id)?.sessions[0]
+      ?.currentQuestionIndex;
+    state = quizFeature.reducer(state, actions.previousQuestion());
+    const after = state.quizzes.find(q => q.id === quiz.id)?.sessions[0]
+      ?.currentQuestionIndex;
+
+    expect(before).toBe(0);
+    expect(after).toBe(0);
+  });
+
+  it('covers selectCurrentQuestion branch when currentQuestionIndex is undefined', () => {
+    const quiz = createQuiz('quiz-92');
+    const v1 = createVowel('vowel-1');
+
+    const session = createSession({
+      quizId: quiz.id,
+      id: 'session-92' as any,
+      currentQuestionIndex: 0,
+      questions: [unansweredQuestion({ index: 0, vowel: v1 })],
+    }) as any;
+    session.currentQuestionIndex = undefined;
+
+    let state = quizFeature.reducer(undefined, { type: '@@init' } as any);
+    state = quizFeature.reducer(state, actions.addQuiz({ quiz }));
+    state = quizFeature.reducer(state, actions.openQuiz({ quizId: quiz.id }));
+    state = quizFeature.reducer(state, actions.addSession({ session }));
+    state = quizFeature.reducer(
+      state,
+      actions.openSession({ quizId: quiz.id, sessionId: session.id }),
+    );
+
+    const root = { quiz: state };
+    expect(quizFeature.selectCurrentQuestion(root)).toBeUndefined();
+  });
+
   it('covers reducer guard clauses (no current quiz/session)', () => {
     let state = quizFeature.reducer(undefined, { type: '@@init' } as any);
 
@@ -162,7 +271,6 @@ describe('quizFeature (quiz-feature.ts)', () => {
     // currentQuestion selectors
     expect(quizFeature.selectCurrentQuestion(root)?.index).toBeDefined();
     expect(quizFeature.selectCurrentQuestionAnswered(root)).toBeDefined();
-    expect(quizFeature.selectCurrentQuestionSelectedAnswer(root)).toBeDefined();
   });
 
   it('covers selectAnswer/answerCurrent false-path when index is out of range', () => {

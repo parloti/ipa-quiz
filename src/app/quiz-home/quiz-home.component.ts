@@ -63,6 +63,7 @@ export class QuizHomeComponent {
 
   public practice(): void {
     if (this._quizId) {
+      this.quizService.practiceOpened(this._quizId);
       void this.router.navigate(['quiz/' + this._quizId]);
     }
   }

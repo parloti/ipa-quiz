@@ -56,9 +56,6 @@ function createQuestions(): IQuestion[] {
     const optionIds = [...optionVowelIds]
       .map(optionVowelId => VOWELS.find(v => v.id === optionVowelId))
       .filter(v => v !== undefined);
-    if (optionIds.length !== nAnswers) {
-      debugger;
-    }
 
     questionOptionVowelsById.set(stemId, optionIds);
   }
@@ -66,9 +63,6 @@ function createQuestions(): IQuestion[] {
   const questionStemIds = [...questionStemVowelIds]
     .map(questionStemVowelId => VOWELS.find(v => v.id === questionStemVowelId))
     .filter(v => v !== undefined);
-  if (questionStemIds.length !== nQuestions) {
-    debugger;
-  }
 
   const elements = [
     QuestionElement.Letter,
@@ -94,14 +88,13 @@ function createQuestions(): IQuestion[] {
       type: askType,
       index: index,
       selectedAnswer: void 0,
-      options:
-        questionOptionVowelsById.get(vowel.id)?.map(
-          vowel =>
-            ({
-              ...vowel,
-              type: Math.random() < 0.5 ? answerType[0] : answerType[1],
-            }) as IVowel & { type: QuestionElement },
-        ) || [],
+      options: questionOptionVowelsById.get(vowel.id)!.map(
+        vowel =>
+          ({
+            ...vowel,
+            type: Math.random() < 0.5 ? answerType[0] : answerType[1],
+          }) as IVowel & { type: QuestionElement },
+      ),
     };
     shuffle(question.options);
 
@@ -132,7 +125,6 @@ export class AppEffects {
             }
           }
         } catch (error) {
-          debugger;
           console.error('Unable to retore state from local storage:', error);
         }
         return actions.restoreStateFailed();

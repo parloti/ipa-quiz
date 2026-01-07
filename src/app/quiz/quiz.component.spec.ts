@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatRadioChange } from '@angular/material/radio';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -200,7 +201,9 @@ describe('QuizComponent', () => {
     });
 
     it('should display vowel letter for Letter type questions', () => {
-      mockQuizService.question$.next(createTestQuestion(QuestionElement.Letter));
+      mockQuizService.question$.next(
+        createTestQuestion(QuestionElement.Letter),
+      );
       fixture.detectChanges();
 
       const content = fixture.nativeElement.textContent;
@@ -216,6 +219,10 @@ describe('QuizComponent', () => {
     });
 
     it('should display audio button for Sound type questions', () => {
+      const playSpy = vi
+        .spyOn(HTMLMediaElement.prototype, 'play')
+        .mockImplementation(async () => undefined);
+
       mockQuizService.question$.next(createTestQuestion(QuestionElement.Sound));
       fixture.detectChanges();
 
@@ -223,6 +230,71 @@ describe('QuizComponent', () => {
         'button[mat-icon-button]',
       );
       expect(audioButton).toBeTruthy();
+
+      audioButton.click();
+      expect(playSpy).toHaveBeenCalled();
+    });
+
+    it('should render error block for unknown question type', () => {
+      mockQuizService.question$.next({
+        ...createTestQuestion(QuestionElement.Letter),
+        type: 999 as unknown as QuestionElement,
+      });
+      fixture.detectChanges();
+
+      const content = fixture.nativeElement.textContent;
+      expect(content).toContain('ERROR:');
+    });
+
+    it('should render safely when question is undefined (optional chaining)', () => {
+      mockQuizService.question$.next(undefined);
+      fixture.detectChanges();
+
+      const content = fixture.nativeElement.textContent;
+      expect(content).toContain('ERROR:');
+    });
+
+    it('should render and play audio for Sound-type option', () => {
+      const playSpy = vi
+        .spyOn(HTMLMediaElement.prototype, 'play')
+        .mockImplementation(async () => undefined);
+
+      const question = {
+        ...createTestQuestion(QuestionElement.Name),
+        options: [
+          { ...testVowel, type: QuestionElement.Sound },
+          { ...testVowel2, type: QuestionElement.Name },
+        ],
+      } satisfies IQuestion;
+
+      mockQuizService.question$.next(question);
+      fixture.detectChanges();
+
+      const optionAudioButton = fixture.nativeElement.querySelector(
+        'mat-radio-button button[mat-icon-button]',
+      ) as HTMLButtonElement | null;
+      expect(optionAudioButton).toBeTruthy();
+
+      optionAudioButton?.click();
+      expect(playSpy).toHaveBeenCalled();
+    });
+
+    it('should render error text for unknown option type', () => {
+      const question = {
+        ...createTestQuestion(QuestionElement.Name),
+        options: [
+          {
+            ...testVowel,
+            type: 999 as unknown as QuestionElement,
+          },
+        ],
+      } satisfies IQuestion;
+
+      mockQuizService.question$.next(question);
+      fixture.detectChanges();
+
+      const content = fixture.nativeElement.textContent;
+      expect(content).toContain('ERROR');
     });
 
     it('should render radio buttons for options', () => {
@@ -231,6 +303,16 @@ describe('QuizComponent', () => {
       const radioButtons =
         fixture.nativeElement.querySelectorAll('mat-radio-button');
       expect(radioButtons.length).toBe(2);
+    });
+
+    it('should call selectAnswer when mat-radio-group emits change', () => {
+      const radioGroup = fixture.debugElement.query(By.css('mat-radio-group'));
+
+      radioGroup.triggerEventHandler('change', {
+        value: testVowel.id,
+      } as MatRadioChange);
+
+      expect(mockQuizService.selectAnswer).toHaveBeenCalledWith(testVowel.id);
     });
 
     it('should disable radio buttons when answered', () => {

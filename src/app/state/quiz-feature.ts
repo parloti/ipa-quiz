@@ -52,7 +52,7 @@ function createNestedSelectors<
   parentSelector: TParentSelector,
   initialState: NonNullable<TState>,
 ): NestedSelectors<TName, TState> {
-  const keys = Object.keys(initialState ?? {}) as (string & keyof TState)[];
+  const keys = Object.keys(initialState) as (string & keyof TState)[];
   return keys.reduce(
     (nestedSelectors, key) => ({
       ...nestedSelectors,
@@ -245,7 +245,7 @@ export const quizFeature = createFeature({
                 acc.answered++;
               }
               if (curr.selectedAnswer !== void 0) {
-                if(curr.selectedAnswer === curr.vowel.id) {
+                if (curr.selectedAnswer === curr.vowel.id) {
                   acc.correct++;
                 } else {
                   acc.wrong++;
@@ -304,7 +304,7 @@ export const quizFeature = createFeature({
                 acc.answered++;
               }
               if (curr.selectedAnswer !== void 0) {
-                if(curr.selectedAnswer === curr.vowel.id) {
+                if (curr.selectedAnswer === curr.vowel.id) {
                   acc.correct++;
                 } else {
                   acc.wrong++;
@@ -373,7 +373,10 @@ export const quizFeature = createFeature({
         });
 
         const periods = Array.from(
-          new Set([...defaultPeriods.filter(period => period <= length), length]),
+          new Set([
+            ...defaultPeriods.filter(period => period <= length),
+            length,
+          ]),
         )
           .filter(period => period > 0 && period <= length)
           .sort((a, b) => a - b);
@@ -383,8 +386,7 @@ export const quizFeature = createFeature({
             ({
               length: period,
               type: 'SMA',
-              value:
-                rates.slice(-period).reduce((a, b) => a + b, 0) / period,
+              value: rates.slice(-period).reduce((a, b) => a + b, 0) / period,
             }) as IMovingAverage,
         );
 

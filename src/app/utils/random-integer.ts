@@ -64,11 +64,16 @@
  * @param max
  * @returns
  */
-export function randomInteger<TMin extends number, TMax extends number>(
-  min: TMin,
-  max: TMax,
-): number {
+export function randomInteger(min: number, max: number): number {
+  if (min > max) {
+    const swap = min;
+    min = max;
+    max = swap;
+  }
   const minCeiled = Math.ceil(min);
   const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled);
+  const range = maxFloored - minCeiled;
+  const a = Math.random() * range;
+  const b = a + minCeiled;
+  return Math.floor(b);
 }

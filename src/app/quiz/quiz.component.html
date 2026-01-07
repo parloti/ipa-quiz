@@ -26,7 +26,9 @@
         src="/vowel_audio/{{ question$()?.vowel?.audio?.file }}"
       ></audio>
     } @else {
-      <span>ERROR</span>
+      <span>ERROR:</span>
+      <code>{{ question$()?.type }}</code>
+      <code>{{ typeof question$() }}</code>
     }
 
     <mat-radio-group

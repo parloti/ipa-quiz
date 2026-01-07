@@ -1,13 +1,15 @@
 import {
   ApplicationConfig,
-  importProvidersFrom,
   isDevMode,
+  provideBrowserGlobalErrorListeners,
   provideEnvironmentInitializer,
-  provideZoneChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
-import { HammerModule } from '@angular/platform-browser';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, RouteReuseStrategy, withComponentInputBinding } from '@angular/router';
+import {
+  provideRouter,
+  RouteReuseStrategy,
+  withComponentInputBinding,
+} from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 import { provideEffects } from '@ngrx/effects';
 import {
@@ -20,32 +22,31 @@ import { provideState, provideStore } from '@ngrx/store';
 import 'hammerjs';
 import { routes } from './app.routes';
 import { CustomReuseStrategy } from './reuse-strategy';
+import { routerDebugTracing } from './router-debug-tracing';
 import { AppEffects } from './state/app.effects';
 import { provideMetaReducer } from './state/meta-reducers';
 import { quizFeature } from './state/quiz-feature';
 import { RouterSerializer } from './state/router-serializer';
-import { routerDebugTracing } from './router-debug-tracing';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
+    provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideEnvironmentInitializer(routerDebugTracing),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
-    provideAnimationsAsync(),
-    importProvidersFrom(HammerModule),
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
     provideStore(
       { [DEFAULT_ROUTER_FEATURENAME]: routerReducer },
       {
         runtimeChecks: {
-          strictStateSerializability: true,
-          strictActionSerializability: true,
-          strictActionWithinNgZone: true,
+          strictActionSerializability: false,
           strictActionTypeUniqueness: true,
+          strictActionWithinNgZone: false,
+          strictStateSerializability: false,
         },
       },
     ),
