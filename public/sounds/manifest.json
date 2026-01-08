@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "generatedAt": "2026-01-08T17:47:05.346Z",
+  "sources": [
+    {
+      "sourceId": "ipa",
+      "logoUrl": "sounds/ipa/logo.png",
+      "voices": [
+        {
+          "voiceId": "jill_house",
+          "path": "sounds/ipa/jill_house",
+          "manifestUrl": "sounds/ipa/jill_house/manifest.json",
+          "count": 156
+        },
+        {
+          "voiceId": "john_esling",
+          "path": "sounds/ipa/john_esling",
+          "manifestUrl": "sounds/ipa/john_esling/manifest.json",
+          "count": 158
+        },
+        {
+          "voiceId": "john_wells",
+          "path": "sounds/ipa/john_wells",
+          "manifestUrl": "sounds/ipa/john_wells/manifest.json",
+          "count": 162
+        },
+        {
+          "voiceId": "peter_ladefoged",
+          "path": "sounds/ipa/peter_ladefoged",
+          "manifestUrl": "sounds/ipa/peter_ladefoged/manifest.json",
+          "count": 169
+        }
+      ]
+    },
+    {
+      "sourceId": "wikipedia",
+      "voices": [
+        {
+          "voiceId": "default",
+          "path": "sounds/wikipedia",
+          "manifestUrl": "sounds/wikipedia/manifest.json",
+          "count": 33
+        }
+      ]
+    }
+  ]
+}

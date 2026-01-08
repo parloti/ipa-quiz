@@ -1,0 +1,1466 @@
+{
+  "version": 2,
+  "generatedAt": "2026-01-08T17:47:05.328Z",
+  "sourceId": "ipa",
+  "voiceId": "john_esling",
+  "path": "sounds/ipa/john_esling",
+  "count": 158,
+  "files": [
+    {
+      "file": "00E6.mp3",
+      "stem": "00E6",
+      "url": "sounds/ipa/john_esling/00E6.mp3",
+      "codepoints": [
+        230
+      ],
+      "chars": "æ"
+    },
+    {
+      "file": "00E7.mp3",
+      "stem": "00E7",
+      "url": "sounds/ipa/john_esling/00E7.mp3",
+      "codepoints": [
+        231
+      ],
+      "chars": "ç"
+    },
+    {
+      "file": "00F0.mp3",
+      "stem": "00F0",
+      "url": "sounds/ipa/john_esling/00F0.mp3",
+      "codepoints": [
+        240
+      ],
+      "chars": "ð"
+    },
+    {
+      "file": "00F8.mp3",
+      "stem": "00F8",
+      "url": "sounds/ipa/john_esling/00F8.mp3",
+      "codepoints": [
+        248
+      ],
+      "chars": "ø"
+    },
+    {
+      "file": "01C0.mp3",
+      "stem": "01C0",
+      "url": "sounds/ipa/john_esling/01C0.mp3",
+      "codepoints": [
+        448
+      ],
+      "chars": "ǀ"
+    },
+    {
+      "file": "01C1.mp3",
+      "stem": "01C1",
+      "url": "sounds/ipa/john_esling/01C1.mp3",
+      "codepoints": [
+        449
+      ],
+      "chars": "ǁ"
+    },
+    {
+      "file": "01C2.mp3",
+      "stem": "01C2",
+      "url": "sounds/ipa/john_esling/01C2.mp3",
+      "codepoints": [
+        450
+      ],
+      "chars": "ǂ"
+    },
+    {
+      "file": "01C3.mp3",
+      "stem": "01C3",
+      "url": "sounds/ipa/john_esling/01C3.mp3",
+      "codepoints": [
+        451
+      ],
+      "chars": "ǃ"
+    },
+    {
+      "file": "1DC4.mp3",
+      "stem": "1DC4",
+      "url": "sounds/ipa/john_esling/1DC4.mp3",
+      "codepoints": [
+        7620
+      ],
+      "chars": "᷄"
+    },
+    {
+      "file": "1DC5.mp3",
+      "stem": "1DC5",
+      "url": "sounds/ipa/john_esling/1DC5.mp3",
+      "codepoints": [
+        7621
+      ],
+      "chars": "᷅"
+    },
+    {
+      "file": "1DC8.mp3",
+      "stem": "1DC8",
+      "url": "sounds/ipa/john_esling/1DC8.mp3",
+      "codepoints": [
+        7624
+      ],
+      "chars": "᷈"
+    },
+    {
+      "file": "02A1.mp3",
+      "stem": "02A1",
+      "url": "sounds/ipa/john_esling/02A1.mp3",
+      "codepoints": [
+        673
+      ],
+      "chars": "ʡ"
+    },
+    {
+      "file": "02A2.mp3",
+      "stem": "02A2",
+      "url": "sounds/ipa/john_esling/02A2.mp3",
+      "codepoints": [
+        674
+      ],
+      "chars": "ʢ"
+    },
+    {
+      "file": "02B0_v1.mp3",
+      "stem": "02B0_v1",
+      "url": "sounds/ipa/john_esling/02B0_v1.mp3",
+      "codepoints": [
+        688
+      ],
+      "chars": "ʰ",
+      "variant": 1
+    },
+    {
+      "file": "02B0_v2.mp3",
+      "stem": "02B0_v2",
+      "url": "sounds/ipa/john_esling/02B0_v2.mp3",
+      "codepoints": [
+        688
+      ],
+      "chars": "ʰ",
+      "variant": 2
+    },
+    {
+      "file": "02B2_v1.mp3",
+      "stem": "02B2_v1",
+      "url": "sounds/ipa/john_esling/02B2_v1.mp3",
+      "codepoints": [
+        690
+      ],
+      "chars": "ʲ",
+      "variant": 1
+    },
+    {
+      "file": "02B2_v2.mp3",
+      "stem": "02B2_v2",
+      "url": "sounds/ipa/john_esling/02B2_v2.mp3",
+      "codepoints": [
+        690
+      ],
+      "chars": "ʲ",
+      "variant": 2
+    },
+    {
+      "file": "02B7_v1.mp3",
+      "stem": "02B7_v1",
+      "url": "sounds/ipa/john_esling/02B7_v1.mp3",
+      "codepoints": [
+        695
+      ],
+      "chars": "ʷ",
+      "variant": 1
+    },
+    {
+      "file": "02B7_v2.mp3",
+      "stem": "02B7_v2",
+      "url": "sounds/ipa/john_esling/02B7_v2.mp3",
+      "codepoints": [
+        695
+      ],
+      "chars": "ʷ",
+      "variant": 2
+    },
+    {
+      "file": "2C71.mp3",
+      "stem": "2C71",
+      "url": "sounds/ipa/john_esling/2C71.mp3",
+      "codepoints": [
+        11377
+      ],
+      "chars": "ⱱ"
+    },
+    {
+      "file": "02DE_v1.mp3",
+      "stem": "02DE_v1",
+      "url": "sounds/ipa/john_esling/02DE_v1.mp3",
+      "codepoints": [
+        734
+      ],
+      "chars": "˞",
+      "variant": 1
+    },
+    {
+      "file": "02DE_v2.mp3",
+      "stem": "02DE_v2",
+      "url": "sounds/ipa/john_esling/02DE_v2.mp3",
+      "codepoints": [
+        734
+      ],
+      "chars": "˞",
+      "variant": 2
+    },
+    {
+      "file": "02E0_v1.mp3",
+      "stem": "02E0_v1",
+      "url": "sounds/ipa/john_esling/02E0_v1.mp3",
+      "codepoints": [
+        736
+      ],
+      "chars": "ˠ",
+      "variant": 1
+    },
+    {
+      "file": "02E0_v2.mp3",
+      "stem": "02E0_v2",
+      "url": "sounds/ipa/john_esling/02E0_v2.mp3",
+      "codepoints": [
+        736
+      ],
+      "chars": "ˠ",
+      "variant": 2
+    },
+    {
+      "file": "02E1.mp3",
+      "stem": "02E1",
+      "url": "sounds/ipa/john_esling/02E1.mp3",
+      "codepoints": [
+        737
+      ],
+      "chars": "ˡ"
+    },
+    {
+      "file": "02E4_v1.mp3",
+      "stem": "02E4_v1",
+      "url": "sounds/ipa/john_esling/02E4_v1.mp3",
+      "codepoints": [
+        740
+      ],
+      "chars": "ˤ",
+      "variant": 1
+    },
+    {
+      "file": "02E4_v2.mp3",
+      "stem": "02E4_v2",
+      "url": "sounds/ipa/john_esling/02E4_v2.mp3",
+      "codepoints": [
+        740
+      ],
+      "chars": "ˤ",
+      "variant": 2
+    },
+    {
+      "file": "03B2.mp3",
+      "stem": "03B2",
+      "url": "sounds/ipa/john_esling/03B2.mp3",
+      "codepoints": [
+        946
+      ],
+      "chars": "β"
+    },
+    {
+      "file": "03B8.mp3",
+      "stem": "03B8",
+      "url": "sounds/ipa/john_esling/03B8.mp3",
+      "codepoints": [
+        952
+      ],
+      "chars": "θ"
+    },
+    {
+      "file": "03C7.mp3",
+      "stem": "03C7",
+      "url": "sounds/ipa/john_esling/03C7.mp3",
+      "codepoints": [
+        967
+      ],
+      "chars": "χ"
+    },
+    {
+      "file": "006A.mp3",
+      "stem": "006A",
+      "url": "sounds/ipa/john_esling/006A.mp3",
+      "codepoints": [
+        106
+      ],
+      "chars": "j"
+    },
+    {
+      "file": "006B_02BC.mp3",
+      "stem": "006B_02BC",
+      "url": "sounds/ipa/john_esling/006B_02BC.mp3",
+      "codepoints": [
+        107,
+        700
+      ],
+      "chars": "kʼ"
+    },
+    {
+      "file": "006B.mp3",
+      "stem": "006B",
+      "url": "sounds/ipa/john_esling/006B.mp3",
+      "codepoints": [
+        107
+      ],
+      "chars": "k"
+    },
+    {
+      "file": "006C.mp3",
+      "stem": "006C",
+      "url": "sounds/ipa/john_esling/006C.mp3",
+      "codepoints": [
+        108
+      ],
+      "chars": "l"
+    },
+    {
+      "file": "006D.mp3",
+      "stem": "006D",
+      "url": "sounds/ipa/john_esling/006D.mp3",
+      "codepoints": [
+        109
+      ],
+      "chars": "m"
+    },
+    {
+      "file": "006E.mp3",
+      "stem": "006E",
+      "url": "sounds/ipa/john_esling/006E.mp3",
+      "codepoints": [
+        110
+      ],
+      "chars": "n"
+    },
+    {
+      "file": "006F.mp3",
+      "stem": "006F",
+      "url": "sounds/ipa/john_esling/006F.mp3",
+      "codepoints": [
+        111
+      ],
+      "chars": "o"
+    },
+    {
+      "file": "007A.mp3",
+      "stem": "007A",
+      "url": "sounds/ipa/john_esling/007A.mp3",
+      "codepoints": [
+        122
+      ],
+      "chars": "z"
+    },
+    {
+      "file": "014B.mp3",
+      "stem": "014B",
+      "url": "sounds/ipa/john_esling/014B.mp3",
+      "codepoints": [
+        331
+      ],
+      "chars": "ŋ"
+    },
+    {
+      "file": "025B.mp3",
+      "stem": "025B",
+      "url": "sounds/ipa/john_esling/025B.mp3",
+      "codepoints": [
+        603
+      ],
+      "chars": "ɛ"
+    },
+    {
+      "file": "025C.mp3",
+      "stem": "025C",
+      "url": "sounds/ipa/john_esling/025C.mp3",
+      "codepoints": [
+        604
+      ],
+      "chars": "ɜ"
+    },
+    {
+      "file": "025E.mp3",
+      "stem": "025E",
+      "url": "sounds/ipa/john_esling/025E.mp3",
+      "codepoints": [
+        606
+      ],
+      "chars": "ɞ"
+    },
+    {
+      "file": "025F.mp3",
+      "stem": "025F",
+      "url": "sounds/ipa/john_esling/025F.mp3",
+      "codepoints": [
+        607
+      ],
+      "chars": "ɟ"
+    },
+    {
+      "file": "026A.mp3",
+      "stem": "026A",
+      "url": "sounds/ipa/john_esling/026A.mp3",
+      "codepoints": [
+        618
+      ],
+      "chars": "ɪ"
+    },
+    {
+      "file": "026C.mp3",
+      "stem": "026C",
+      "url": "sounds/ipa/john_esling/026C.mp3",
+      "codepoints": [
+        620
+      ],
+      "chars": "ɬ"
+    },
+    {
+      "file": "026D.mp3",
+      "stem": "026D",
+      "url": "sounds/ipa/john_esling/026D.mp3",
+      "codepoints": [
+        621
+      ],
+      "chars": "ɭ"
+    },
+    {
+      "file": "026E.mp3",
+      "stem": "026E",
+      "url": "sounds/ipa/john_esling/026E.mp3",
+      "codepoints": [
+        622
+      ],
+      "chars": "ɮ"
+    },
+    {
+      "file": "026F.mp3",
+      "stem": "026F",
+      "url": "sounds/ipa/john_esling/026F.mp3",
+      "codepoints": [
+        623
+      ],
+      "chars": "ɯ"
+    },
+    {
+      "file": "027A.mp3",
+      "stem": "027A",
+      "url": "sounds/ipa/john_esling/027A.mp3",
+      "codepoints": [
+        634
+      ],
+      "chars": "ɺ"
+    },
+    {
+      "file": "027B.mp3",
+      "stem": "027B",
+      "url": "sounds/ipa/john_esling/027B.mp3",
+      "codepoints": [
+        635
+      ],
+      "chars": "ɻ"
+    },
+    {
+      "file": "027D.mp3",
+      "stem": "027D",
+      "url": "sounds/ipa/john_esling/027D.mp3",
+      "codepoints": [
+        637
+      ],
+      "chars": "ɽ"
+    },
+    {
+      "file": "027E.mp3",
+      "stem": "027E",
+      "url": "sounds/ipa/john_esling/027E.mp3",
+      "codepoints": [
+        638
+      ],
+      "chars": "ɾ"
+    },
+    {
+      "file": "028A.mp3",
+      "stem": "028A",
+      "url": "sounds/ipa/john_esling/028A.mp3",
+      "codepoints": [
+        650
+      ],
+      "chars": "ʊ"
+    },
+    {
+      "file": "028B.mp3",
+      "stem": "028B",
+      "url": "sounds/ipa/john_esling/028B.mp3",
+      "codepoints": [
+        651
+      ],
+      "chars": "ʋ"
+    },
+    {
+      "file": "028C.mp3",
+      "stem": "028C",
+      "url": "sounds/ipa/john_esling/028C.mp3",
+      "codepoints": [
+        652
+      ],
+      "chars": "ʌ"
+    },
+    {
+      "file": "028D.mp3",
+      "stem": "028D",
+      "url": "sounds/ipa/john_esling/028D.mp3",
+      "codepoints": [
+        653
+      ],
+      "chars": "ʍ"
+    },
+    {
+      "file": "028E.mp3",
+      "stem": "028E",
+      "url": "sounds/ipa/john_esling/028E.mp3",
+      "codepoints": [
+        654
+      ],
+      "chars": "ʎ"
+    },
+    {
+      "file": "028F.mp3",
+      "stem": "028F",
+      "url": "sounds/ipa/john_esling/028F.mp3",
+      "codepoints": [
+        655
+      ],
+      "chars": "ʏ"
+    },
+    {
+      "file": "029B.mp3",
+      "stem": "029B",
+      "url": "sounds/ipa/john_esling/029B.mp3",
+      "codepoints": [
+        667
+      ],
+      "chars": "ʛ"
+    },
+    {
+      "file": "029C.mp3",
+      "stem": "029C",
+      "url": "sounds/ipa/john_esling/029C.mp3",
+      "codepoints": [
+        668
+      ],
+      "chars": "ʜ"
+    },
+    {
+      "file": "029D.mp3",
+      "stem": "029D",
+      "url": "sounds/ipa/john_esling/029D.mp3",
+      "codepoints": [
+        669
+      ],
+      "chars": "ʝ"
+    },
+    {
+      "file": "029F.mp3",
+      "stem": "029F",
+      "url": "sounds/ipa/john_esling/029F.mp3",
+      "codepoints": [
+        671
+      ],
+      "chars": "ʟ"
+    },
+    {
+      "file": "030B.mp3",
+      "stem": "030B",
+      "url": "sounds/ipa/john_esling/030B.mp3",
+      "codepoints": [
+        779
+      ],
+      "chars": "̋"
+    },
+    {
+      "file": "030C.mp3",
+      "stem": "030C",
+      "url": "sounds/ipa/john_esling/030C.mp3",
+      "codepoints": [
+        780
+      ],
+      "chars": "̌"
+    },
+    {
+      "file": "030F.mp3",
+      "stem": "030F",
+      "url": "sounds/ipa/john_esling/030F.mp3",
+      "codepoints": [
+        783
+      ],
+      "chars": "̏"
+    },
+    {
+      "file": "031D_v2.mp3",
+      "stem": "031D_v2",
+      "url": "sounds/ipa/john_esling/031D_v2.mp3",
+      "codepoints": [
+        797
+      ],
+      "chars": "̝",
+      "variant": 2
+    },
+    {
+      "file": "031E_v2.mp3",
+      "stem": "031E_v2",
+      "url": "sounds/ipa/john_esling/031E_v2.mp3",
+      "codepoints": [
+        798
+      ],
+      "chars": "̞",
+      "variant": 2
+    },
+    {
+      "file": "032A_v1.mp3",
+      "stem": "032A_v1",
+      "url": "sounds/ipa/john_esling/032A_v1.mp3",
+      "codepoints": [
+        810
+      ],
+      "chars": "̪",
+      "variant": 1
+    },
+    {
+      "file": "032A_v2.mp3",
+      "stem": "032A_v2",
+      "url": "sounds/ipa/john_esling/032A_v2.mp3",
+      "codepoints": [
+        810
+      ],
+      "chars": "̪",
+      "variant": 2
+    },
+    {
+      "file": "032C_v1.mp3",
+      "stem": "032C_v1",
+      "url": "sounds/ipa/john_esling/032C_v1.mp3",
+      "codepoints": [
+        812
+      ],
+      "chars": "̬",
+      "variant": 1
+    },
+    {
+      "file": "032C_v2.mp3",
+      "stem": "032C_v2",
+      "url": "sounds/ipa/john_esling/032C_v2.mp3",
+      "codepoints": [
+        812
+      ],
+      "chars": "̬",
+      "variant": 2
+    },
+    {
+      "file": "033A_v1.mp3",
+      "stem": "033A_v1",
+      "url": "sounds/ipa/john_esling/033A_v1.mp3",
+      "codepoints": [
+        826
+      ],
+      "chars": "̺",
+      "variant": 1
+    },
+    {
+      "file": "033A_v2.mp3",
+      "stem": "033A_v2",
+      "url": "sounds/ipa/john_esling/033A_v2.mp3",
+      "codepoints": [
+        826
+      ],
+      "chars": "̺",
+      "variant": 2
+    },
+    {
+      "file": "033B_v1.mp3",
+      "stem": "033B_v1",
+      "url": "sounds/ipa/john_esling/033B_v1.mp3",
+      "codepoints": [
+        827
+      ],
+      "chars": "̻",
+      "variant": 1
+    },
+    {
+      "file": "033B_v2.mp3",
+      "stem": "033B_v2",
+      "url": "sounds/ipa/john_esling/033B_v2.mp3",
+      "codepoints": [
+        827
+      ],
+      "chars": "̻",
+      "variant": 2
+    },
+    {
+      "file": "033C_v1.mp3",
+      "stem": "033C_v1",
+      "url": "sounds/ipa/john_esling/033C_v1.mp3",
+      "codepoints": [
+        828
+      ],
+      "chars": "̼",
+      "variant": 1
+    },
+    {
+      "file": "033C_v2.mp3",
+      "stem": "033C_v2",
+      "url": "sounds/ipa/john_esling/033C_v2.mp3",
+      "codepoints": [
+        828
+      ],
+      "chars": "̼",
+      "variant": 2
+    },
+    {
+      "file": "035C.mp3",
+      "stem": "035C",
+      "url": "sounds/ipa/john_esling/035C.mp3",
+      "codepoints": [
+        860
+      ],
+      "chars": "͜"
+    },
+    {
+      "file": "0061.mp3",
+      "stem": "0061",
+      "url": "sounds/ipa/john_esling/0061.mp3",
+      "codepoints": [
+        97
+      ],
+      "chars": "a"
+    },
+    {
+      "file": "0062.mp3",
+      "stem": "0062",
+      "url": "sounds/ipa/john_esling/0062.mp3",
+      "codepoints": [
+        98
+      ],
+      "chars": "b"
+    },
+    {
+      "file": "0063.mp3",
+      "stem": "0063",
+      "url": "sounds/ipa/john_esling/0063.mp3",
+      "codepoints": [
+        99
+      ],
+      "chars": "c"
+    },
+    {
+      "file": "0064.mp3",
+      "stem": "0064",
+      "url": "sounds/ipa/john_esling/0064.mp3",
+      "codepoints": [
+        100
+      ],
+      "chars": "d"
+    },
+    {
+      "file": "0065.mp3",
+      "stem": "0065",
+      "url": "sounds/ipa/john_esling/0065.mp3",
+      "codepoints": [
+        101
+      ],
+      "chars": "e"
+    },
+    {
+      "file": "0066.mp3",
+      "stem": "0066",
+      "url": "sounds/ipa/john_esling/0066.mp3",
+      "codepoints": [
+        102
+      ],
+      "chars": "f"
+    },
+    {
+      "file": "0068.mp3",
+      "stem": "0068",
+      "url": "sounds/ipa/john_esling/0068.mp3",
+      "codepoints": [
+        104
+      ],
+      "chars": "h"
+    },
+    {
+      "file": "0069.mp3",
+      "stem": "0069",
+      "url": "sounds/ipa/john_esling/0069.mp3",
+      "codepoints": [
+        105
+      ],
+      "chars": "i"
+    },
+    {
+      "file": "0070_02BC.mp3",
+      "stem": "0070_02BC",
+      "url": "sounds/ipa/john_esling/0070_02BC.mp3",
+      "codepoints": [
+        112,
+        700
+      ],
+      "chars": "pʼ"
+    },
+    {
+      "file": "0070.mp3",
+      "stem": "0070",
+      "url": "sounds/ipa/john_esling/0070.mp3",
+      "codepoints": [
+        112
+      ],
+      "chars": "p"
+    },
+    {
+      "file": "0071.mp3",
+      "stem": "0071",
+      "url": "sounds/ipa/john_esling/0071.mp3",
+      "codepoints": [
+        113
+      ],
+      "chars": "q"
+    },
+    {
+      "file": "0072.mp3",
+      "stem": "0072",
+      "url": "sounds/ipa/john_esling/0072.mp3",
+      "codepoints": [
+        114
+      ],
+      "chars": "r"
+    },
+    {
+      "file": "0073_02BC.mp3",
+      "stem": "0073_02BC",
+      "url": "sounds/ipa/john_esling/0073_02BC.mp3",
+      "codepoints": [
+        115,
+        700
+      ],
+      "chars": "sʼ"
+    },
+    {
+      "file": "0073.mp3",
+      "stem": "0073",
+      "url": "sounds/ipa/john_esling/0073.mp3",
+      "codepoints": [
+        115
+      ],
+      "chars": "s"
+    },
+    {
+      "file": "0074_02BC.mp3",
+      "stem": "0074_02BC",
+      "url": "sounds/ipa/john_esling/0074_02BC.mp3",
+      "codepoints": [
+        116,
+        700
+      ],
+      "chars": "tʼ"
+    },
+    {
+      "file": "0074.mp3",
+      "stem": "0074",
+      "url": "sounds/ipa/john_esling/0074.mp3",
+      "codepoints": [
+        116
+      ],
+      "chars": "t"
+    },
+    {
+      "file": "0075.mp3",
+      "stem": "0075",
+      "url": "sounds/ipa/john_esling/0075.mp3",
+      "codepoints": [
+        117
+      ],
+      "chars": "u"
+    },
+    {
+      "file": "0076.mp3",
+      "stem": "0076",
+      "url": "sounds/ipa/john_esling/0076.mp3",
+      "codepoints": [
+        118
+      ],
+      "chars": "v"
+    },
+    {
+      "file": "0077.mp3",
+      "stem": "0077",
+      "url": "sounds/ipa/john_esling/0077.mp3",
+      "codepoints": [
+        119
+      ],
+      "chars": "w"
+    },
+    {
+      "file": "0078.mp3",
+      "stem": "0078",
+      "url": "sounds/ipa/john_esling/0078.mp3",
+      "codepoints": [
+        120
+      ],
+      "chars": "x"
+    },
+    {
+      "file": "0079.mp3",
+      "stem": "0079",
+      "url": "sounds/ipa/john_esling/0079.mp3",
+      "codepoints": [
+        121
+      ],
+      "chars": "y"
+    },
+    {
+      "file": "0127.mp3",
+      "stem": "0127",
+      "url": "sounds/ipa/john_esling/0127.mp3",
+      "codepoints": [
+        295
+      ],
+      "chars": "ħ"
+    },
+    {
+      "file": "0153.mp3",
+      "stem": "0153",
+      "url": "sounds/ipa/john_esling/0153.mp3",
+      "codepoints": [
+        339
+      ],
+      "chars": "œ"
+    },
+    {
+      "file": "207F.mp3",
+      "stem": "207F",
+      "url": "sounds/ipa/john_esling/207F.mp3",
+      "codepoints": [
+        8319
+      ],
+      "chars": "ⁿ"
+    },
+    {
+      "file": "0250.mp3",
+      "stem": "0250",
+      "url": "sounds/ipa/john_esling/0250.mp3",
+      "codepoints": [
+        592
+      ],
+      "chars": "ɐ"
+    },
+    {
+      "file": "0251.mp3",
+      "stem": "0251",
+      "url": "sounds/ipa/john_esling/0251.mp3",
+      "codepoints": [
+        593
+      ],
+      "chars": "ɑ"
+    },
+    {
+      "file": "0252.mp3",
+      "stem": "0252",
+      "url": "sounds/ipa/john_esling/0252.mp3",
+      "codepoints": [
+        594
+      ],
+      "chars": "ɒ"
+    },
+    {
+      "file": "0253.mp3",
+      "stem": "0253",
+      "url": "sounds/ipa/john_esling/0253.mp3",
+      "codepoints": [
+        595
+      ],
+      "chars": "ɓ"
+    },
+    {
+      "file": "0254.mp3",
+      "stem": "0254",
+      "url": "sounds/ipa/john_esling/0254.mp3",
+      "codepoints": [
+        596
+      ],
+      "chars": "ɔ"
+    },
+    {
+      "file": "0255.mp3",
+      "stem": "0255",
+      "url": "sounds/ipa/john_esling/0255.mp3",
+      "codepoints": [
+        597
+      ],
+      "chars": "ɕ"
+    },
+    {
+      "file": "0256.mp3",
+      "stem": "0256",
+      "url": "sounds/ipa/john_esling/0256.mp3",
+      "codepoints": [
+        598
+      ],
+      "chars": "ɖ"
+    },
+    {
+      "file": "0257.mp3",
+      "stem": "0257",
+      "url": "sounds/ipa/john_esling/0257.mp3",
+      "codepoints": [
+        599
+      ],
+      "chars": "ɗ"
+    },
+    {
+      "file": "0258.mp3",
+      "stem": "0258",
+      "url": "sounds/ipa/john_esling/0258.mp3",
+      "codepoints": [
+        600
+      ],
+      "chars": "ɘ"
+    },
+    {
+      "file": "0259.mp3",
+      "stem": "0259",
+      "url": "sounds/ipa/john_esling/0259.mp3",
+      "codepoints": [
+        601
+      ],
+      "chars": "ə"
+    },
+    {
+      "file": "0260.mp3",
+      "stem": "0260",
+      "url": "sounds/ipa/john_esling/0260.mp3",
+      "codepoints": [
+        608
+      ],
+      "chars": "ɠ"
+    },
+    {
+      "file": "0261.mp3",
+      "stem": "0261",
+      "url": "sounds/ipa/john_esling/0261.mp3",
+      "codepoints": [
+        609
+      ],
+      "chars": "ɡ"
+    },
+    {
+      "file": "0262.mp3",
+      "stem": "0262",
+      "url": "sounds/ipa/john_esling/0262.mp3",
+      "codepoints": [
+        610
+      ],
+      "chars": "ɢ"
+    },
+    {
+      "file": "0263.mp3",
+      "stem": "0263",
+      "url": "sounds/ipa/john_esling/0263.mp3",
+      "codepoints": [
+        611
+      ],
+      "chars": "ɣ"
+    },
+    {
+      "file": "0264.mp3",
+      "stem": "0264",
+      "url": "sounds/ipa/john_esling/0264.mp3",
+      "codepoints": [
+        612
+      ],
+      "chars": "ɤ"
+    },
+    {
+      "file": "0265.mp3",
+      "stem": "0265",
+      "url": "sounds/ipa/john_esling/0265.mp3",
+      "codepoints": [
+        613
+      ],
+      "chars": "ɥ"
+    },
+    {
+      "file": "0266.mp3",
+      "stem": "0266",
+      "url": "sounds/ipa/john_esling/0266.mp3",
+      "codepoints": [
+        614
+      ],
+      "chars": "ɦ"
+    },
+    {
+      "file": "0267.mp3",
+      "stem": "0267",
+      "url": "sounds/ipa/john_esling/0267.mp3",
+      "codepoints": [
+        615
+      ],
+      "chars": "ɧ"
+    },
+    {
+      "file": "0268.mp3",
+      "stem": "0268",
+      "url": "sounds/ipa/john_esling/0268.mp3",
+      "codepoints": [
+        616
+      ],
+      "chars": "ɨ"
+    },
+    {
+      "file": "0270.mp3",
+      "stem": "0270",
+      "url": "sounds/ipa/john_esling/0270.mp3",
+      "codepoints": [
+        624
+      ],
+      "chars": "ɰ"
+    },
+    {
+      "file": "0271.mp3",
+      "stem": "0271",
+      "url": "sounds/ipa/john_esling/0271.mp3",
+      "codepoints": [
+        625
+      ],
+      "chars": "ɱ"
+    },
+    {
+      "file": "0272.mp3",
+      "stem": "0272",
+      "url": "sounds/ipa/john_esling/0272.mp3",
+      "codepoints": [
+        626
+      ],
+      "chars": "ɲ"
+    },
+    {
+      "file": "0273.mp3",
+      "stem": "0273",
+      "url": "sounds/ipa/john_esling/0273.mp3",
+      "codepoints": [
+        627
+      ],
+      "chars": "ɳ"
+    },
+    {
+      "file": "0274.mp3",
+      "stem": "0274",
+      "url": "sounds/ipa/john_esling/0274.mp3",
+      "codepoints": [
+        628
+      ],
+      "chars": "ɴ"
+    },
+    {
+      "file": "0275.mp3",
+      "stem": "0275",
+      "url": "sounds/ipa/john_esling/0275.mp3",
+      "codepoints": [
+        629
+      ],
+      "chars": "ɵ"
+    },
+    {
+      "file": "0276.mp3",
+      "stem": "0276",
+      "url": "sounds/ipa/john_esling/0276.mp3",
+      "codepoints": [
+        630
+      ],
+      "chars": "ɶ"
+    },
+    {
+      "file": "0278.mp3",
+      "stem": "0278",
+      "url": "sounds/ipa/john_esling/0278.mp3",
+      "codepoints": [
+        632
+      ],
+      "chars": "ɸ"
+    },
+    {
+      "file": "0279.mp3",
+      "stem": "0279",
+      "url": "sounds/ipa/john_esling/0279.mp3",
+      "codepoints": [
+        633
+      ],
+      "chars": "ɹ"
+    },
+    {
+      "file": "0280.mp3",
+      "stem": "0280",
+      "url": "sounds/ipa/john_esling/0280.mp3",
+      "codepoints": [
+        640
+      ],
+      "chars": "ʀ"
+    },
+    {
+      "file": "0281.mp3",
+      "stem": "0281",
+      "url": "sounds/ipa/john_esling/0281.mp3",
+      "codepoints": [
+        641
+      ],
+      "chars": "ʁ"
+    },
+    {
+      "file": "0282.mp3",
+      "stem": "0282",
+      "url": "sounds/ipa/john_esling/0282.mp3",
+      "codepoints": [
+        642
+      ],
+      "chars": "ʂ"
+    },
+    {
+      "file": "0283.mp3",
+      "stem": "0283",
+      "url": "sounds/ipa/john_esling/0283.mp3",
+      "codepoints": [
+        643
+      ],
+      "chars": "ʃ"
+    },
+    {
+      "file": "0284.mp3",
+      "stem": "0284",
+      "url": "sounds/ipa/john_esling/0284.mp3",
+      "codepoints": [
+        644
+      ],
+      "chars": "ʄ"
+    },
+    {
+      "file": "0288.mp3",
+      "stem": "0288",
+      "url": "sounds/ipa/john_esling/0288.mp3",
+      "codepoints": [
+        648
+      ],
+      "chars": "ʈ"
+    },
+    {
+      "file": "0289.mp3",
+      "stem": "0289",
+      "url": "sounds/ipa/john_esling/0289.mp3",
+      "codepoints": [
+        649
+      ],
+      "chars": "ʉ"
+    },
+    {
+      "file": "0290.mp3",
+      "stem": "0290",
+      "url": "sounds/ipa/john_esling/0290.mp3",
+      "codepoints": [
+        656
+      ],
+      "chars": "ʐ"
+    },
+    {
+      "file": "0291.mp3",
+      "stem": "0291",
+      "url": "sounds/ipa/john_esling/0291.mp3",
+      "codepoints": [
+        657
+      ],
+      "chars": "ʑ"
+    },
+    {
+      "file": "0292.mp3",
+      "stem": "0292",
+      "url": "sounds/ipa/john_esling/0292.mp3",
+      "codepoints": [
+        658
+      ],
+      "chars": "ʒ"
+    },
+    {
+      "file": "0294.mp3",
+      "stem": "0294",
+      "url": "sounds/ipa/john_esling/0294.mp3",
+      "codepoints": [
+        660
+      ],
+      "chars": "ʔ"
+    },
+    {
+      "file": "0295.mp3",
+      "stem": "0295",
+      "url": "sounds/ipa/john_esling/0295.mp3",
+      "codepoints": [
+        661
+      ],
+      "chars": "ʕ"
+    },
+    {
+      "file": "0298.mp3",
+      "stem": "0298",
+      "url": "sounds/ipa/john_esling/0298.mp3",
+      "codepoints": [
+        664
+      ],
+      "chars": "ʘ"
+    },
+    {
+      "file": "0299.mp3",
+      "stem": "0299",
+      "url": "sounds/ipa/john_esling/0299.mp3",
+      "codepoints": [
+        665
+      ],
+      "chars": "ʙ"
+    },
+    {
+      "file": "0300.mp3",
+      "stem": "0300",
+      "url": "sounds/ipa/john_esling/0300.mp3",
+      "codepoints": [
+        768
+      ],
+      "chars": "̀"
+    },
+    {
+      "file": "0301.mp3",
+      "stem": "0301",
+      "url": "sounds/ipa/john_esling/0301.mp3",
+      "codepoints": [
+        769
+      ],
+      "chars": "́"
+    },
+    {
+      "file": "0302.mp3",
+      "stem": "0302",
+      "url": "sounds/ipa/john_esling/0302.mp3",
+      "codepoints": [
+        770
+      ],
+      "chars": "̂"
+    },
+    {
+      "file": "0303.mp3",
+      "stem": "0303",
+      "url": "sounds/ipa/john_esling/0303.mp3",
+      "codepoints": [
+        771
+      ],
+      "chars": "̃"
+    },
+    {
+      "file": "0304.mp3",
+      "stem": "0304",
+      "url": "sounds/ipa/john_esling/0304.mp3",
+      "codepoints": [
+        772
+      ],
+      "chars": "̄"
+    },
+    {
+      "file": "0318.mp3",
+      "stem": "0318",
+      "url": "sounds/ipa/john_esling/0318.mp3",
+      "codepoints": [
+        792
+      ],
+      "chars": "̘"
+    },
+    {
+      "file": "0319.mp3",
+      "stem": "0319",
+      "url": "sounds/ipa/john_esling/0319.mp3",
+      "codepoints": [
+        793
+      ],
+      "chars": "̙"
+    },
+    {
+      "file": "0324_v1.mp3",
+      "stem": "0324_v1",
+      "url": "sounds/ipa/john_esling/0324_v1.mp3",
+      "codepoints": [
+        804
+      ],
+      "chars": "̤",
+      "variant": 1
+    },
+    {
+      "file": "0324_v2.mp3",
+      "stem": "0324_v2",
+      "url": "sounds/ipa/john_esling/0324_v2.mp3",
+      "codepoints": [
+        804
+      ],
+      "chars": "̤",
+      "variant": 2
+    },
+    {
+      "file": "0325_v1.mp3",
+      "stem": "0325_v1",
+      "url": "sounds/ipa/john_esling/0325_v1.mp3",
+      "codepoints": [
+        805
+      ],
+      "chars": "̥",
+      "variant": 1
+    },
+    {
+      "file": "0325_v2.mp3",
+      "stem": "0325_v2",
+      "url": "sounds/ipa/john_esling/0325_v2.mp3",
+      "codepoints": [
+        805
+      ],
+      "chars": "̥",
+      "variant": 2
+    },
+    {
+      "file": "0330_v1.mp3",
+      "stem": "0330_v1",
+      "url": "sounds/ipa/john_esling/0330_v1.mp3",
+      "codepoints": [
+        816
+      ],
+      "chars": "̰",
+      "variant": 1
+    },
+    {
+      "file": "0330_v2.mp3",
+      "stem": "0330_v2",
+      "url": "sounds/ipa/john_esling/0330_v2.mp3",
+      "codepoints": [
+        816
+      ],
+      "chars": "̰",
+      "variant": 2
+    },
+    {
+      "file": "0361.mp3",
+      "stem": "0361",
+      "url": "sounds/ipa/john_esling/0361.mp3",
+      "codepoints": [
+        865
+      ],
+      "chars": "͡"
+    }
+  ]
+}
