@@ -6,7 +6,6 @@
     "start": "ng serve",
     "build": "ng build",
     "generate:sound-manifests": "tsx scripts/generate-sound-manifests.ts",
-    "rename:wikipedia-sound": "tsx scripts/rename-wikipedia-sound.ts",
     "watch": "ng build --watch --configuration development",
     "typecheck:spec": "tsc -p tsconfig.spec.json --noEmit",
     "test": "ng test --watch=false --coverage=true",

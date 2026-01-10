@@ -1,4 +1,4 @@
-import { generateSoundManifests } from './sound-manifests.lib';
+import { generateSoundManifests } from './sound-manifests';
 
 const repoRoot = process.cwd();
 

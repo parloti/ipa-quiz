@@ -1,111 +1,54 @@
 <div class="quiz-container">
-  <div>
-    <h1>{{ quiz$()?.name }}</h1>
+  @let quiz = openedQuiz$();
+  @let index = index$();
+  @let question = question$();
+  @let selectedAnswer = selectedAnswer$();
+  @let answered = answered$();
+  @let finished = finished$();
+  @let questionsLength = questionsLength$();
 
-    <p>Question {{ (index$() ?? 0) + 1 }}</p>
+  @if (
+    quiz !== void 0 && index !== void 0 && question !== void 0 && questionsLength !== void 0
+  ) {
+    <div>
+      <h1>{{ quiz.name }}</h1>
 
-    @if (question$()?.type === questionElement.Letter) {
-      <p>
-        <span>{{ question$()?.vowel?.letter }}</span> (<span
-          class="symbol-name"
-          >{{ question$()?.vowel?.symbol?.names?.join(', ') | lowercase }}</span
-        >)
-      </p>
-    } @else if (question$()?.type === questionElement.Name) {
-      <p>{{ question$()?.vowel?.name }}</p>
-    } @else if (question$()?.type === questionElement.Sound) {
-      <button
-        mat-icon-button
-        matRipple
-        (click)="$event.preventDefault(); audio.play()"
-      >
-        <ng-icon name="lucideCirclePlay"></ng-icon>
-      </button>
-      <audio
-        #audio
-        src="/vowel_audio/{{ question$()?.vowel?.audio?.file }}"
-      ></audio>
-    } @else {
-      <span>ERROR:</span>
-      <code>{{ question$()?.type }}</code>
-      <code>{{ typeof question$() }}</code>
-    }
+      <p>Question {{ index + 1 }}</p>
 
-    <mat-radio-group
-      class="d-flex flex-column"
-      [value]="selectedAnswer$()"
-      (change)="selectAnswer($event)"
-    >
-      @for (option of question$()?.options; track $index) {
-        <mat-radio-button
-          color="primary"
-          [disabled]="answered$()"
-          [disabledInteractive]="true"
-          [ngClass]="{
-            border:
-              answered$() &&
-              (selectedAnswer$() === option.id ||
-                question$()?.vowel?.id === option.id),
-            'border-danger':
-              selectedAnswer$() === option.id &&
-              question$()?.vowel?.id !== option.id,
-            'border-success': option.id === question$()?.vowel?.id,
-          }"
-          [value]="option.id"
-        >
-          @if (option.type === questionElement.Letter) {
-            {{ option.letter }}
-          } @else if (option.type === questionElement.Name) {
-            {{ option.name }}
-          } @else if (option.type === questionElement.Sound) {
-            <button
-              mat-icon-button
-              matRipple
-              (click)="$event.preventDefault(); audio.play()"
-            >
-              <ng-icon name="lucideCirclePlay"></ng-icon>
-            </button>
-            <audio #audio src="vowel_audio/{{ option.audio.file }}"></audio>
-          } @else {
-            <span>ERROR</span>
-          }
-        </mat-radio-button>
-      }
-    </mat-radio-group>
+      <app-quiz-prompt
+        [question]="question"
+        (playSound)="updateQuestionSound($event)"
+      ></app-quiz-prompt>
 
-    <button
-      color="primary"
-      mat-raised-button
-      [disabled]="index$() === 0"
-      (click)="previous()"
-    >
-      Previous
-    </button>
+      <app-quiz-options
+        [answered]="answered"
+        [question]="question"
+        [selectedAnswer]="selectedAnswer"
+        (playSound)="updateOptionSound($event.vowel, $event.optionIndex)"
+        (selectAnswer)="selectAnswer($event)"
+      ></app-quiz-options>
 
-    @if (!finished$()) {
-      <button
-        mat-raised-button
-        [color]="answered$() ? 'primary' : 'warn'"
-        [disabled]="
-          !selectedAnswer$() ||
-          (answered$() && index$() === (questionsLength$() ?? 0) - 1)
-        "
-        (click)="answered$() ? next() : verify()"
-      >
-        {{ answered$() ? 'Next' : 'Verify' }}
-      </button>
-    }
+      <app-quiz-controls
+        [answered]="answered"
+        [finished]="finished"
+        [index]="index"
+        [questionsLength]="questionsLength"
+        [selectedAnswer]="selectedAnswer"
+        (newSession)="onNewSession()"
+        (next)="onNext()"
+        (previous)="onPrevious()"
+        (verify)="onVerify()"
+      ></app-quiz-controls>
+    </div>
 
-    @if (finished$()) {
-      <button color="warn" mat-raised-button (click)="newSession()">
-        New Session
-      </button>
-    }
-  </div>
-
-  <app-chart
-    [answered]="answered$()"
-    [question]="question$()"
-    [selectedAnswer]="selectedAnswer$()"
-  ></app-chart>
+    <app-chart
+      [answered]="answered"
+      [question]="question"
+      [selectedAnswer]="selectedAnswer"
+    ></app-chart>
+  } @else {
+    <p class="alert alert-danger" role="alert">
+      ERROR: Ops! Something went wrong.
+    </p>
+  }
 </div>

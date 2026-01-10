@@ -1,0 +1,40 @@
+@let vowel = question$().vowel;
+@if (isLetterQuestion$()) {
+  <p>
+    <span>{{ vowel.letter }}</span> -
+    <span class="symbol-name">{{
+      vowel.symbol.names.join(', ') | lowercase
+    }}</span>
+  </p>
+} @else if (isNameQuestion$()) {
+  <p>{{ vowel.name }}</p>
+} @else if (
+  isSoundQuestion$() && vowel.sounds!==void 0 && vowel.soundIndex!==void 0
+) {
+  <button
+    mat-icon-button
+    matRipple
+    (click)="
+      $event.preventDefault();
+      $event.stopPropagation();
+      audio.play();
+      onPlaySound(vowel)
+    "
+  >
+    <ng-icon name="lucideCirclePlay"></ng-icon>
+  </button>
+
+  @let sound = vowel.sounds[vowel.soundIndex];
+
+  <span class="ms-2 d-inline-flex align-items-center gap-2">
+    @if (sound.logoUrl) {
+      <img height="18" [alt]="sound.sourceId" [src]="sound.logoUrl" />
+    }
+    <small [title]="sound.sourceId">{{ sound.voiceId }}</small>
+  </span>
+  <audio #audio preload="auto" [src]="sound.url"></audio>
+} @else {
+  <p class="alert alert-danger" role="alert">
+    ERROR: Ops! Something went wrong.
+  </p>
+}

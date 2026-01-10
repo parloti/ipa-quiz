@@ -13,7 +13,6 @@ function createVowel(id: IVowel['id']): IVowel {
   return {
     id,
     name: 'Test',
-    audio: { href: '', file: '' },
     letter: { upper: 'A', lower: 'a' } as any,
     symbol: { entities: [], href: '', unicodes: [], names: [] },
   };

@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "generatedAt": "2026-01-08T17:47:05.322Z",
+  "generatedAt": "2026-01-10T22:32:51.680Z",
   "sourceId": "ipa",
   "voiceId": "jill_house",
   "path": "sounds/ipa/jill_house",
-  "count": 156,
+  "count": 155,
   "files": [
     {
       "file": "00E6.mp3",
@@ -1431,11 +1431,6 @@
         42780
       ],
       "chars": "ꜜ"
-    },
-    {
-      "file": "manifest.json.mp3",
-      "stem": "manifest.json",
-      "url": "sounds/ipa/jill_house/manifest.json.mp3"
     }
   ]
 }

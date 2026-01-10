@@ -10,6 +10,7 @@ import { IStatistics } from '../models/istatistics';
 import { IVowel } from '../models/ivowel';
 import { actions } from '../state/actions';
 import { quizFeature } from '../state/quiz-feature';
+import { randomInteger } from '../utils/random-integer';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,18 @@ import { quizFeature } from '../state/quiz-feature';
 export class QuizService {
   practiceOpened(quizId: IQuiz['id']) {
     this.store$.dispatch(actions.practiceOpened({ quizId }));
+  }
+
+  updateOptionSound(vowel: IVowel, optionIndex: number) {
+    const soundIndex = randomInteger(0, vowel.sounds?.length ?? 0);
+    this.store$.dispatch(
+      actions.updateOptionSoundIndex({ optionIndex, soundIndex }),
+    );
+  }
+
+  updateQuestionSound(vowel: IVowel) {
+    const soundIndex = randomInteger(0, vowel.sounds?.length ?? 0);
+    this.store$.dispatch(actions.updateQuestionSoundIndex({ soundIndex }));
   }
 
   goBack() {

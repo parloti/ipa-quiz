@@ -111,6 +111,45 @@ export const quizFeature = createFeature({
       }
       return state;
     }),
+    immerOn(actions.updateQuestionSoundIndex, (state, { soundIndex }) => {
+      const id = state.currentQuizId;
+      if (!id) {
+        return state;
+      }
+      const quiz = state.quizzes.find(quiz => quiz.id === id);
+      const sessionId = quiz?.currentSessionId;
+      if (!sessionId) {
+        return state;
+      }
+      const session = quiz.sessions.find(session => session.id === sessionId);
+      const index = session?.currentQuestionIndex;
+      const questions = session?.questions;
+      if (index !== void 0 && questions?.[index]) {
+        questions[index].vowel.soundIndex = soundIndex;
+      }
+      return state;
+    }),
+    immerOn(
+      actions.updateOptionSoundIndex,
+      (state, { optionIndex, soundIndex }) => {
+        const id = state.currentQuizId;
+        if (!id) {
+          return state;
+        }
+        const quiz = state.quizzes.find(quiz => quiz.id === id);
+        const sessionId = quiz?.currentSessionId;
+        if (!sessionId) {
+          return state;
+        }
+        const session = quiz.sessions.find(session => session.id === sessionId);
+        const index = session?.currentQuestionIndex;
+        const questions = session?.questions;
+        if (index !== void 0 && questions?.[index]) {
+          questions[index].options[optionIndex].soundIndex = soundIndex;
+        }
+        return state;
+      },
+    ),
     on(actions.restoreState, (state, { restoring }) =>
       updateState(state, restoring),
     ),

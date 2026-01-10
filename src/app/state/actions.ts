@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IQuestion } from '../models/iquestion';
 import { IQuiz } from '../models/iquiz';
 import { ISession } from '../models/isession';
 import { IState } from '../models/istate';
@@ -30,6 +31,14 @@ export const actions = {
   selectAnswer: createAction(
     '[Quiz] Select Answer',
     props<{ selectedAnswer: IVowel['id'] }>(),
+  ),
+  updateQuestionSoundIndex: createAction(
+    '[Quiz] Update Question Sound Played',
+    props<{ soundIndex: number }>(),
+  ),
+  updateOptionSoundIndex: createAction(
+    '[Quiz] Update Option Sound Played',
+    props<{ optionIndex: number; soundIndex: number }>(),
   ),
   restoreState: createAction(
     '[App] Restore State',

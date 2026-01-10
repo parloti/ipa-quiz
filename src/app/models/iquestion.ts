@@ -14,8 +14,11 @@ interface IUnansweredQuestion {
 }
 
 export type IQuestion = {
-  vowel: IVowel;
+  vowel: IVowel & { soundIndex?: number };
   type: QuestionElement;
   index: number;
-  options: (IVowel & { type: QuestionElement })[];
+  options: (IVowel & { type: QuestionElement, soundIndex?: number })[];
 } & (IAnsweredQuestion | IUnansweredQuestion);
+
+
+type c = IQuestion['answered']

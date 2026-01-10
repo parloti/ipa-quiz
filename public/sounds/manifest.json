@@ -1,45 +1,53 @@
 {
   "version": 1,
-  "generatedAt": "2026-01-08T17:47:05.346Z",
+  "generatedAt": "2026-01-10T22:32:51.705Z",
   "sources": [
     {
       "sourceId": "ipa",
       "logoUrl": "sounds/ipa/logo.png",
+      "title": "IPA (International Phonetic Association)",
       "voices": [
         {
           "voiceId": "jill_house",
           "path": "sounds/ipa/jill_house",
           "manifestUrl": "sounds/ipa/jill_house/manifest.json",
-          "count": 156
+          "count": 155,
+          "author": "Jill House"
         },
         {
           "voiceId": "john_esling",
           "path": "sounds/ipa/john_esling",
           "manifestUrl": "sounds/ipa/john_esling/manifest.json",
-          "count": 158
+          "count": 158,
+          "author": "John Esling"
         },
         {
           "voiceId": "john_wells",
           "path": "sounds/ipa/john_wells",
           "manifestUrl": "sounds/ipa/john_wells/manifest.json",
-          "count": 162
+          "count": 162,
+          "author": "John Wells"
         },
         {
           "voiceId": "peter_ladefoged",
           "path": "sounds/ipa/peter_ladefoged",
           "manifestUrl": "sounds/ipa/peter_ladefoged/manifest.json",
-          "count": 169
+          "count": 169,
+          "author": "Peter Ladefoged"
         }
       ]
     },
     {
       "sourceId": "wikipedia",
+      "logoUrl": "sounds/wikipedia/logo.ico",
+      "title": "Wikipedia Audio",
       "voices": [
         {
           "voiceId": "default",
           "path": "sounds/wikipedia",
           "manifestUrl": "sounds/wikipedia/manifest.json",
-          "count": 33
+          "count": 33,
+          "author": "Wikipedia contributors"
         }
       ]
     }

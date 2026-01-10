@@ -1,0 +1,62 @@
+@let selectedAnswer = selectedAnswer$();
+
+<mat-radio-group
+  class="d-flex flex-column"
+  [value]="selectedAnswer"
+  (change)="onSelectAnswer($event)"
+>
+  @let isAnswered = answered$();
+  @let question = question$();
+  @let correctOptionId = question.vowel.id;
+
+  @for (option of question.options; track $index) {
+    @let isSelected = selectedAnswer === option.id;
+    @let isCorrect = isAnswered && option.id === correctOptionId;
+    <mat-radio-button
+      color="primary"
+      [disabled]="isAnswered"
+      [disabledInteractive]="true"
+      [ngClass]="{
+        border: isAnswered && (isSelected || isCorrect),
+        'border-danger': isSelected && !isCorrect,
+        'border-success': isCorrect,
+      }"
+      [value]="option.id"
+    >
+      @if (option.type === questionElement.Letter) {
+        {{ option.letter }}
+      } @else if (option.type === questionElement.Name) {
+        {{ option.name }}
+      } @else if (
+        option.type === questionElement.Sound  && option.sounds!==void 0 && option.soundIndex!==void 0
+      ) {
+        <button
+          mat-icon-button
+          matRipple
+          (click)="
+            $event.preventDefault();
+            $event.stopPropagation();
+            audio.play();
+            onPlaySound(option, $index)
+          "
+        >
+          <ng-icon name="lucideCirclePlay"></ng-icon>
+        </button>
+        @let sound = option.sounds[option.soundIndex];
+
+        <span class="ms-2 d-inline-flex align-items-center gap-2">
+          @if (sound.logoUrl) {
+            <img height="18" [alt]="sound.sourceId" [src]="sound.logoUrl" />
+          }
+          <small [title]="sound.sourceId">{{ sound.voiceId }}</small>
+        </span>
+
+        <audio #audio preload="auto" [src]="sound?.url"></audio>
+      } @else {
+        <p class="alert alert-danger" role="alert">
+          ERROR: Ops! Something went wrong.
+        </p>
+      }
+    </mat-radio-button>
+  }
+</mat-radio-group>

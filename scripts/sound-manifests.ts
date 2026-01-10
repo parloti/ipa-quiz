@@ -52,7 +52,7 @@ async function listImmediateDirectories(absPath: string): Promise<string[]> {
 async function hasMp3Files(absPath: string): Promise<boolean> {
   const dirents = await fs.readdir(absPath, { withFileTypes: true });
   return dirents.some(
-    dirent => dirent.isFile() && dirent.name.toLowerCase().endsWith('.mp3'),
+    dirent => dirent.isFile() && dirent.name.toLowerCase().endsWith('.mp3'), // TODO: Add support for other formats.
   );
 }
 
@@ -154,10 +154,124 @@ async function discoverProviderLogoUrls(
   return logoMap;
 }
 
+async function readProviderMeta(
+  soundsRootAbsPath: string,
+  sourceId: string,
+): Promise<{ title?: string; logo?: string } | undefined> {
+  const candidate = path.join(soundsRootAbsPath, sourceId, 'meta.json');
+  try {
+    const contents = await fs.readFile(candidate, 'utf8');
+    const parsed = JSON.parse(contents) as {
+      title?: string;
+      logo?: string;
+      logoUrl?: string;
+    };
+    // Accept either `logo` (file name/path) or `logoUrl` (public path)
+    const logo = parsed.logoUrl ?? parsed.logo;
+    return { title: parsed.title, logo };
+  } catch {
+    return undefined;
+  }
+}
+
+async function readVoiceMeta(
+  soundsRootAbsPath: string,
+  sourceId: string,
+  voiceId: string,
+): Promise<{ author?: string } | undefined> {
+  const candidate = path.join(
+    soundsRootAbsPath,
+    sourceId,
+    voiceId,
+    'meta.json',
+  );
+  try {
+    const contents = await fs.readFile(candidate, 'utf8');
+    const parsed = JSON.parse(contents) as { author?: string };
+    return { author: parsed.author };
+  } catch {
+    return undefined;
+  }
+}
+
+async function discoverProviderMeta(
+  repoRoot: string,
+): Promise<Map<string, { title?: string; logo?: string }>> {
+  const soundsRootAbsPath = path.join(repoRoot, 'public', 'sounds');
+  const sources = await listImmediateDirectories(soundsRootAbsPath);
+  const results = await Promise.all(
+    sources.map(async sourceId => {
+      const meta = await readProviderMeta(soundsRootAbsPath, sourceId);
+      return meta ? { sourceId, meta } : undefined;
+    }),
+  );
+
+  const map = new Map<string, { title?: string; logo?: string }>();
+  for (const r of results) {
+    if (r) {
+      map.set(r.sourceId, r.meta);
+    }
+  }
+  return map;
+}
+
+async function discoverVoiceMeta(
+  repoRoot: string,
+): Promise<Map<string, { author?: string }>> {
+  const soundsRootAbsPath = path.join(repoRoot, 'public', 'sounds');
+  const sources = await listImmediateDirectories(soundsRootAbsPath);
+  const entries: Array<{ key: string; meta: { author?: string } } | undefined> =
+    [];
+
+  for (const sourceId of sources) {
+    const voiceIds = await listImmediateDirectories(
+      path.join(soundsRootAbsPath, sourceId),
+    );
+    for (const voiceId of voiceIds) {
+      const meta = await readVoiceMeta(soundsRootAbsPath, sourceId, voiceId);
+      if (meta) {
+        entries.push({ key: `${sourceId}/${voiceId}`, meta });
+      }
+    }
+    // Also check for a default voice meta at the source root (support a few filenames)
+    const defaultCandidates = [
+      'voice.meta.json',
+      'default.meta.json',
+      'meta.voice.json',
+    ];
+    for (const fname of defaultCandidates) {
+      const candidate = path.join(soundsRootAbsPath, sourceId, fname);
+      try {
+        const contents = await fs.readFile(candidate, 'utf8');
+        const parsed = JSON.parse(contents) as {
+          author?: string;
+        };
+        entries.push({
+          key: `${sourceId}/default`,
+          meta: { author: parsed.author },
+        });
+        break;
+      } catch {
+        // ignore
+      }
+    }
+  }
+
+  const map = new Map<string, { author?: string }>();
+  for (const e of entries) {
+    if (e) {
+      map.set(e.key, e.meta);
+    }
+  }
+  return map;
+}
+
 function buildGlobalSoundsManifest(
   targets: readonly SoundVoiceTarget[],
   counts: ReadonlyMap<string, number>,
   providerLogos: ReadonlyMap<string, string>,
+  providerMeta: ReadonlyMap<string, { title?: string; logo?: string }>,
+  voiceMeta: ReadonlyMap<string, { author?: string }>,
 ): GlobalSoundsManifest {
   const bySource = new Map<string, SoundVoiceTarget[]>();
   for (const target of targets) {
@@ -173,6 +287,12 @@ function buildGlobalSoundsManifest(
       ...(providerLogos.get(sourceId)
         ? { logoUrl: providerLogos.get(sourceId) }
         : {}),
+      ...(providerMeta.get(sourceId)?.logo
+        ? { logoUrl: providerMeta.get(sourceId)?.logo }
+        : {}),
+      ...(providerMeta.get(sourceId)?.title
+        ? { title: providerMeta.get(sourceId)?.title }
+        : {}),
       voices: voices
         .slice()
         .sort((leftVoice, rightVoice) =>
@@ -183,6 +303,9 @@ function buildGlobalSoundsManifest(
           path: voice.publicPath,
           manifestUrl: normalizeUrlPath(voice.publicPath, 'manifest.json'),
           count: counts.get(`${sourceId}/${voice.voiceId}`) ?? 0,
+          ...(voiceMeta.get(`${sourceId}/${voice.voiceId}`)?.author
+            ? { author: voiceMeta.get(`${sourceId}/${voice.voiceId}`)?.author }
+            : {}),
         })),
     }));
 
@@ -226,11 +349,15 @@ async function writeGlobalManifest(args: {
   targets: readonly SoundVoiceTarget[];
   counts: ReadonlyMap<string, number>;
   providerLogos: ReadonlyMap<string, string>;
+  providerMeta: ReadonlyMap<string, { title?: string; logo?: string }>;
+  voiceMeta: ReadonlyMap<string, { author?: string }>;
 }): Promise<void> {
   const globalManifest = buildGlobalSoundsManifest(
     args.targets,
     args.counts,
     args.providerLogos,
+    args.providerMeta,
+    args.voiceMeta,
   );
   const globalOutFile = path.join(
     args.repoRoot,
@@ -247,9 +374,18 @@ async function writeGlobalManifest(args: {
 export async function generateSoundManifests(repoRoot: string): Promise<void> {
   const targets = await discoverSoundVoiceTargets(repoRoot);
   const providerLogos = await discoverProviderLogoUrls(repoRoot);
+  const providerMeta = await discoverProviderMeta(repoRoot);
+  const voiceMeta = await discoverVoiceMeta(repoRoot);
   const writeResults = await Promise.all(
     targets.map(target => buildAndWriteVoiceManifest(target)),
   );
   const counts = toCountsMap(writeResults);
-  await writeGlobalManifest({ repoRoot, targets, counts, providerLogos });
+  await writeGlobalManifest({
+    repoRoot,
+    targets,
+    counts,
+    providerLogos,
+    providerMeta,
+    voiceMeta,
+  });
 }

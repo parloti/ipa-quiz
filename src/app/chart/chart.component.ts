@@ -24,18 +24,14 @@ import { VOWELS } from '../vowels';
   styleUrl: './chart.component.scss',
 })
 export class ChartComponent {
-  public readonly answered = /* v8 ignore start -- @preserve */ input.required<
-    boolean | undefined
-  >(); /* v8 ignore stop -- @preserve */
+  /* v8 ignore next -- @preserve */
+  public readonly answered = input.required<boolean | undefined>();
 
-  public readonly selectedAnswer =
-    /* v8 ignore start -- @preserve */ input.required<
-      IVowel['id'] | undefined
-    >(); /* v8 ignore stop -- @preserve */
-  public readonly question = /* v8 ignore start -- @preserve */ input.required<
-    IQuestion | undefined
-  >(); /* v8 ignore stop -- @preserve */
+  /* v8 ignore next -- @preserve */
+  public readonly selectedAnswer = input.required<IVowel['id'] | undefined>();
+  public readonly question = input.required<IQuestion | undefined>();
 
+  /* v8 ignore next -- @preserve */
   private readonly _vowelsByPosition = Object.groupBy(VOWELS, vowel =>
     vowel.name.replace(/ (un)*rounded$/, ''),
   );

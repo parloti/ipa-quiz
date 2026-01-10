@@ -1,6 +1,7 @@
 # TODO
 
 - Adicionar vozes alterativas.
+- Salvar na nuvem (Google Firebase?)
 - Adicionar meta de SMA
 - Sons no chart
 - Bandeiras indicando lingua de presença (EN, PT, IT, DE) https://www.vulgarlang.com/ipa/

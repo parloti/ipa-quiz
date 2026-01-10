@@ -1,120 +1,81 @@
-import { KeyValuePipe, LowerCasePipe, NgClass } from '@angular/common';
-import { Component, Signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatRipple } from '@angular/material/core';
-import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { MatRadioChange } from '@angular/material/radio';
+import { provideIcons } from '@ng-icons/core';
 import { lucideCirclePlay } from '@ng-icons/lucide';
-import { IQuestion } from '../models/iquestion';
-import { IQuiz } from '../models/iquiz';
-import { ISession } from '../models/isession';
+import { ChartComponent } from '../chart/chart.component';
 import { IVowel } from '../models/ivowel';
-import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
-import { VOWELS } from '../vowels';
-import { ChartComponent } from "../chart/chart.component";
+import { LogSignals } from '../utils/create-logging-effect';
+import { QuizControlsComponent } from './components/quiz-controls.component';
+import { QuizOptionsComponent } from './components/quiz-options.component';
+import { QuizPromptComponent } from './components/quiz-prompt.component';
 
+@LogSignals()
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
   imports: [
-    FormsModule,
-    LowerCasePipe,
-    MatButtonModule,
-    MatRadioModule,
-    MatTooltipModule,
-    NgClass,
-    ReactiveFormsModule,
-    NgIconComponent,
-    MatRipple,
-    MatIconButton,
-    ChartComponent
-],
+    QuizPromptComponent,
+    QuizOptionsComponent,
+    QuizControlsComponent,
+    ChartComponent,
+  ],
   styleUrl: './quiz.component.scss',
   viewProviders: [provideIcons({ lucideCirclePlay })],
 })
 export class QuizComponent {
-  private _selectedAnswer$: Signal<IVowel['id'] | undefined>;
-  public get selectedAnswer$(): Signal<IVowel['id'] | undefined> {
-    return this._selectedAnswer$;
-  }
+  protected readonly selectedAnswer$ = toSignal(
+    inject(QuizService).selectedAnswer$,
+  );
 
-  private _session$: Signal<ISession | undefined>;
-  public get session$(): Signal<ISession | undefined> {
-    return this._session$;
-  }
+  protected readonly finished$ = ((
+    finished$ = toSignal(inject(QuizService).finished$),
+  ) => computed(() => finished$() ?? false))();
 
-  public readonly _finished$: Signal<boolean | undefined>;
-  public get finished$(): Signal<boolean | undefined> {
-    return this._finished$;
-  }
+  protected readonly openedQuiz$ = toSignal(inject(QuizService).openedQuiz$);
 
-  public get questionElement(): typeof QuestionElement {
-    return QuestionElement;
-  }
-  private _quiz$: Signal<IQuiz | undefined>;
-  public get quiz$(): Signal<IQuiz | undefined> {
-    return this._quiz$;
-  }
+  protected readonly index$ = toSignal(
+    inject(QuizService).currentQuestionIndex$,
+  );
 
-  public readonly _index$: Signal<number | undefined>;
+  protected readonly question$ = toSignal(inject(QuizService).question$);
 
-  public get index$(): Signal<number | undefined> {
-    return this._index$;
-  }
+  protected readonly answered$ = ((
+    answered$ = toSignal(inject(QuizService).answered$),
+  ) => computed(() => answered$() ?? false))();
+  protected readonly questionsLength$ = toSignal(
+    inject(QuizService).questionsLength$,
+  );
 
-  public readonly _question$: Signal<IQuestion | undefined>;
+  private readonly quizService = inject(QuizService);
 
-  public get question$(): Signal<IQuestion | undefined> {
-    return this._question$;
-  }
-
-  private readonly _answered$: Signal<boolean | undefined>;
-  public get answered$(): Signal<boolean | undefined> {
-    return this._answered$;
-  }
-
-  private readonly _questionsLength$: Signal<number | undefined>;
-  public get questionsLength$(): Signal<number | undefined> {
-    return this._questionsLength$;
-  }
-
-  constructor(private readonly quizService: QuizService) {
-    this._finished$ = toSignal(this.quizService.finished$);
-    this._quiz$ = toSignal(this.quizService.openedQuiz$);
-    this._index$ = toSignal(this.quizService.currentQuestionIndex$);
-    this._question$ = toSignal(this.quizService.question$);
-    this._session$ = toSignal(this.quizService.session$);
-    this._selectedAnswer$ = toSignal(this.quizService.selectedAnswer$);
-    this._answered$ = toSignal(this.quizService.answered$);
-    this._questionsLength$ = toSignal(this.quizService.questionsLength$);
-  }
-
-  public next(): void {
+  protected onNext(): void {
     this.quizService.next();
   }
 
-  public verify(): void {
+  protected onVerify(): void {
     this.quizService.answerCurrent();
   }
 
-  public newSession(): void {
+  protected onNewSession(): void {
     this.quizService.goToNewSession();
   }
 
-  public get vowels() {
-    return VOWELS;
-  }
-
-  public selectAnswer($event: MatRadioChange) {
-    const selectedAnswer = $event.value as IVowel['id'];
+  protected selectAnswer(evt: MatRadioChange) {
+    const selectedAnswer = evt.value as IVowel['id'];
     this.quizService.selectAnswer(selectedAnswer);
   }
 
-  public previous(): void {
+  protected onPrevious(): void {
     this.quizService.previousQuestion();
+  }
+
+  protected updateOptionSound(vowel: IVowel, optionIndex: number): void {
+    this.quizService.updateOptionSound(vowel, optionIndex);
+  }
+
+  protected updateQuestionSound(vowel: IVowel): void {
+    this.quizService.updateQuestionSound(vowel);
   }
 }

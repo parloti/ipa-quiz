@@ -29,11 +29,15 @@ export type GlobalVoiceIndex = {
   path: string;
   manifestUrl: string;
   count: number;
+  /** Optional author or attribution for the voice */
+  author?: string;
 };
 
 export type GlobalSourceIndex = {
   sourceId: string;
   logoUrl?: string;
+  /** Optional provider title for display */
+  title?: string;
   voices: GlobalVoiceIndex[];
 };
 
@@ -52,4 +56,5 @@ export const LOGO_EXTENSIONS: readonly string[] = [
   'webp',
   'jpg',
   'jpeg',
+  'icon',
 ];

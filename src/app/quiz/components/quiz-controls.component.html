@@ -1,0 +1,47 @@
+<div class="d-flex gap-4 py-3">
+  <div class="flex-grow-1">
+    <button
+      class="w-100"
+      color="primary"
+      mat-raised-button
+      [disabled]="isFirstQuestion$()"
+      (click)="onPrevious()"
+    >
+      Previous
+    </button>
+  </div>
+  <div class="flex-grow-1">
+    @if (isFinished$()) {
+      <button
+        class="w-100"
+        color="warn"
+        mat-raised-button
+        (click)="onNewSession()"
+      >
+        New Session
+      </button>
+    } @else {
+      @if (isAnswered$()) {
+        <button
+          class="w-100"
+          color="primary"
+          mat-raised-button
+          [disabled]="isNextDisabled$()"
+          (click)="onNext()"
+        >
+          Next
+        </button>
+      } @else {
+        <button
+          class="w-100"
+          color="warn"
+          mat-raised-button
+          [disabled]="isVerifyDisabled$()"
+          (click)="onVerify()"
+        >
+          Verify
+        </button>
+      }
+    }
+  </div>
+</div>
