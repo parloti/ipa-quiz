@@ -19,6 +19,3 @@ export type IQuestion = {
   index: number;
   options: (IVowel & { type: QuestionElement, soundIndex?: number })[];
 } & (IAnsweredQuestion | IUnansweredQuestion);
-
-
-type c = IQuestion['answered']

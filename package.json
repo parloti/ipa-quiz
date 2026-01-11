@@ -44,6 +44,7 @@
     "@ngrx/router-store": "21.0.1",
     "@ngrx/store": "21.0.1",
     "bootstrap": "5.3.8",
+    "firebase": "^12.7.0",
     "hammerjs": "2.0.8",
     "ngrx-immer": "^4.0.0",
     "patch-package": "^8.0.1",

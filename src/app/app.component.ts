@@ -2,13 +2,13 @@ import { Location } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { provideIcons } from '@ng-icons/core';
 import { lucideChevronLeft } from '@ng-icons/lucide';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatButtonModule, MatIconModule],
+  imports: [RouterOutlet, MatButtonModule, MatIconModule, RouterLink],
 
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

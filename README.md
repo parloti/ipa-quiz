@@ -1,6 +1,5 @@
 # TODO
 
-- Adicionar vozes alterativas.
 - Salvar na nuvem (Google Firebase?)
 - Adicionar meta de SMA
 - Sons no chart

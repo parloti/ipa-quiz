@@ -5,6 +5,7 @@ import {
   provideEnvironmentInitializer,
   provideZonelessChangeDetection,
 } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   provideRouter,
   RouteReuseStrategy,
@@ -31,6 +32,7 @@ import { RouterSerializer } from './state/router-serializer';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
+    provideAnimationsAsync(),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideEnvironmentInitializer(routerDebugTracing),

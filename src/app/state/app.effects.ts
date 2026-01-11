@@ -15,13 +15,16 @@ import {
   map,
   mergeMap,
   skip,
+  tap,
   withLatestFrom,
 } from 'rxjs';
+import { debounceTime, filter as rxFilter } from 'rxjs/operators';
 import { IQuiz } from '../models/iquiz';
 import { ISession } from '../models/isession';
+import { CloudSyncService } from '../services/cloud-sync.service';
+import { FirebaseAuthService } from '../services/firebase-auth.service';
 import { PhonemeSoundsService } from '../services/phoneme-sounds.service';
 import { QuizService } from '../services/quiz.service';
-import { randomInteger } from '../utils/random-integer';
 import { actions } from './actions';
 import { APP_ROUTER_NAVIGATED } from './app-router-actions';
 import { createQuestionsWithSounds } from './create-questions';
@@ -36,10 +39,21 @@ export class AppEffects {
 
   private readonly quizService = inject(QuizService);
   private readonly phonemeSoundsService = inject(PhonemeSoundsService);
+  private readonly cloudSyncService = inject(CloudSyncService);
+  private readonly firebaseAuth = inject(FirebaseAuthService);
 
   loadState$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ROOT_EFFECTS_INIT),
+      tap(() => {
+        try {
+          // Initialize Firebase auth and attempt anonymous sign-in if configured
+          this.firebaseAuth.init();
+          this.firebaseAuth.signInAnonymously().catch(() => {});
+        } catch (e) {
+          // ignore initialization errors
+        }
+      }),
       map(() => {
         try {
           const stringifiedState = localStorage.getItem('state');
@@ -144,6 +158,25 @@ export class AppEffects {
                 console.error('Unable to save state to local storage:', error);
               }
             }),
+          ),
+        ),
+      ),
+    { dispatch: false },
+  );
+
+  // Debounced cloud sync: batches rapid changes and sends only diffs.
+  cloudSync$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(actions.restoreState, actions.restoreStateFailed),
+        // Wait for the local state stream to emit the current state
+        exhaustMap(() =>
+          this.quizService.state$.pipe(
+            rxFilter(state => state !== void 0),
+            // Debounce to avoid sending too frequently (3s)
+            debounceTime(3000),
+            // call cloud sync but don't dispatch actions
+            mergeMap(state => this.cloudSyncService.sync(state)),
           ),
         ),
       ),
