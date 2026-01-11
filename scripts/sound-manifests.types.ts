@@ -56,5 +56,5 @@ export const LOGO_EXTENSIONS: readonly string[] = [
   'webp',
   'jpg',
   'jpeg',
-  'icon',
+  'ico',
 ];

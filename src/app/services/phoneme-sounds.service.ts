@@ -7,11 +7,13 @@ type GlobalSoundsManifest = {
   sources: Array<{
     sourceId: string;
     logoUrl?: string;
+    title?: string;
     voices: Array<{
       voiceId: string;
       path: string;
       manifestUrl: string;
       count: number;
+      author?: string;
     }>;
   }>;
 };
@@ -87,6 +89,26 @@ export class PhonemeSoundsService {
         .map(source => [source.sourceId, source.logoUrl!] as const),
     );
 
+    const titleBySourceId = new Map(
+      index.sources
+        .filter(source => !!source.title)
+        .map(source => [source.sourceId, source.title!] as const),
+    );
+
+    const voiceMetaByKey = new Map(
+      index.sources
+        .flatMap(source =>
+          source.voices.map(
+            v =>
+              [
+                `${source.sourceId}/${v.voiceId}`,
+                { author: v.author },
+              ] as const,
+          ),
+        )
+        .filter(([, meta]) => meta.author),
+    );
+
     const manifests = await Promise.all(
       voiceRefs.map(manifestUrl => this.loadVoiceManifest(manifestUrl)),
     );
@@ -100,6 +122,12 @@ export class PhonemeSoundsService {
           voiceId: manifest.voiceId,
           ...(logoBySourceId.get(manifest.sourceId)
             ? { logoUrl: logoBySourceId.get(manifest.sourceId) }
+            : {}),
+          ...(titleBySourceId.get(manifest.sourceId)
+            ? { sourceTitle: titleBySourceId.get(manifest.sourceId) }
+            : {}),
+          ...(voiceMetaByKey.get(`${manifest.sourceId}/${manifest.voiceId}`)
+            ? voiceMetaByKey.get(`${manifest.sourceId}/${manifest.voiceId}`)
             : {}),
         })),
     );
@@ -151,7 +179,7 @@ export class PhonemeSoundsService {
 
   private async fetchJson<T>(relativeUrl: string): Promise<T> {
     const url = new URL(relativeUrl, document.baseURI).toString();
-    const response = await fetch(url, { cache: 'force-cache' });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(
