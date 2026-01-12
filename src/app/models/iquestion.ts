@@ -1,8 +1,10 @@
-import { IVowel } from './ivowel';
+import { IVowel, IVowelID } from './ivowel';
 import { QuestionElement } from './question-element';
 
+type IOption = IVowel & { type: QuestionElement; soundIndex?: number };
+
 interface IAnsweredQuestion {
-  selectedAnswer: IVowel['id'];
+  selectedAnswer: IVowelID;
   answered: true;
   answeredDate: string;
 }
@@ -17,5 +19,5 @@ export type IQuestion = {
   vowel: IVowel & { soundIndex?: number };
   type: QuestionElement;
   index: number;
-  options: (IVowel & { type: QuestionElement, soundIndex?: number })[];
+  options: Record<number | string, IOption>;
 } & (IAnsweredQuestion | IUnansweredQuestion);

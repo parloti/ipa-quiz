@@ -1,6 +1,8 @@
 import { ILetter } from './iletter';
 import { type PhonemeSoundRef } from './phoneme-sound';
 
+export type IVowelID = `vowel-${number}`;
+
 export interface IVowel {
   letter: ILetter;
   name: string;
@@ -11,7 +13,7 @@ export interface IVowel {
     unicodes: string[];
     names: string[];
   };
-  id: `vowel-${number}`;
+  id: IVowelID;
 
   /** Optional precomputed sound choices for this vowel (static-host friendly). */
   sounds?: PhonemeSoundRef[];

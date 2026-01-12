@@ -9,11 +9,11 @@ import { immerOn } from 'ngrx-immer/store';
 import { defaultQuizzes } from '../default-quizzes';
 import { IMovingAverage } from '../models/imoving-average';
 import { IQuestion } from '../models/iquestion';
-import { IQuiz } from '../models/iquiz';
+import { IQuiz, IQuizID } from '../models/iquiz';
 import { ISession } from '../models/isession';
 import { IState } from '../models/istate';
 import { IStatistics } from '../models/istatistics';
-import { IVowel } from '../models/ivowel';
+import { IVowel, IVowelID } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { VOWELS } from '../vowels';
 import { actions } from './actions';
@@ -66,7 +66,7 @@ function createNestedSelectors<
 }
 
 const initialState: IState = Object.freeze<IState>({
-  quizzes: [...defaultQuizzes],
+  quizzes: { ...defaultQuizzes },
   currentQuizId: void 0,
   version: 1,
 });
@@ -76,18 +76,18 @@ export const quizFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(actions.addQuiz, (state, { quiz }) =>
-      updateState(state, { quizzes: [...state.quizzes, quiz] }),
+      updateState(state, { quizzes: { ...state.quizzes, [quiz.id]: quiz } }),
     ),
     immerOn(actions.addSession, (state, { session }) => {
-      const quiz = state.quizzes.find(quiz => quiz.id === session.quizId);
-      quiz?.sessions.push(session);
+      const quiz = state.quizzes[session.quizId];
+      quiz.sessions[session.id] = session;
       return state;
     }),
     on(actions.openQuiz, (state, { quizId }) =>
       updateState(state, { currentQuizId: quizId }),
     ),
     immerOn(actions.openSession, (state, { quizId, sessionId }) => {
-      const quiz = state.quizzes.find(quiz => quiz.id === quizId);
+      const quiz = state.quizzes[quizId];
       if (quiz) {
         quiz.currentSessionId = sessionId;
       }
@@ -98,15 +98,15 @@ export const quizFeature = createFeature({
       if (!id) {
         return state;
       }
-      const quiz = state.quizzes.find(quiz => quiz.id === id);
+      const quiz = state.quizzes[id];
       const sessionId = quiz?.currentSessionId;
       if (!sessionId) {
         return state;
       }
-      const session = quiz.sessions.find(session => session.id === sessionId);
+      const session = quiz.sessions[sessionId];
       const index = session?.currentQuestionIndex;
       const questions = session?.questions;
-      if (index !== void 0 && questions?.[index]) {
+      if (index !== void 0 && questions[index] !== void 0) {
         questions[index].selectedAnswer = selectedAnswer;
       }
       return state;
@@ -116,15 +116,15 @@ export const quizFeature = createFeature({
       if (!id) {
         return state;
       }
-      const quiz = state.quizzes.find(quiz => quiz.id === id);
+      const quiz = state.quizzes[id];
       const sessionId = quiz?.currentSessionId;
       if (!sessionId) {
         return state;
       }
-      const session = quiz.sessions.find(session => session.id === sessionId);
+      const session = quiz.sessions[sessionId];
       const index = session?.currentQuestionIndex;
       const questions = session?.questions;
-      if (index !== void 0 && questions?.[index]) {
+      if (index !== void 0 && questions[index] !== void 0) {
         questions[index].vowel.soundIndex = soundIndex;
       }
       return state;
@@ -136,15 +136,15 @@ export const quizFeature = createFeature({
         if (!id) {
           return state;
         }
-        const quiz = state.quizzes.find(quiz => quiz.id === id);
+        const quiz = state.quizzes[id];
         const sessionId = quiz?.currentSessionId;
         if (!sessionId) {
           return state;
         }
-        const session = quiz.sessions.find(session => session.id === sessionId);
+        const session = quiz.sessions?.[sessionId];
         const index = session?.currentQuestionIndex;
         const questions = session?.questions;
-        if (index !== void 0 && questions?.[index]) {
+        if (index !== void 0 && questions[index] !== void 0) {
           questions[index].options[optionIndex].soundIndex = soundIndex;
         }
         return state;
@@ -158,15 +158,15 @@ export const quizFeature = createFeature({
       if (!id) {
         return state;
       }
-      const quiz = state.quizzes.find(quiz => quiz.id === id);
+      const quiz = state.quizzes[id];
       const sessionId = quiz?.currentSessionId;
       if (!sessionId) {
         return state;
       }
-      const session = quiz.sessions.find(session => session.id === sessionId);
+      const session = quiz.sessions?.[sessionId];
       const index = session?.currentQuestionIndex;
       const questions = session?.questions;
-      if (index !== void 0 && questions?.[index]) {
+      if (index !== void 0 && questions[index] !== void 0) {
         questions[index].answered = true;
         questions[index].answeredDate = date;
       }
@@ -177,16 +177,14 @@ export const quizFeature = createFeature({
       if (!id) {
         return state;
       }
-      const quiz = state.quizzes.find(quiz => quiz.id === id);
+      const quiz = state.quizzes[id];
       const sessionId = quiz?.currentSessionId;
       if (!sessionId) {
         return state;
       }
-      const session = quiz.sessions.find(session => session.id === sessionId);
-      if (
-        session &&
-        session.currentQuestionIndex < session.questions.length - 1
-      ) {
+      const session = quiz.sessions[sessionId];
+      const questionsLen = session ? Object.keys(session.questions).length : 0;
+      if (session && session.currentQuestionIndex < questionsLen - 1) {
         session.currentQuestionIndex++;
       }
       return state;
@@ -196,12 +194,12 @@ export const quizFeature = createFeature({
       if (!id) {
         return state;
       }
-      const quiz = state.quizzes.find(quiz => quiz.id === id);
+      const quiz = state.quizzes[id];
       const sessionId = quiz?.currentSessionId;
       if (!sessionId) {
         return state;
       }
-      const session = quiz.sessions.find(session => session.id === sessionId);
+      const session = quiz.sessions?.[sessionId];
       if (session && session.currentQuestionIndex > 0) {
         session.currentQuestionIndex--;
       }
@@ -211,7 +209,7 @@ export const quizFeature = createFeature({
       const {
         routerState: { url },
       } = payload;
-      const id = url?.match(/quiz-\d+/)?.at(0) as `quiz-${number}` | undefined;
+      const id = url?.match(/quiz-\d+/)?.at(0) as IQuizID | undefined;
       return updateState(state, {
         currentQuizId: id ?? state.currentQuizId,
       });
@@ -221,22 +219,29 @@ export const quizFeature = createFeature({
     const selectCurrentQuiz = createSelector(
       base.selectQuizzes,
       base.selectCurrentQuizId,
-      (quizzes, quizId) => quizzes.find(quiz => quiz.id === quizId),
+      (quizzes, quizId) => (quizId !== void 0 ? quizzes[quizId] : undefined),
     );
 
     const quizSelectors = createNestedSelectors('quiz', selectCurrentQuiz, {
       description: '',
       id: 'quiz-0',
       name: '',
-      sessions: [],
+      sessions: {} as Record<string, ISession>,
       currentSessionId: 'session-0',
     } as IQuiz);
 
     const selectCurrentSession = createSelector(
       quizSelectors.selectQuizSessions,
       quizSelectors.selectQuizCurrentSessionId,
-      (sessions, id) =>
-        sessions?.find(session => session.id === id) ?? sessions?.at(-1),
+      (sessions, id) => {
+        if (!sessions) {
+          return undefined;
+        }
+        if (id !== void 0) {
+          return sessions[id];
+        }
+        return Object.values(sessions).at(-1);
+      },
     );
     const sessionSelectors = createNestedSelectors(
       'session',
@@ -245,19 +250,19 @@ export const quizFeature = createFeature({
         creationDate: '',
         currentQuestionIndex: 0,
         id: 'session-0',
-        questions: [],
+        questions: {} as Record<string, IQuestion>,
         quizId: 'quiz-0',
       } as ISession,
     );
 
     const selectQuestionsLength = createSelector(
       sessionSelectors.selectSessionQuestions,
-      questions => questions?.length,
+      questions => (questions ? Object.keys(questions).length : undefined),
     );
     const selectCurrentQuestion = createSelector(
       sessionSelectors.selectSessionQuestions,
       sessionSelectors.selectSessionCurrentQuestionIndex,
-      (questions, index) => (index === void 0 ? void 0 : questions?.[index]),
+      (questions, index) => (index !== void 0 ? questions?.[index] : void 0),
     );
 
     const currentQuestionSelectors = createNestedSelectors(
@@ -267,7 +272,7 @@ export const quizFeature = createFeature({
         index: 0,
         answered: false,
         answeredDate: void 0,
-        options: [],
+        options: {} as Record<string, any>,
         selectedAnswer: void 0,
         type: QuestionElement.Letter,
         vowel: {} as IVowel,
@@ -277,8 +282,9 @@ export const quizFeature = createFeature({
     const selectStatsBySession = createSelector(
       quizSelectors.selectQuizSessions,
       sessions =>
-        sessions?.map(session => {
-          const stat = session.questions.reduce(
+        Object.values(sessions ?? {}).map(session => {
+          const questions = Object.values(session.questions);
+          const stat = questions.reduce(
             (acc, curr) => {
               if (curr.answered) {
                 acc.answered++;
@@ -310,14 +316,14 @@ export const quizFeature = createFeature({
             {
               answered: 0,
               correct: 0,
-              seen: new Set<IVowel['id']>(),
+              seen: new Set<IVowelID>(),
               wrong: 0,
               currentStreak: 0,
               longestStreak: 0,
             },
           );
 
-          const itens = session.questions.length;
+          const itens = questions.length;
           const seenLength = stat.seen.size;
           return {
             ...stat,
@@ -334,8 +340,8 @@ export const quizFeature = createFeature({
         if (sessions === void 0) {
           return void 0;
         }
-        const stats = sessions
-          .map(session => session.questions)
+        const stats = Object.values(sessions)
+          .map(session => Object.values(session.questions))
           .flat(1)
           .reduce(
             (acc, curr) => {
@@ -369,7 +375,7 @@ export const quizFeature = createFeature({
             {
               answered: 0,
               correct: 0,
-              seen: new Set<IVowel['id']>(),
+              seen: new Set<IVowelID>(),
               wrong: 0,
               currentStreak: 0,
               longestStreak: 0,
@@ -394,8 +400,11 @@ export const quizFeature = createFeature({
         if (sessions === void 0) {
           return undefined;
         }
-        const completed = sessions.filter(
-          session => !session.questions.some(question => !question.answered),
+        const completed = Object.values(sessions).filter(
+          session =>
+            !Object.values(session.questions).some(
+              question => !question.answered,
+            ),
         );
 
         const length = completed.length;
@@ -404,10 +413,11 @@ export const quizFeature = createFeature({
         }
 
         const rates = completed.map(session => {
-          const corrects = session.questions.filter(
+          const qs = Object.values(session.questions ?? {});
+          const corrects = qs.filter(
             q => q.selectedAnswer === q.vowel.id,
           ).length;
-          const questionsLength = session.questions.length;
+          const questionsLength = qs.length;
           return corrects / questionsLength;
         });
 
@@ -447,7 +457,7 @@ export const quizFeature = createFeature({
         sessionSelectors.selectSessionQuestions,
         questions =>
           questions !== void 0 &&
-          !questions.some(question => !question.answered),
+          !Object.values(questions ?? {}).some(question => !question.answered),
       ),
     };
   },

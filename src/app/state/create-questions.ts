@@ -1,5 +1,5 @@
 import { IQuestion } from '../models/iquestion';
-import { IVowel } from '../models/ivowel';
+import { IVowel, IVowelID } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { PhonemeSoundsService } from '../services/phoneme-sounds.service';
 import { randomInteger } from '../utils/random-integer';
@@ -16,11 +16,11 @@ function createQuestionsBase(): IQuestion[] {
   const nQuestions = 10;
   const nAnswers = 5;
 
-  const questionStemVowelIds = new Set<IVowel['id']>();
-  const questionOptionVowelsById = new Map<IVowel['id'], IVowel[]>();
+  const questionStemVowelIds = new Set<IVowelID>();
+  const questionOptionVowelsById = new Map<IVowelID, IVowel[]>();
 
   while (questionStemVowelIds.size < nQuestions) {
-    const optionVowelIds = new Set<IVowel['id']>();
+    const optionVowelIds = new Set<IVowelID>();
     const minVowelId = 1;
     const maxVowelId = VOWELS.length;
     const stemId =
@@ -67,22 +67,24 @@ function createQuestionsBase(): IQuestion[] {
 
     const [askType, ...answerType] = [...questionElements.values()];
 
+    const optionsArr = questionOptionVowelsById.get(vowel.id)!.map(
+      optionVowel =>
+        ({
+          ...optionVowel,
+          type: Math.random() < 0.5 ? answerType[0] : answerType[1],
+        }) as IVowel & { type: QuestionElement },
+    );
+
+    shuffle(optionsArr);
+
     const question: IQuestion = {
       vowel,
       answered: false,
       type: askType,
       index: index,
       selectedAnswer: void 0,
-      options: questionOptionVowelsById.get(vowel.id)!.map(
-        optionVowel =>
-          ({
-            ...optionVowel,
-            type: Math.random() < 0.5 ? answerType[0] : answerType[1],
-          }) as IVowel & { type: QuestionElement },
-      ),
+      options: Object.fromEntries(optionsArr.map(o => [o.id, o])) as any,
     };
-
-    shuffle(question.options);
 
     return question;
   });
@@ -91,14 +93,13 @@ function createQuestionsBase(): IQuestion[] {
 }
 
 function collectVowelsNeedingSounds(questions: readonly IQuestion[]) {
-  const vowelsNeedingSounds = new Map<IVowel['id'], IVowel>();
+  const vowelsNeedingSounds = new Map<IVowelID, IVowel>();
 
   for (const question of questions) {
     if (question.type === QuestionElement.Sound) {
       vowelsNeedingSounds.set(question.vowel.id, question.vowel);
     }
-
-    for (const option of question.options) {
+    for (const option of Object.values(question.options ?? {})) {
       if (option.type === QuestionElement.Sound) {
         vowelsNeedingSounds.set(option.id, option);
       }
@@ -113,10 +114,7 @@ async function enrichQuestionsWithSounds(
   phonemeSoundsService: PhonemeSoundsService,
 ): Promise<void> {
   const vowelsNeedingSounds = collectVowelsNeedingSounds(questions);
-  const soundsByVowelId = new Map<
-    IVowel['id'],
-    NonNullable<IVowel['sounds']>
-  >();
+  const soundsByVowelId = new Map<IVowelID, NonNullable<IVowel['sounds']>>();
 
   for (const vowel of vowelsNeedingSounds.values()) {
     const soundsByChars = await phonemeSoundsService.listSoundsByChars(
@@ -139,8 +137,7 @@ async function enrichQuestionsWithSounds(
         question.vowel.soundIndex = randomInteger(0, sounds.length);
       }
     }
-
-    for (const option of question.options) {
+    for (const option of Object.values(question.options ?? {})) {
       if (option.type === QuestionElement.Sound) {
         const sounds = soundsByVowelId.get(option.id);
         if (sounds && sounds?.length > 0) {

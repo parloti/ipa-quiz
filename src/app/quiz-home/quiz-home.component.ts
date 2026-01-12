@@ -10,7 +10,7 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartSpline } from '@ng-icons/lucide';
 import { map } from 'rxjs';
 import { IMovingAverage } from '../models/imoving-average';
-import { IQuiz } from '../models/iquiz';
+import { IQuizID } from '../models/iquiz';
 import { IStatistics } from '../models/istatistics';
 import { QuizService } from '../services/quiz.service';
 
@@ -53,10 +53,10 @@ export class QuizHomeComponent {
     return this._totalStats$;
   }
 
-  private _quizId: IQuiz['id'] | undefined;
+  private _quizId: IQuizID | undefined;
 
   @Input()
-  public set id(quizId: IQuiz['id']) {
+  public set id(quizId: IQuizID) {
     this._quizId = quizId;
   }
   private readonly router = inject(Router);

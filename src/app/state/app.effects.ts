@@ -20,7 +20,7 @@ import {
 } from 'rxjs';
 import { debounceTime, filter as rxFilter } from 'rxjs/operators';
 import { IQuiz } from '../models/iquiz';
-import { ISession } from '../models/isession';
+import { ISessionID } from '../models/isession';
 import { CloudSyncService } from '../services/cloud-sync.service';
 import { FirebaseAuthService } from '../services/firebase-auth.service';
 import { PhonemeSoundsService } from '../services/phoneme-sounds.service';
@@ -91,13 +91,13 @@ export class AppEffects {
               creationDate: date.toISOString(),
               currentQuestionIndex: 0,
               id: `session-${date.getTime()}`,
-              questions,
+              questions: Object.fromEntries(questions.map(q => [q.index, q])),
               quizId,
             },
           }),
           actions.openSession({
             quizId,
-            sessionId: ('session-' + date.getTime()) as ISession['id'],
+            sessionId: ('session-' + date.getTime()) as ISessionID,
           }),
         ];
       }),
@@ -128,13 +128,13 @@ export class AppEffects {
               creationDate: date.toISOString(),
               currentQuestionIndex: 0,
               id: `session-${date.getTime()}`,
-              questions,
+              questions: Object.fromEntries(questions.map(q => [q.index, q])),
               quizId,
             },
           }),
           actions.openSession({
             quizId,
-            sessionId: ('session-' + date.getTime()) as ISession['id'],
+            sessionId: ('session-' + date.getTime()) as ISessionID,
           }),
         ];
       }),

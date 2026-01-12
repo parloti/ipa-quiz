@@ -9,7 +9,8 @@
   @let question = question$();
   @let correctOptionId = question.vowel.id;
 
-  @for (option of question.options; track $index) {
+  @for (item of question.options | keyvalue; track item.key) {
+    @let option = item.value;
     @let isSelected = selectedAnswer === option.id;
     @let isCorrect = isAnswered && option.id === correctOptionId;
     <mat-radio-button

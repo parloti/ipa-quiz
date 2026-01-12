@@ -1,4 +1,4 @@
-import { NgClass } from '@angular/common';
+import { KeyValuePipe, NgClass } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
@@ -6,15 +6,15 @@ import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { NgIconComponent } from '@ng-icons/core';
 import { LogSignals } from 'src/app/utils/create-logging-effect';
 import { IQuestion } from '../../models/iquestion';
-import { IVowel } from '../../models/ivowel';
+import { IVowel, IVowelID } from '../../models/ivowel';
 import { QuestionElement } from '../../models/question-element';
 
-@LogSignals()
 @Component({
   selector: 'app-quiz-options',
-  imports: [MatRadioModule, NgClass, MatRipple, MatIconButton, NgIconComponent],
+  imports: [MatRadioModule, NgClass, MatRipple, MatIconButton, NgIconComponent, KeyValuePipe],
   templateUrl: './quiz-options.component.html',
 })
+@LogSignals()
 export class QuizOptionsComponent {
   /* v8 ignore next -- @preserve */
   public readonly question$ = input.required<IQuestion>({ alias: 'question' });
@@ -22,7 +22,7 @@ export class QuizOptionsComponent {
   public readonly questionElement = QuestionElement;
 
   /* v8 ignore next -- @preserve */
-  public readonly selectedAnswer$ = input.required<IVowel['id'] | undefined>({
+  public readonly selectedAnswer$ = input.required<IVowelID | undefined>({
     alias: 'selectedAnswer',
   });
 

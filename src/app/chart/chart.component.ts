@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IQuestion } from '../models/iquestion';
-import { IVowel } from '../models/ivowel';
+import { IVowelID } from '../models/ivowel';
 import { VOWELS } from '../vowels';
 
 @Component({
@@ -28,7 +28,7 @@ export class ChartComponent {
   public readonly answered = input.required<boolean | undefined>();
 
   /* v8 ignore next -- @preserve */
-  public readonly selectedAnswer = input.required<IVowel['id'] | undefined>();
+  public readonly selectedAnswer = input.required<IVowelID | undefined>();
   public readonly question = input.required<IQuestion | undefined>();
 
   /* v8 ignore next -- @preserve */

@@ -8,7 +8,6 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { IQuestion } from '../models/iquestion';
 import { IQuiz } from '../models/iquiz';
 import { ISession } from '../models/isession';
-import { IVowel } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { PhonemeSoundsService } from '../services/phoneme-sounds.service';
 import { QuizService } from '../services/quiz.service';
@@ -24,7 +23,7 @@ describe('QuizComponent', () => {
     currentQuestionIndex$: BehaviorSubject<number | undefined>;
     question$: BehaviorSubject<IQuestion | undefined>;
     session$: BehaviorSubject<ISession | undefined>;
-    selectedAnswer$: BehaviorSubject<IVowel['id'] | undefined>;
+    selectedAnswer$: BehaviorSubject<IVowelID | undefined>;
     answered$: BehaviorSubject<boolean | undefined>;
     questionsLength$: BehaviorSubject<number | undefined>;
     next: ReturnType<typeof vi.fn>;
@@ -46,7 +45,7 @@ describe('QuizComponent', () => {
     id: 'quiz-1',
     name: 'Test Quiz',
     description: 'A test quiz',
-    sessions: [],
+    sessions: {},
   });
 
   const createTestQuestion = (
@@ -66,7 +65,9 @@ describe('QuizComponent', () => {
   const createTestSession = (): ISession => ({
     id: 'session-1',
     quizId: 'quiz-1',
-    questions: [createTestQuestion()],
+    questions: Object.fromEntries(
+      [createTestQuestion()].map(q => [String(q.index), q]),
+    ) as any,
     creationDate: new Date().toISOString(),
     currentQuestionIndex: 0,
   });
@@ -80,7 +81,7 @@ describe('QuizComponent', () => {
         createTestQuestion(),
       ),
       session$: new BehaviorSubject<ISession | undefined>(createTestSession()),
-      selectedAnswer$: new BehaviorSubject<IVowel['id'] | undefined>(undefined),
+      selectedAnswer$: new BehaviorSubject<IVowelID | undefined>(undefined),
       answered$: new BehaviorSubject<boolean | undefined>(false),
       questionsLength$: new BehaviorSubject<number | undefined>(5),
       next: vi.fn(),

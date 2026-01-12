@@ -1,13 +1,14 @@
 import { inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { IMovingAverage } from '../models/imoving-average';
 import { IQuestion } from '../models/iquestion';
-import { IQuiz } from '../models/iquiz';
+import { IQuiz, IQuizID } from '../models/iquiz';
 import { ISession } from '../models/isession';
 import { IState } from '../models/istate';
 import { IStatistics } from '../models/istatistics';
-import { IVowel } from '../models/ivowel';
+import { IVowel, IVowelID } from '../models/ivowel';
 import { actions } from '../state/actions';
 import { quizFeature } from '../state/quiz-feature';
 import { randomInteger } from '../utils/random-integer';
@@ -16,7 +17,7 @@ import { randomInteger } from '../utils/random-integer';
   providedIn: 'root',
 })
 export class QuizService {
-  practiceOpened(quizId: IQuiz['id']) {
+  practiceOpened(quizId: IQuizID) {
     this.store$.dispatch(actions.practiceOpened({ quizId }));
   }
 
@@ -53,11 +54,11 @@ export class QuizService {
       actions.answerCurrent({ date: new Date().toISOString() }),
     );
   }
-  public openQuiz(quizId: IQuiz['id']) {
+  public openQuiz(quizId: IQuizID) {
     this.store$.dispatch(actions.openQuiz({ quizId }));
   }
 
-  public selectAnswer(selectedAnswer: IVowel['id']): void {
+  public selectAnswer(selectedAnswer: IVowelID): void {
     this.store$.dispatch(actions.selectAnswer({ selectedAnswer }));
   }
 
@@ -76,8 +77,8 @@ export class QuizService {
     return this._openedQuiz$;
   }
 
-  private readonly _selectedAnswer$: Observable<IVowel['id'] | undefined>;
-  public get selectedAnswer$(): Observable<IVowel['id'] | undefined> {
+  private readonly _selectedAnswer$: Observable<IVowelID | undefined>;
+  public get selectedAnswer$(): Observable<IVowelID | undefined> {
     return this._selectedAnswer$;
   }
 
@@ -136,14 +137,18 @@ export class QuizService {
   constructor() {
     this._finished$ = this.store$.select(quizFeature.selectFinished);
 
-    this._quizzes$ = this.store$.select(quizFeature.selectQuizzes);
+    this._quizzes$ = this.store$
+      .select(quizFeature.selectQuizzes)
+      .pipe(map(q => Object.values(q ?? {})));
     this._openedQuiz$ = this.store$.select(quizFeature.selectCurrentQuiz);
     this._selectedAnswer$ = this.store$.select(
       quizFeature.selectCurrentQuestionSelectedAnswer,
     );
     this._state$ = this.store$.select(quizFeature.selectQuizState);
     this._session$ = this.store$.select(quizFeature.selectCurrentSession);
-    this._questions$ = this.store$.select(quizFeature.selectSessionQuestions);
+    this._questions$ = this.store$
+      .select(quizFeature.selectSessionQuestions)
+      .pipe(map(q => (q ? Object.values(q) : undefined)));
     this._question$ = this.store$.select(quizFeature.selectCurrentQuestion);
     this._currentQuestionIndex$ = this.store$.select(
       quizFeature.selectCurrentQuestionIndex,

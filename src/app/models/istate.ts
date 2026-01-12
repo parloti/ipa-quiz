@@ -1,8 +1,8 @@
-import { IQuiz } from './iquiz';
+import { IQuiz, IQuizID } from './iquiz';
 
 export interface IState {
-  quizzes: IQuiz[];
-  currentQuizId: IQuiz['id'] | undefined;
+  quizzes: Record<IQuizID, IQuiz>;
+  currentQuizId: IQuizID | undefined;
   version: number;
 }
 

@@ -38,7 +38,7 @@ describe('QuizzesHomeComponent', () => {
         id: 'quiz-1',
         name: 'Test Quiz',
         description: 'Test',
-        sessions: [],
+        sessions: {},
       };
       component.selectQuiz(quiz);
 
@@ -55,7 +55,7 @@ describe('QuizzesHomeComponent', () => {
         id: 'quiz-1',
         name: 'Quiz 1',
         description: 'Test Description',
-        sessions: [],
+        sessions: {},
       };
       store.dispatch(actions.addQuiz({ quiz }));
 
@@ -84,7 +84,7 @@ describe('QuizzesHomeComponent', () => {
         id: 'quiz-1',
         name: 'Quiz 1',
         description: 'Test Description',
-        sessions: [],
+        sessions: {},
       };
       store.dispatch(actions.addQuiz({ quiz }));
 

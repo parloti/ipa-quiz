@@ -1,15 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import type { IQuestion } from '../models/iquestion';
-import type { IQuiz } from '../models/iquiz';
-import type { ISession } from '../models/isession';
+import type { IQuiz, IQuizID } from '../models/iquiz';
+import type { ISession, ISessionID } from '../models/isession';
 import type { IState } from '../models/istate';
-import type { IVowel } from '../models/ivowel';
+import type { IVowel, IVowelID } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { actions } from './actions';
 import { APP_ROUTER_NAVIGATION } from './app-router-actions';
 import { quizFeature } from './quiz-feature';
 
-function createVowel(id: IVowel['id']): IVowel {
+function createVowel(id: IVowelID): IVowel {
   return {
     id,
     name: 'Test',
@@ -25,7 +25,7 @@ function answeredQuestion({
 }: {
   index: number;
   vowel: IVowel;
-  selectedAnswer: IVowel['id'];
+  selectedAnswer: IVowelID;
 }): IQuestion {
   return {
     vowel,
@@ -56,8 +56,8 @@ function unansweredQuestion({
 }
 
 function createSession(params: {
-  quizId: IQuiz['id'];
-  id: ISession['id'];
+  quizId: IQuizID;
+  id: ISessionID;
   currentQuestionIndex: number;
   questions: IQuestion[];
 }): ISession {
@@ -65,17 +65,19 @@ function createSession(params: {
     quizId: params.quizId,
     id: params.id,
     creationDate: '2026-01-03',
-    questions: params.questions,
+    questions: Object.fromEntries(
+      params.questions.map(q => [String(q.index), q]),
+    ) as any,
     currentQuestionIndex: params.currentQuestionIndex,
   };
 }
 
-function createQuiz(id: IQuiz['id']): IQuiz {
+function createQuiz(id: IQuizID): IQuiz {
   return {
     id,
     name: 'Quiz',
     description: 'Desc',
-    sessions: [],
+    sessions: {},
     currentSessionId: undefined,
   };
 }
@@ -155,11 +157,11 @@ describe('quizFeature (quiz-feature.ts)', () => {
       actions.openSession({ quizId: quiz.id, sessionId: session.id }),
     );
 
-    const before = state.quizzes.find(q => q.id === quiz.id)?.sessions[0]
-      ?.currentQuestionIndex;
+    const before =
+      state.quizzes[quiz.id]?.sessions[session.id]?.currentQuestionIndex;
     state = quizFeature.reducer(state, actions.previousQuestion());
-    const after = state.quizzes.find(q => q.id === quiz.id)?.sessions[0]
-      ?.currentQuestionIndex;
+    const after =
+      state.quizzes[quiz.id]?.sessions[session.id]?.currentQuestionIndex;
 
     expect(before).toBe(0);
     expect(after).toBe(0);
@@ -306,7 +308,7 @@ describe('quizFeature (quiz-feature.ts)', () => {
 
   it('covers restoreState + APP_ROUTER_NAVIGATION url parsing (match + no match)', () => {
     const restoring: IState = {
-      quizzes: [createQuiz('quiz-1')],
+      quizzes: { 'quiz-1': createQuiz('quiz-1') } as any,
       currentQuizId: 'quiz-1',
       version: 1,
     };
@@ -438,13 +440,15 @@ describe('quizFeature (quiz-feature.ts)', () => {
 
     // Replace state with restoring to avoid fiddly mutations
     const restoring: IState = {
-      quizzes: [
-        {
+      quizzes: {
+        [quiz.id]: {
           ...quiz,
-          sessions: completedSessions,
+          sessions: Object.fromEntries(
+            completedSessions.map(s => [s.id, s]),
+          ) as any,
           currentSessionId: completedSessions.at(-1)?.id,
         },
-      ],
+      } as any,
       currentQuizId: quiz.id,
       version: 1,
     };

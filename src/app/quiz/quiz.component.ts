@@ -4,7 +4,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { provideIcons } from '@ng-icons/core';
 import { lucideCirclePlay } from '@ng-icons/lucide';
 import { ChartComponent } from '../chart/chart.component';
-import { IVowel } from '../models/ivowel';
+import { IVowel, IVowelID } from '../models/ivowel';
 import { QuizService } from '../services/quiz.service';
 import { LogSignals } from '../utils/create-logging-effect';
 import { QuizControlsComponent } from './components/quiz-controls.component';
@@ -63,7 +63,7 @@ export class QuizComponent {
   }
 
   protected selectAnswer(evt: MatRadioChange) {
-    const selectedAnswer = evt.value as IVowel['id'];
+    const selectedAnswer = evt.value as IVowelID;
     this.quizService.selectAnswer(selectedAnswer);
   }
 

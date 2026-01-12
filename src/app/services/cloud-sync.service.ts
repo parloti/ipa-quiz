@@ -46,7 +46,6 @@ export class CloudSyncService {
       const db = this.firebaseService.getFirestore();
       if (db) {
         const userDoc = doc(db, 'users', this.uid);
-        debugger;
         await setDoc(userDoc, changes, { merge: true });
       }
 

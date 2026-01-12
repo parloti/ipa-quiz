@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { IQuestion } from '../models/iquestion';
-import { IQuiz } from '../models/iquiz';
 import type { ISession } from '../models/isession';
 import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
@@ -59,8 +58,8 @@ describe('QuizResultComponent', () => {
   };
 
   const createSession = (params: {
-    quizId: IQuiz['id'];
-    id: ISession['id'];
+    quizId: IQuizID;
+    id: ISessionID;
     answered: number;
     total: number;
   }): ISession => {
@@ -128,14 +127,14 @@ describe('QuizResultComponent', () => {
       const store = TestBed.inject(Store);
 
       // Add a quiz and session with stats
-      const quizId: IQuiz['id'] = 'quiz-1';
+      const quizId: IQuizID = 'quiz-1';
       store.dispatch(
         actions.addQuiz({
           quiz: {
             id: quizId,
             name: 'Test Quiz',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
         }),
       );
@@ -150,7 +149,7 @@ describe('QuizResultComponent', () => {
 
     it('should display stats by session when available', async () => {
       const store = TestBed.inject(Store);
-      const quizId: IQuiz['id'] = 'quiz-1';
+      const quizId: IQuizID = 'quiz-1';
 
       store.dispatch(
         actions.addQuiz({
@@ -158,7 +157,7 @@ describe('QuizResultComponent', () => {
             id: quizId,
             name: 'Test Quiz',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
         }),
       );
@@ -173,7 +172,7 @@ describe('QuizResultComponent', () => {
 
     it('should display moving averages when available', async () => {
       const store = TestBed.inject(Store);
-      const quizId: IQuiz['id'] = 'quiz-1';
+      const quizId: IQuizID = 'quiz-1';
 
       store.dispatch(
         actions.addQuiz({
@@ -181,7 +180,7 @@ describe('QuizResultComponent', () => {
             id: quizId,
             name: 'Test Quiz',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
         }),
       );
@@ -213,7 +212,7 @@ describe('QuizResultComponent', () => {
 
     it('should render incomplete + SMA markers + moving averages when enough sessions exist', async () => {
       const store = TestBed.inject(Store);
-      const quizId: IQuiz['id'] = 'quiz-1';
+      const quizId: IQuizID = 'quiz-1';
 
       store.dispatch(
         actions.addQuiz({
@@ -221,7 +220,7 @@ describe('QuizResultComponent', () => {
             id: quizId,
             name: 'Test Quiz',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
         }),
       );
@@ -233,7 +232,7 @@ describe('QuizResultComponent', () => {
           actions.addSession({
             session: createSession({
               quizId,
-              id: `session-${i}` as ISession['id'],
+              id: `session-${i}` as ISessionID,
               answered: 10,
               total: 10,
             }),
@@ -245,7 +244,7 @@ describe('QuizResultComponent', () => {
         actions.addSession({
           session: createSession({
             quizId,
-            id: 'session-incomplete' as ISession['id'],
+            id: 'session-incomplete' as ISessionID,
             answered: 5,
             total: 10,
           }),
@@ -263,7 +262,7 @@ describe('QuizResultComponent', () => {
 
     it('should render SMA markers when first session is complete (firstIncompleted=false)', async () => {
       const store = TestBed.inject(Store);
-      const quizId: IQuiz['id'] = 'quiz-2';
+      const quizId: IQuizID = 'quiz-2';
 
       store.dispatch(
         actions.addQuiz({
@@ -271,7 +270,7 @@ describe('QuizResultComponent', () => {
             id: quizId,
             name: 'Test Quiz 2',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
         }),
       );
@@ -283,7 +282,7 @@ describe('QuizResultComponent', () => {
           actions.addSession({
             session: createSession({
               quizId,
-              id: `session-2-${i}` as ISession['id'],
+              id: `session-2-${i}` as ISessionID,
               answered: 10,
               total: 10,
             }),
@@ -302,7 +301,7 @@ describe('QuizResultComponent', () => {
 
     it('should render with no sessions (covers firstIncompleted nullish branch)', async () => {
       const store = TestBed.inject(Store);
-      const quizId: IQuiz['id'] = 'quiz-3';
+      const quizId: IQuizID = 'quiz-3';
 
       store.dispatch(
         actions.addQuiz({
@@ -310,7 +309,7 @@ describe('QuizResultComponent', () => {
             id: quizId,
             name: 'Empty Quiz',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
         }),
       );

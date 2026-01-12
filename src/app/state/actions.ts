@@ -1,9 +1,8 @@
 import { createAction, props } from '@ngrx/store';
-import { IQuestion } from '../models/iquestion';
-import { IQuiz } from '../models/iquiz';
-import { ISession } from '../models/isession';
+import { IQuiz, IQuizID } from '../models/iquiz';
+import { ISession, ISessionID } from '../models/isession';
 import { IState } from '../models/istate';
-import { IVowel } from '../models/ivowel';
+import { IVowelID } from '../models/ivowel';
 
 export const actions = {
   addQuiz: createAction('[Quiz] Add Quiz', props<{ quiz: IQuiz }>()),
@@ -17,7 +16,7 @@ export const actions = {
     '[Quiz] Answer Current',
     props<{ date: string }>(),
   ),
-  openQuiz: createAction('[Quiz] Open Quiz', props<{ quizId: IQuiz['id'] }>()),
+  openQuiz: createAction('[Quiz] Open Quiz', props<{ quizId: IQuizID }>()),
   createQuizSession: createAction(
     '[Quiz] Create Session',
     props<{ quiz: IQuiz }>(),
@@ -26,11 +25,11 @@ export const actions = {
   goBack: createAction('[Quiz] Go back'),
   openSession: createAction(
     '[Quiz] Open Session',
-    props<{ quizId: IQuiz['id']; sessionId: ISession['id'] }>(),
+    props<{ quizId: IQuizID; sessionId: ISessionID }>(),
   ),
   selectAnswer: createAction(
     '[Quiz] Select Answer',
-    props<{ selectedAnswer: IVowel['id'] }>(),
+    props<{ selectedAnswer: IVowelID }>(),
   ),
   updateQuestionSoundIndex: createAction(
     '[Quiz] Update Question Sound Played',
@@ -46,7 +45,7 @@ export const actions = {
   ),
   practiceOpened: createAction(
     '[Quiz] Practice Opened',
-    props<{ quizId: IQuiz['id'] }>(),
+    props<{ quizId: IQuizID }>(),
   ),
   restoreStateFailed: createAction('[App] Restore State Failed'),
   saveState: createAction('[App] Save State', props<{ state: IState }>()),

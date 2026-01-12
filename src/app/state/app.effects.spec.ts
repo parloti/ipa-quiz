@@ -55,14 +55,14 @@ describe('AppEffectsService', () => {
   describe('loadState$', () => {
     it('should restore state from localStorage if available', async () => {
       const mockState = {
-        quizzes: [
-          {
+        quizzes: {
+          'quiz-1': {
             id: 'quiz-1',
             name: 'Test Quiz',
             description: 'Test',
-            sessions: [],
+            sessions: {},
           },
-        ],
+        },
       };
       localStorage.setItem('state', JSON.stringify(mockState));
 
@@ -108,7 +108,7 @@ describe('AppEffectsService', () => {
         id: 'quiz-1',
         name: 'Test Quiz',
         description: 'Test',
-        sessions: [],
+        sessions: {},
       };
       actions$ = of(actions.createQuizSession({ quiz }));
 
@@ -133,7 +133,7 @@ describe('AppEffectsService', () => {
         id: 'quiz-1',
         name: 'Test Quiz',
         description: 'Test',
-        sessions: [],
+        sessions: {},
       };
       quizService.openedQuiz$.next(quiz);
 
@@ -162,20 +162,20 @@ describe('AppEffectsService', () => {
       const subscription = effects.saveState$.subscribe();
 
       const state1: IState = {
-        quizzes: [],
+        quizzes: {},
         currentQuizId: undefined,
         version: 1,
-      };
+      } as any;
       const state2: IState = {
-        quizzes: [],
+        quizzes: {},
         currentQuizId: 'quiz-1' as any,
         version: 1,
-      };
+      } as any;
       const state3: IState = {
-        quizzes: [],
+        quizzes: {},
         currentQuizId: 'quiz-2' as any,
         version: 1,
-      };
+      } as any;
 
       quizService.state$.next(state1);
       quizService.state$.next(state2);
@@ -200,20 +200,20 @@ describe('AppEffectsService', () => {
       const subscription = effects.saveState$.subscribe();
 
       const state1: IState = {
-        quizzes: [],
+        quizzes: {},
         currentQuizId: undefined,
         version: 1,
-      };
+      } as any;
       const state2: IState = {
-        quizzes: [],
+        quizzes: {},
         currentQuizId: 'quiz-1' as any,
         version: 1,
-      };
+      } as any;
       const state3: IState = {
-        quizzes: [],
+        quizzes: {},
         currentQuizId: 'quiz-2' as any,
         version: 1,
-      };
+      } as any;
 
       quizService.state$.next(state1);
       quizService.state$.next(state2);

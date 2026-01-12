@@ -15,6 +15,7 @@
 - Dar prefencia para vogais/tipos menos testadas e mais erradas, ou pares mais confundidos.
 - Teste de posição no grafico
 - Remover primeiro incompelto da SMA
+- Delay to show error message
 
 
 # IpaQuiz

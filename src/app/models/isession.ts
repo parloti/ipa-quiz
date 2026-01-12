@@ -1,10 +1,12 @@
 import { IQuestion } from './iquestion';
-import { IQuiz } from './iquiz';
+import { IQuizID } from './iquiz';
+
+export type ISessionID = `session-${number}`;
 
 export interface ISession {
-  quizId: IQuiz['id'];
-  id: `session-${number}`;
+  quizId: IQuizID;
+  id: ISessionID;
   creationDate: string;
-  questions: IQuestion[];
+  questions: Record<number | string, IQuestion>;
   currentQuestionIndex: number;
 }

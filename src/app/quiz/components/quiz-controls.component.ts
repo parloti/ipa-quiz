@@ -1,7 +1,7 @@
 import { Component, computed, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { LogSignals } from 'src/app/utils/create-logging-effect';
-import { IVowel } from '../../models/ivowel';
+import { IVowelID } from '../../models/ivowel';
 
 @LogSignals()
 @Component({
@@ -14,7 +14,7 @@ export class QuizControlsComponent {
   public readonly index$ = input.required<number>({ alias: 'index' });
 
   /* v8 ignore next -- @preserve */
-  public readonly selectedAnswer$ = input.required<IVowel['id'] | undefined>({
+  public readonly selectedAnswer$ = input.required<IVowelID | undefined>({
     alias: 'selectedAnswer',
   });
 
