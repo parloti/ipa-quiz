@@ -14,7 +14,7 @@ describe('LogSignals decorator', () => {
       .spyOn(console, 'groupEnd')
       .mockImplementation(() => {});
 
-    @LogSignals({ enabled: true })
+    @LogSignals()
     @Component({ selector: 'app-test', template: '', standalone: true })
     class TestComponent {
       readonly count$ = signal(0);
@@ -38,7 +38,7 @@ describe('LogSignals decorator', () => {
       .spyOn(console, 'groupCollapsed')
       .mockImplementation(() => {});
 
-    @LogSignals({ enabled: false })
+    @LogSignals()
     @Component({
       selector: 'app-test-disabled',
       template: '',
@@ -62,7 +62,7 @@ describe('LogSignals decorator', () => {
     vi.spyOn(console, 'groupCollapsed').mockImplementation(() => {});
     vi.spyOn(console, 'groupEnd').mockImplementation(() => {});
 
-    @LogSignals({ enabled: true })
+    @LogSignals()
     @Component({ selector: 'app-test-multi', template: '', standalone: true })
     class TestMultiComponent {
       readonly count$ = signal(0);
@@ -82,7 +82,7 @@ describe('LogSignals decorator', () => {
       .spyOn(console, 'groupCollapsed')
       .mockImplementation(() => {});
 
-    @LogSignals({ enabled: true })
+    @LogSignals()
     @Component({
       selector: 'app-test-no-signals',
       template: '',

@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { doc, setDoc } from 'firebase/firestore';
-import { environment } from '../../environments/environment';
 import { FirebaseService } from './firebase.service';
 
 /**
@@ -32,46 +31,23 @@ export class CloudSyncService {
 
   async sync(state: unknown): Promise<void> {
     try {
+      if (!this.uid) {
+        return;
+      }
+
       const changes = this.computeDiff(this.lastSentState, state);
       if (
         !changes ||
         Object.keys(changes as Record<string, unknown>).length === 0
       ) {
-        // Nothing to send
         return;
       }
 
-      // Prefer Firestore if configured and initialized
       const db = this.firebaseService.getFirestore();
-      if (db && this.uid) {
-        // Write partial changes with merge: true to only update changed fields
+      if (db) {
         const userDoc = doc(db, 'users', this.uid);
+        debugger;
         await setDoc(userDoc, changes, { merge: true });
-      } else {
-        // Fallback: If RTDB URL configured use REST, otherwise POST to generic endpoint
-        const dbUrl = (environment as any).firebaseDatabaseUrl;
-        if (dbUrl && this.uid) {
-          const q = this.idToken
-            ? `?auth=${encodeURIComponent(this.idToken)}`
-            : '';
-          const url = `${dbUrl.replace(/\/+$/, '')}/users/${encodeURIComponent(
-            this.uid,
-          )}/state.json${q}`;
-          await fetch(url, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(changes),
-          });
-        } else {
-          await fetch('/api/state-sync', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              changes,
-              timestamp: new Date().toISOString(),
-            }),
-          });
-        }
       }
 
       // Update lastSentState on successful send
