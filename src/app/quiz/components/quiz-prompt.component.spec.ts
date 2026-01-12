@@ -28,7 +28,7 @@ describe('QuizPromptComponent', () => {
       vowel: { ...baseVowel, ...(vowelOverrides ?? {}) },
       type,
       index: 0,
-      options: [],
+      options: {},
       selectedAnswer: undefined,
       answered: false,
     }) as IQuestion;
@@ -65,15 +65,17 @@ describe('QuizPromptComponent', () => {
     const playSpy = vi.fn();
 
     const question = makeQuestion(QuestionElement.Sound, {
+      soundIndex: 0,
       sounds: [
         {
           url: '/sounds/ipa/jill_house/0069.mp3',
           sourceId: 'ipa',
           voiceId: 'jill_house',
           logoUrl: '/sounds/ipa/logo.png',
+          author: 'jill_house',
         },
       ],
-    } as Partial<IVowel>);
+    } as Partial<IVowel & { soundIndex: number }>);
     fixture.componentRef.setInput('question', question);
     fixture.detectChanges();
 

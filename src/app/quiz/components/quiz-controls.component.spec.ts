@@ -25,9 +25,9 @@ describe('QuizControlsComponent', () => {
     fixture.detectChanges();
 
     // Explicit reads help V8 attribute execution to InputSignal initializers.
-    expect(component.index()).toBe(0);
-    expect(component.selectedAnswer()).toBeUndefined();
-    expect(component.answered()).toBe(false);
+    expect(component.index$()).toBe(0);
+    expect(component.selectedAnswer$()).toBeUndefined();
+    expect(component.answered$()).toBe(false);
     expect(component.finished$()).toBe(false);
     expect(component.questionsLength$()).toBe(5);
   });
@@ -45,7 +45,7 @@ describe('QuizControlsComponent', () => {
     fixture.componentRef.setInput('index', 1);
     fixture.detectChanges();
 
-    expect(component.index()).toBe(1);
+    expect(component.index$()).toBe(1);
 
     const previousButton = fixture.debugElement.queryAll(By.css('button'))[0];
     previousButton.nativeElement.click();
@@ -55,15 +55,15 @@ describe('QuizControlsComponent', () => {
 
   it('shows Verify when not answered and emits verify on click', () => {
     const verifySpy = vi.fn();
-    component.verify.subscribe(verifySpy);
+    component.verify$.subscribe(verifySpy);
 
     fixture.componentRef.setInput('selectedAnswer', 'vowel-1');
     fixture.componentRef.setInput('answered', false);
     fixture.componentRef.setInput('finished', false);
     fixture.detectChanges();
 
-    expect(component.selectedAnswer()).toBe('vowel-1');
-    expect(component.answered()).toBe(false);
+    expect(component.selectedAnswer$()).toBe('vowel-1');
+    expect(component.answered$()).toBe(false);
     expect(component.finished$()).toBe(false);
 
     const buttons = fixture.debugElement.queryAll(By.css('button'));
@@ -94,15 +94,15 @@ describe('QuizControlsComponent', () => {
 
   it('enables Next when answered and emits next on click', () => {
     const nextSpy = vi.fn();
-    component.next.subscribe(nextSpy);
+    component.next$.subscribe(nextSpy);
 
     fixture.componentRef.setInput('selectedAnswer', 'vowel-1');
     fixture.componentRef.setInput('answered', true);
     fixture.componentRef.setInput('finished', false);
     fixture.detectChanges();
 
-    expect(component.selectedAnswer()).toBe('vowel-1');
-    expect(component.answered()).toBe(true);
+    expect(component.selectedAnswer$()).toBe('vowel-1');
+    expect(component.answered$()).toBe(true);
     expect(component.finished$()).toBe(false);
 
     const buttons = fixture.debugElement.queryAll(By.css('button'));
@@ -139,7 +139,7 @@ describe('QuizControlsComponent', () => {
     fixture.componentRef.setInput('questionsLength', 5);
     fixture.detectChanges();
 
-    expect(component.index()).toBe(4);
+    expect(component.index$()).toBe(4);
     expect(component.questionsLength$()).toBe(5);
 
     const buttons = fixture.debugElement.queryAll(By.css('button'));
@@ -153,7 +153,7 @@ describe('QuizControlsComponent', () => {
 
   it('shows New Session when finished and emits newSession on click', () => {
     const newSessionSpy = vi.fn();
-    component.newSession.subscribe(newSessionSpy);
+    component.newSession$.subscribe(newSessionSpy);
 
     fixture.componentRef.setInput('finished', true);
     fixture.detectChanges();

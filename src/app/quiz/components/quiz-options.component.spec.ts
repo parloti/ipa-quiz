@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { IQuestion } from '../../models/iquestion';
-import { IVowel } from '../../models/ivowel';
+import { IVowel, IVowelID } from '../../models/ivowel';
 import { QuestionElement } from '../../models/question-element';
 import { QuizOptionsComponent } from './quiz-options.component';
 
@@ -29,16 +29,22 @@ describe('QuizOptionsComponent', () => {
   } as unknown as IVowel;
 
   const makeQuestion = (
-    options: Array<IVowel & { type: QuestionElement }>,
-  ): IQuestion =>
-    ({
+    optionsArr: Array<IVowel & { type: QuestionElement }>,
+  ): IQuestion => {
+    const options: Record<IVowelID, IVowel & { type: QuestionElement }> =
+      {} as any;
+    for (const opt of optionsArr) {
+      options[opt.id] = opt;
+    }
+    return {
       vowel: baseVowel,
       type: QuestionElement.Letter,
       index: 0,
       options,
       selectedAnswer: undefined,
       answered: false,
-    }) as IQuestion;
+    } as IQuestion;
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -61,8 +67,8 @@ describe('QuizOptionsComponent', () => {
 
     expect(fixture.componentInstance.question$()).toEqual(question);
     expect(fixture.componentInstance.questionElement).toBe(QuestionElement);
-    expect(fixture.componentInstance.selectedAnswer()).toBeUndefined();
-    expect(fixture.componentInstance.answered()).toBe(false);
+    expect(fixture.componentInstance.selectedAnswer$()).toBeUndefined();
+    expect(fixture.componentInstance.answered$()).toBe(false);
 
     const text = fixture.nativeElement.textContent as string;
     expect(text).toContain(baseVowel.letter);
@@ -75,15 +81,17 @@ describe('QuizOptionsComponent', () => {
     const soundOption = {
       ...baseVowel,
       type: QuestionElement.Sound,
+      soundIndex: 0,
       sounds: [
         {
           url: '/sounds/ipa/jill_house/0069.mp3',
           sourceId: 'ipa',
           voiceId: 'jill_house',
           logoUrl: '/sounds/ipa/logo.png',
+          author: 'jill_house',
         },
       ],
-    } as IVowel & { type: QuestionElement };
+    } as IVowel & { type: QuestionElement; soundIndex: number };
 
     const question = makeQuestion([soundOption]);
     fixture.componentRef.setInput('question', question);
@@ -93,8 +101,8 @@ describe('QuizOptionsComponent', () => {
 
     expect(fixture.componentInstance.question$()).toEqual(question);
     expect(fixture.componentInstance.questionElement).toBe(QuestionElement);
-    expect(fixture.componentInstance.selectedAnswer()).toBeUndefined();
-    expect(fixture.componentInstance.answered()).toBe(false);
+    expect(fixture.componentInstance.selectedAnswer$()).toBeUndefined();
+    expect(fixture.componentInstance.answered$()).toBe(false);
 
     fixture.componentInstance.playSound$.subscribe(playSpy);
 
@@ -124,8 +132,8 @@ describe('QuizOptionsComponent', () => {
 
     expect(fixture.componentInstance.question$()).toEqual(question);
     expect(fixture.componentInstance.questionElement).toBe(QuestionElement);
-    expect(fixture.componentInstance.selectedAnswer()).toBeUndefined();
-    expect(fixture.componentInstance.answered()).toBe(false);
+    expect(fixture.componentInstance.selectedAnswer$()).toBeUndefined();
+    expect(fixture.componentInstance.answered$()).toBe(false);
 
     expect(fixture.nativeElement.textContent).toContain('ERROR');
   });
@@ -168,8 +176,8 @@ describe('QuizOptionsComponent', () => {
 
     expect(fixture.componentInstance.question$()).toEqual(question);
     expect(fixture.componentInstance.questionElement).toBe(QuestionElement);
-    expect(fixture.componentInstance.selectedAnswer()).toBeUndefined();
-    expect(fixture.componentInstance.answered()).toBe(false);
+    expect(fixture.componentInstance.selectedAnswer$()).toBeUndefined();
+    expect(fixture.componentInstance.answered$()).toBe(false);
 
     expect(fixture.nativeElement.textContent).toContain('ERROR');
   });

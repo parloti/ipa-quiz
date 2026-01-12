@@ -134,10 +134,13 @@ describe('ChartComponent', () => {
       vowel,
       type: QuestionElement.Letter,
       index: 0,
-      options: [
-        { ...vowel, type: QuestionElement.Letter },
-        { ...differentVowel, type: QuestionElement.Letter },
-      ],
+      options: {
+        [vowel.id]: { ...vowel, type: QuestionElement.Letter },
+        [differentVowel.id]: {
+          ...differentVowel,
+          type: QuestionElement.Letter,
+        },
+      } as any,
       selectedAnswer: vowel.id,
       answered: true,
       answeredDate: new Date().toISOString(),
@@ -321,7 +324,9 @@ describe('ChartComponent', () => {
         vowel: VOWELS[0],
         type: QuestionElement.Letter,
         index: 0,
-        options: [{ ...VOWELS[0], type: QuestionElement.Letter }],
+        options: {
+          [VOWELS[0].id]: { ...VOWELS[0], type: QuestionElement.Letter },
+        } as any,
         selectedAnswer: undefined,
         answered: false,
       });
@@ -344,7 +349,9 @@ describe('ChartComponent', () => {
         vowel: undefined as unknown as IVowel,
         type: QuestionElement.Letter,
         index: 0,
-        options: [{ ...VOWELS[0], type: QuestionElement.Letter }],
+        options: {
+          [VOWELS[0].id]: { ...VOWELS[0], type: QuestionElement.Letter },
+        } as any,
         selectedAnswer: VOWELS[0].id,
         answered: true,
         answeredDate: new Date().toISOString(),
@@ -385,7 +392,7 @@ describe('ChartComponent', () => {
         vowel: undefined as unknown as IVowel,
         type: QuestionElement.Letter,
         index: 0,
-        options: [],
+        options: {} as any,
         selectedAnswer: VOWELS[1].id,
         answered: true,
         answeredDate: new Date().toISOString(),

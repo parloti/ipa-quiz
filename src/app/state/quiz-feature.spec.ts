@@ -31,7 +31,7 @@ function answeredQuestion({
     vowel,
     type: QuestionElement.Letter,
     index,
-    options: [],
+    options: {},
     answered: true,
     answeredDate: '2026-01-03',
     selectedAnswer,
@@ -49,7 +49,7 @@ function unansweredQuestion({
     vowel,
     type: QuestionElement.Letter,
     index,
-    options: [],
+    options: {},
     answered: false,
     selectedAnswer: undefined,
   };
@@ -87,7 +87,8 @@ describe('quizFeature (quiz-feature.ts)', () => {
     const state = quizFeature.reducer(undefined, { type: '@@init' } as any);
     const root = { quiz: state };
 
-    expect(quizFeature.selectStatsBySession(root)).toBeUndefined();
+    // When no quiz is selected, sessions is undefined, so stats return empty arrays
+    expect(quizFeature.selectStatsBySession(root)).toEqual([]);
     expect(quizFeature.selectTotalStats(root)).toBeUndefined();
     expect(quizFeature.selectMovingAverages(root)).toBeUndefined();
   });

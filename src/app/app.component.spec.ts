@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { AppComponent } from './app.component';
 
@@ -7,7 +8,10 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{ provide: Location, useValue: { back: vi.fn() } }],
+      providers: [
+        { provide: Location, useValue: { back: vi.fn() } },
+        provideRouter([]),
+      ],
     }).compileComponents();
   });
 

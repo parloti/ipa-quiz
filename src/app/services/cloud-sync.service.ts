@@ -1,20 +1,21 @@
 import { Injectable, inject } from '@angular/core';
 import { doc, setDoc } from 'firebase/firestore';
+import { IState } from '../models/istate';
 import { FirebaseService } from './firebase.service';
+import { INormalizedState, normalizeState } from './state-normalization';
 
 /**
  * Minimal cloud sync service.
  *
  * Behavior:
- * - Keeps a copy of the last-sent state and computes a simple deep diff
- *   (object shape) against the new state.
- * - Sends only the changed keys as a partial object to the server.
- * - Server endpoint is a placeholder `/api/state-sync` — replace with real
- *   backend endpoint and add auth headers as needed.
+ * - Normalizes state before syncing (strips static IVowel/IQuiz data)
+ * - Keeps a copy of the last-sent normalized state and computes a deep diff
+ * - Sends only the changed keys as a partial object to the server
+ * - Static data (quiz metadata, vowel definitions) stays local and is never synced
  */
 @Injectable({ providedIn: 'root' })
 export class CloudSyncService {
-  private lastSentState: unknown | undefined;
+  private lastSentState: INormalizedState | undefined;
   private uid: string | undefined;
   private idToken: string | undefined;
   private firebaseService = inject(FirebaseService);
@@ -29,13 +30,16 @@ export class CloudSyncService {
     this.idToken = idToken;
   }
 
-  async sync(state: unknown): Promise<void> {
+  async sync(state: IState): Promise<void> {
     try {
       if (!this.uid) {
         return;
       }
 
-      const changes = this.computeDiff(this.lastSentState, state);
+      // Normalize state - strip static data, keep only user-specific fields
+      const normalizedState = normalizeState(state);
+
+      const changes = this.computeDiff(this.lastSentState, normalizedState);
       if (
         !changes ||
         Object.keys(changes as Record<string, unknown>).length === 0
@@ -50,7 +54,7 @@ export class CloudSyncService {
       }
 
       // Update lastSentState on successful send
-      this.lastSentState = this.clone(state);
+      this.lastSentState = this.clone(normalizedState);
     } catch (error) {
       // Network failures or other errors are ignored here; you may want to
       // queue and retry later in a production implementation.

@@ -8,6 +8,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { IQuestion } from '../models/iquestion';
 import { IQuiz } from '../models/iquiz';
 import { ISession } from '../models/isession';
+import { IVowelID } from '../models/ivowel';
 import { QuestionElement } from '../models/question-element';
 import { PhonemeSoundsService } from '../services/phoneme-sounds.service';
 import { QuizService } from '../services/quiz.service';
@@ -54,10 +55,10 @@ describe('QuizComponent', () => {
     vowel: testVowel,
     type,
     index: 0,
-    options: [
-      { ...testVowel, type: QuestionElement.Name },
-      { ...testVowel2, type: QuestionElement.Name },
-    ],
+    options: {
+      [testVowel.id]: { ...testVowel, type: QuestionElement.Name },
+      [testVowel2.id]: { ...testVowel2, type: QuestionElement.Name },
+    } as any,
     selectedAnswer: undefined,
     answered: false,
   });
@@ -241,6 +242,7 @@ describe('QuizComponent', () => {
 
       const vowelWithSounds = {
         ...testVowel,
+        soundIndex: 0,
         sounds: [
           {
             url: '/sounds/ipa/jill_house/0069.mp3',
@@ -300,6 +302,7 @@ describe('QuizComponent', () => {
 
       const vowelWithSounds = {
         ...testVowel,
+        soundIndex: 0,
         sounds: [
           {
             url: '/sounds/ipa/jill_house/0069.mp3',
@@ -312,10 +315,14 @@ describe('QuizComponent', () => {
 
       const question = {
         ...createTestQuestion(QuestionElement.Name),
-        options: [
-          { ...vowelWithSounds, type: QuestionElement.Sound },
-          { ...testVowel2, type: QuestionElement.Name },
-        ],
+        options: {
+          [vowelWithSounds.id]: {
+            ...vowelWithSounds,
+            type: QuestionElement.Sound,
+            soundIndex: 0,
+          },
+          [testVowel2.id]: { ...testVowel2, type: QuestionElement.Name },
+        } as any,
       } satisfies IQuestion;
 
       mockQuizService.question$.next(question);
@@ -343,12 +350,12 @@ describe('QuizComponent', () => {
     it('should render error text for unknown option type', () => {
       const question = {
         ...createTestQuestion(QuestionElement.Name),
-        options: [
-          {
+        options: {
+          [testVowel.id]: {
             ...testVowel,
             type: 999 as unknown as QuestionElement,
           },
-        ],
+        } as any,
       } satisfies IQuestion;
 
       mockQuizService.question$.next(question);
@@ -579,10 +586,10 @@ describe('QuizComponent', () => {
   describe('option types rendering', () => {
     it('should render Letter type options correctly', () => {
       const question = createTestQuestion();
-      question.options = [
-        { ...testVowel, type: QuestionElement.Letter },
-        { ...testVowel2, type: QuestionElement.Letter },
-      ];
+      question.options = {
+        [testVowel.id]: { ...testVowel, type: QuestionElement.Letter },
+        [testVowel2.id]: { ...testVowel2, type: QuestionElement.Letter },
+      } as any;
       mockQuizService.question$.next(question);
       fixture.detectChanges();
 
@@ -593,10 +600,10 @@ describe('QuizComponent', () => {
 
     it('should render Name type options correctly', () => {
       const question = createTestQuestion();
-      question.options = [
-        { ...testVowel, type: QuestionElement.Name },
-        { ...testVowel2, type: QuestionElement.Name },
-      ];
+      question.options = {
+        [testVowel.id]: { ...testVowel, type: QuestionElement.Name },
+        [testVowel2.id]: { ...testVowel2, type: QuestionElement.Name },
+      } as any;
       mockQuizService.question$.next(question);
       fixture.detectChanges();
 
@@ -608,6 +615,7 @@ describe('QuizComponent', () => {
     it('should render Sound type options with audio buttons', () => {
       const vowelWithSounds = {
         ...testVowel,
+        soundIndex: 0,
         sounds: [
           {
             url: '/sounds/ipa/jill_house/0069.mp3',
@@ -619,6 +627,7 @@ describe('QuizComponent', () => {
       };
       const vowel2WithSounds = {
         ...testVowel2,
+        soundIndex: 0,
         sounds: [
           {
             url: '/sounds/ipa/john_wells/0079.mp3',
@@ -629,10 +638,18 @@ describe('QuizComponent', () => {
         ],
       };
       const question = createTestQuestion();
-      question.options = [
-        { ...vowelWithSounds, type: QuestionElement.Sound },
-        { ...vowel2WithSounds, type: QuestionElement.Sound },
-      ];
+      question.options = {
+        [vowelWithSounds.id]: {
+          ...vowelWithSounds,
+          type: QuestionElement.Sound,
+          soundIndex: 0,
+        },
+        [vowel2WithSounds.id]: {
+          ...vowel2WithSounds,
+          type: QuestionElement.Sound,
+          soundIndex: 0,
+        },
+      } as any;
       mockQuizService.question$.next(question);
       fixture.detectChanges();
 
@@ -642,9 +659,12 @@ describe('QuizComponent', () => {
 
     it('should render ERROR for unknown option type', () => {
       const question = createTestQuestion();
-      question.options = [
-        { ...testVowel, type: 'unknown' as unknown as QuestionElement },
-      ];
+      question.options = {
+        [testVowel.id]: {
+          ...testVowel,
+          type: 'unknown' as unknown as QuestionElement,
+        },
+      } as any;
       mockQuizService.question$.next(question);
       fixture.detectChanges();
 

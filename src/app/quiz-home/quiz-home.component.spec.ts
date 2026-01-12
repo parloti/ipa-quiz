@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { Store, StoreModule } from '@ngrx/store';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { IQuestion } from '../models/iquestion';
-import type { ISession } from '../models/isession';
+import type { IQuizID } from '../models/iquiz';
+import type { ISession, ISessionID } from '../models/isession';
 import { QuestionElement } from '../models/question-element';
 import { QuizService } from '../services/quiz.service';
 import { actions } from '../state/actions';
@@ -20,9 +21,9 @@ describe('QuizResultComponent', () => {
     total: number;
     answered: number;
     correct: number;
-  }): IQuestion[] => {
+  }): Record<number, IQuestion> => {
     const { total, answered, correct } = params;
-    const questions: IQuestion[] = [];
+    const questions: Record<number, IQuestion> = {};
 
     for (let i = 0; i < total; i++) {
       const vowel = VOWELS[i % VOWELS.length];
@@ -31,26 +32,26 @@ describe('QuizResultComponent', () => {
       const isCorrect = i < correct;
 
       if (isAnswered) {
-        questions.push({
+        questions[i] = {
           vowel,
           type: QuestionElement.Name,
           index: i,
-          options: [] as any,
+          options: {} as any,
           answered: true,
           answeredDate: '2026-01-03',
           selectedAnswer: isCorrect
             ? vowel.id
             : VOWELS[(i + 1) % VOWELS.length].id,
-        });
+        };
       } else {
-        questions.push({
+        questions[i] = {
           vowel,
           type: QuestionElement.Name,
           index: i,
-          options: [] as any,
+          options: {} as any,
           answered: false,
           selectedAnswer: undefined,
-        });
+        };
       }
     }
 
