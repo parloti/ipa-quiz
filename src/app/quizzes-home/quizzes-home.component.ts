@@ -2,7 +2,9 @@ import { Component, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { IQuiz } from '../models/iquiz';
 import { QuizService } from '../services/quiz.service';
+import { LogSignals } from '../utils/log-signals';
 
+@LogSignals()
 @Component({
   selector: 'app-quizzes-home',
   templateUrl: './quizzes-home.component.html',

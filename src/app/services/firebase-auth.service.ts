@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import {
   createUserWithEmailAndPassword,
   getAuth,
@@ -11,6 +12,7 @@ import {
   type User,
 } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
+import { actions } from '../state/actions';
 import { CloudSyncService } from './cloud-sync.service';
 import { FirebaseService } from './firebase.service';
 
@@ -24,15 +26,20 @@ import { FirebaseService } from './firebase.service';
 export class FirebaseAuthService {
   private firebaseService = inject(FirebaseService);
   private cloudSync = inject(CloudSyncService);
+  private store = inject(Store);
 
   private authInitialized = false;
 
   public readonly user$ = new BehaviorSubject<User | null>(null);
 
   init(): void {
-    if (this.authInitialized) return;
+    if (this.authInitialized) {
+      return;
+    }
     const app = this.firebaseService.init();
-    if (!app) return;
+    if (!app) {
+      return;
+    }
     const auth = getAuth(app);
     onAuthStateChanged(auth, async user => this.handleUser(user));
     this.authInitialized = true;
@@ -41,7 +48,9 @@ export class FirebaseAuthService {
   async signInAnonymously(): Promise<void> {
     this.init();
     const app = this.firebaseService.init();
-    if (!app) return;
+    if (!app) {
+      return;
+    }
     const auth = getAuth(app);
     await signInAnonymously(auth);
   }
@@ -49,7 +58,9 @@ export class FirebaseAuthService {
   async signInWithGoogle(): Promise<void> {
     this.init();
     const app = this.firebaseService.init();
-    if (!app) return;
+    if (!app) {
+      return;
+    }
     const auth = getAuth(app);
     await signInWithPopup(auth, new GoogleAuthProvider());
   }
@@ -57,7 +68,9 @@ export class FirebaseAuthService {
   async signInWithEmail(email: string, pass: string): Promise<void> {
     this.init();
     const app = this.firebaseService.init();
-    if (!app) return;
+    if (!app) {
+      return;
+    }
     const auth = getAuth(app);
     await signInWithEmailAndPassword(auth, email, pass);
   }
@@ -65,14 +78,18 @@ export class FirebaseAuthService {
   async signUpWithEmail(email: string, pass: string): Promise<void> {
     this.init();
     const app = this.firebaseService.init();
-    if (!app) return;
+    if (!app) {
+      return;
+    }
     const auth = getAuth(app);
     await createUserWithEmailAndPassword(auth, email, pass);
   }
 
   async signOut(): Promise<void> {
     const app = this.firebaseService.init();
-    if (!app) return;
+    if (!app) {
+      return;
+    }
     const auth = getAuth(app);
     await signOut(auth);
     this.cloudSync.setUser(undefined as any, undefined);
@@ -91,6 +108,31 @@ export class FirebaseAuthService {
     } catch (e) {
       console.warn('Failed to obtain ID token for cloud sync', e);
       this.cloudSync.setUser(user.uid);
+    }
+
+    console.info('[FirebaseAuth] detected user', {
+      uid: user.uid,
+      anonymous: user.isAnonymous,
+    });
+
+    // Attempt to fetch remote state for this user and restore it into the store
+    try {
+      console.info(
+        '[FirebaseAuth] attempting to fetch remote state for',
+        user.uid,
+      );
+      const remote = await this.cloudSync.fetchRemoteState();
+      if (remote) {
+        console.info(
+          '[FirebaseAuth] remote state fetched, dispatching restoreState',
+        );
+        this.store.dispatch(actions.restoreState({ restoring: remote }));
+      } else {
+        console.info('[FirebaseAuth] no remote state found for', user.uid);
+      }
+    } catch (e) {
+      // non-fatal
+      console.warn('Failed to restore remote state', e);
     }
   }
 }

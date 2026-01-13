@@ -9,6 +9,7 @@ import { IQuestion } from '../../models/iquestion';
 import { IVowel, IVowelID } from '../../models/ivowel';
 import { QuestionElement } from '../../models/question-element';
 
+@LogSignals()
 @Component({
   selector: 'app-quiz-options',
   imports: [
@@ -21,7 +22,6 @@ import { QuestionElement } from '../../models/question-element';
   ],
   templateUrl: './quiz-options.component.html',
 })
-@LogSignals()
 export class QuizOptionsComponent {
   /* v8 ignore next -- @preserve */
   public readonly question$ = input.required<IQuestion>({ alias: 'question' });

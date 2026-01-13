@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { NavigationEnd, Router } from '@angular/router';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { ROUTER_NAVIGATED } from '@ngrx/router-store';
-import { Action } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { IQuiz } from '../models/iquiz';
@@ -42,6 +42,7 @@ describe('AppEffectsService', () => {
           },
         },
         { provide: QuizService, useValue: quizService },
+        { provide: Store, useValue: { dispatch: vi.fn() } },
       ],
     });
     effects = TestBed.inject(AppEffects);
@@ -53,14 +54,16 @@ describe('AppEffectsService', () => {
   });
 
   describe('loadState$', () => {
-    it('should emit restoreStateFailed since localStorage persistence is removed', async () => {
+    it('initializes firebase auth without dispatching actions', async () => {
       actions$ = of({ type: '@ngrx/effects/init' });
 
-      const result = await new Promise<Action>(resolve => {
-        effects.loadState$.subscribe(action => resolve(action));
-      });
+      let emittedAction: Action | undefined;
+      effects.loadState$.subscribe(action => (emittedAction = action));
 
-      expect(result.type).toBe(actions.restoreStateFailed.type);
+      // allow the effect to run
+      await new Promise(resolve => setTimeout(resolve, 0));
+
+      expect(emittedAction?.type).toBe('@ngrx/effects/init');
     });
   });
 

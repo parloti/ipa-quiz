@@ -13,7 +13,9 @@ import { IMovingAverage } from '../models/imoving-average';
 import { IQuizID } from '../models/iquiz';
 import { IStatistics } from '../models/istatistics';
 import { QuizService } from '../services/quiz.service';
+import { LogSignals } from '../utils/log-signals';
 
+@LogSignals()
 @Component({
   selector: 'app-quiz-home',
   templateUrl: './quiz-home.component.html',

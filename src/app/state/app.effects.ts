@@ -14,7 +14,7 @@ import {
   map,
   mergeMap,
   tap,
-  withLatestFrom
+  withLatestFrom,
 } from 'rxjs';
 import { debounceTime, filter as rxFilter } from 'rxjs/operators';
 import { IQuiz } from '../models/iquiz';
@@ -40,27 +40,21 @@ export class AppEffects {
   private readonly cloudSyncService = inject(CloudSyncService);
   private readonly firebaseAuth = inject(FirebaseAuthService);
 
-  loadState$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(ROOT_EFFECTS_INIT),
-      tap(() => {
-        try {
-          // Initialize Firebase auth. Do NOT auto-sign-in anonymously here;
-          // allow the user to choose anonymous sign-in from the login UI.
-          this.firebaseAuth.init();
-        } catch (e) {
-          // ignore initialization errors
-        }
-      }),
-      map(() => {
-        // Local persistence via `localStorage` has been removed; rely on
-        // Firestore (with persistence) and in-memory state. Emit
-        // `restoreStateFailed` so the app continues with a fresh state.
-        console.info('LocalStorage persistence disabled; starting with fresh state');
-        return actions.restoreStateFailed();
-      }),
-      filter(action => action !== void 0),
-    ),
+  loadState$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ROOT_EFFECTS_INIT),
+        tap(() => {
+          try {
+            // Initialize Firebase auth. Do NOT auto-sign-in anonymously here;
+            // allow the user to choose anonymous sign-in from the login UI.
+            this.firebaseAuth.init();
+          } catch (e) {
+            // ignore initialization errors
+          }
+        }),
+      ),
+    { dispatch: false },
   );
 
   createQuizSession$ = createEffect(() =>
@@ -140,7 +134,15 @@ export class AppEffects {
   cloudSync$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(actions.restoreState, actions.restoreStateFailed),
+        ofType(
+          actions.restoreState,
+          actions.addQuiz,
+          actions.addSession,
+          actions.answerCurrent,
+          actions.selectAnswer,
+          actions.updateQuestionSoundIndex,
+          actions.updateOptionSoundIndex,
+        ),
         // Wait for the local state stream to emit the current state
         exhaustMap(() =>
           this.quizService.state$.pipe(

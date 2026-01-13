@@ -89,7 +89,7 @@ $current-color: 0;
 
   $constriction-first-row-index: 1;
 
-  $placement-first-column-index: $constriction-width + $left-gap + 1;
+  $placement-first-column-index: $constriction-width + $left-gap;
   $vowel-first-col-index: $constriction-width + $left-gap + 1;
 
   $central-placement-index: list.index($placements, 'central');
@@ -156,9 +156,13 @@ $current-color: 0;
       $child: $i - 1 + $placement-first-child-index;
 
       &:nth-of-type(#{$child}) {
-        $start: ($i - 1) * $width + $placement-first-column-index;
-
-        grid-column: #{$start} / #{$start + $width};
+        $start: ($i - 1) *
+          $width +
+          $placement-first-column-index +
+          floor($i/3) +
+          floor($i/4);
+        $end: $start + $width;
+        grid-column: #{$start} / #{$end};
       }
     }
   }
@@ -186,13 +190,15 @@ $current-color: 0;
   // 480 * 360
   .vowels {
     aspect-ratio: 2 / 1;
+    box-shadow: 0px 0px 5px 5px #ffffff;
 
     > * {
       aspect-ratio: 1 / 1;
     }
 
-    span {
-      background-color: white;
+    .position {
+      flex-grow: 0.5;
+      font-size: small;
     }
 
     $constriction-border-color: ();

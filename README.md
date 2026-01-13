@@ -1,7 +1,7 @@
 # TODO
 
-- Salvar na nuvem (Google Firebase?)
 - Adicionar meta de SMA
+
 - Sons no chart
 - Bandeiras indicando lingua de presença (EN, PT, IT, DE) https://www.vulgarlang.com/ipa/
 - Exemplos de uso
@@ -16,7 +16,6 @@
 - Teste de posição no grafico
 - Remover primeiro incompelto da SMA
 - Delay to show error message
-
 
 # IpaQuiz
 
@@ -73,6 +72,28 @@ ng e2e
 ```
 
 Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+
+### Playwright (provided)
+
+This repository includes a Playwright configuration and an example test.
+
+Install Playwright browsers once after adding node modules:
+
+```bash
+npx playwright install
+```
+
+Run the e2e test suite (starts the dev server automatically):
+
+```bash
+npm run e2e
+```
+
+To run headed (visible) tests:
+
+```bash
+npm run e2e:headed
+```
 
 ## Additional Resources
 

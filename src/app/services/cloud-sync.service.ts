@@ -1,9 +1,14 @@
-import { Injectable, inject } from '@angular/core';
-import { doc, setDoc } from 'firebase/firestore';
+import { inject, Injectable } from '@angular/core';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { IState } from '../models/istate';
 import { logCloudDiff } from './cloud-logger';
 import { FirebaseService } from './firebase.service';
-import { INormalizedState, normalizeState } from './state-normalization';
+import { PhonemeSoundsService } from './phoneme-sounds.service';
+import {
+  denormalizeState,
+  INormalizedState,
+  normalizeState,
+} from './state-normalization';
 
 /**
  * Minimal cloud sync service.
@@ -20,6 +25,7 @@ export class CloudSyncService {
   private uid: string | undefined;
   private idToken: string | undefined;
   private firebaseService = inject(FirebaseService);
+  private phonemeService = inject(PhonemeSoundsService);
 
   /**
    * Set the current user context for cloud sync.
@@ -31,11 +37,62 @@ export class CloudSyncService {
     this.idToken = idToken;
   }
 
+  /**
+   * Fetch the user's remote normalized state from Firestore and return a
+   * denormalized `IState` suitable for restoring into the store.
+   */
+  public async fetchRemoteState(): Promise<
+    import('../models/istate').IState | undefined
+  > {
+    if (!this.uid) {
+      return undefined;
+    }
+    const db = this.firebaseService.getFirestore();
+    if (!db) {
+      return undefined;
+    }
+
+    try {
+      const userDocRef = doc(db, 'users', this.uid);
+      const snap = await getDoc(userDocRef);
+      console.info('[CloudSync] fetched user doc', {
+        uid: this.uid,
+        exists: snap.exists(),
+      });
+      if (!snap.exists()) {
+        return undefined;
+      }
+      const data = snap.data() as INormalizedState;
+      console.info('[CloudSync] user doc data keys', Object.keys(data ?? {}));
+      if (!data) {
+        return undefined;
+      }
+      // Set lastSentState so we don't immediately resend the same data back
+      try {
+        this.lastSentState = this.clone(data) as INormalizedState;
+      } catch {
+        // ignore clone errors
+      }
+
+      try {
+        return denormalizeState(data);
+      } catch (e) {
+        console.warn('Failed to denormalize remote state', e);
+        return undefined;
+      }
+    } catch (e) {
+      console.warn('Failed to fetch remote state', e);
+      return undefined;
+    }
+  }
+
   async sync(state: IState): Promise<void> {
     try {
       if (!this.uid) {
         return;
       }
+
+      console.info('[CloudSync] preparing sync for', this.uid);
 
       // Normalize state - strip static data, keep only user-specific fields
       const normalizedState = normalizeState(state);
@@ -63,7 +120,13 @@ export class CloudSyncService {
       const db = this.firebaseService.getFirestore();
       if (db) {
         const userDoc = doc(db, 'users', this.uid);
+        console.info(
+          '[CloudSync] writing changes for',
+          this.uid,
+          Object.keys(changes),
+        );
         await setDoc(userDoc, changes, { merge: true });
+        console.info('[CloudSync] write complete for', this.uid);
       }
 
       // Update lastSentState on successful send

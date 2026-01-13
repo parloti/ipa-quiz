@@ -16,11 +16,12 @@ export function LogSignals() {
       return void 0;
     }
 
+    const originalFac = (constructor as any)['\u0275fac'] as (
+      ...args: unknown[]
+    ) => Record<string, Signal<unknown>>;
+
     (constructor as any)['\u0275fac'] = function ɵfac(...args: unknown[]) {
-      const component = new constructor(...args) as Record<
-        string,
-        Signal<unknown>
-      >;
+      const component = originalFac(...args);
 
       const signals: Record<string, Signal<any>> = {};
       const previousValues = new Map<string, unknown>();

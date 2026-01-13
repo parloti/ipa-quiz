@@ -13,6 +13,9 @@
     "validate": "npm run lint && npm run typecheck:spec && npm test && npm run build",
     "postinstall": "patch-package",
     "deploy": "ng deploy --base-href=https://parloti.github.io/ipa-quiz/",
+    "playwright:install": "npx playwright install --with-deps",
+    "e2e": "npx playwright test",
+    "e2e:headed": "npx playwright test --headed",
     "\n# ------------- LINTING ------------- scripts:": "",
     "ng:lint": "ng lint",
     "lint": "npm run eslint && npm run prettier && npm run stylelint",
@@ -105,6 +108,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.51.0",
     "vite-tsconfig-paths": "^6.0.3",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "@playwright/test": "^1.40.0"
   }
 }

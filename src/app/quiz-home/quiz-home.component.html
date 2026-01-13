@@ -71,7 +71,7 @@
             ><strong>🗲</strong></span
           >
         </div>
-        @if (firstIncompleted && $index === 0) {
+        @if ($count > 0 && firstIncompleted && $index === 0) {
           <span class="text-secondary small"><sup>Incomplete</sup> </span>
         }
         @if (

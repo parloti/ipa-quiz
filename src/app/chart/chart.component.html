@@ -1,23 +1,69 @@
 <div class="chart">
   <ng-container headers>
     <ng-container column="[4, last[" index="[1, 5]" placement rows="[1, 2[">
-      <div class="placement text-center">Front</div>
-      <div class="placement text-center">Near-front</div>
-      <!-- <div class="placement text-center"></div> -->
-      <div class="placement text-center">Central</div>
-      <!-- <div class="placement text-center"></div> -->
-      <div class="placement text-center">Near-back</div>
-      <div class="placement text-center">Back</div>
+      <div
+        class="placement text-nowrap d-flex justify-content-start align-content-center flex-wrap"
+      >
+        Front
+      </div>
+      <div
+        class="placement text-nowrap d-flex justify-content-center align-content-center flex-wrap"
+      >
+        Near-front
+      </div>
+      <div
+        class="placement text-nowrap d-flex justify-content-center align-content-center flex-wrap"
+      >
+        Central
+      </div>
+      <div
+        class="placement text-nowrap d-flex justify-content-center align-content-center flex-wrap"
+      >
+        Near-back
+      </div>
+      <div
+        class="placement text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Back
+      </div>
     </ng-container>
 
     <ng-container column="[1, 4[" constriction index="[6, 12]" rows="[2, last[">
-      <div class="constriction text-nowrap text-end">Close</div>
-      <div class="constriction text-nowrap text-end">Near-close</div>
-      <div class="constriction text-nowrap text-end">Close-mid</div>
-      <div class="constriction text-nowrap text-end">Mid</div>
-      <div class="constriction text-nowrap text-end">Open-mid</div>
-      <div class="constriction text-nowrap text-end">Near-open</div>
-      <div class="constriction text-nowrap text-end">Open</div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Close
+      </div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Near-close
+      </div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Close-mid
+      </div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Mid
+      </div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Open-mid
+      </div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Near-open
+      </div>
+      <div
+        class="constriction text-nowrap d-flex justify-content-end align-content-center flex-wrap"
+      >
+        Open
+      </div>
     </ng-container>
   </ng-container>
 
@@ -25,12 +71,12 @@
     @for (vowels of vowelsByPosition | keyvalue; track $index) {
       @if (answered()) {
         <div
-          class="vowels text-center d-flex justify-content-around"
+          class="vowels bg-white rounded-circle d-flex"
           [attr.vowels]="vowels.key"
         >
           @for (vowel of vowels.value; track $index) {
             <div
-              class="bg-light rounded-circle d-flex align-items-center justify-content-center p-1"
+              class="rounded-circle d-flex align-items-center justify-content-center"
               [attr.vowel]="vowel.name"
               [matTooltip]="vowel.name"
               [matTooltipHideDelay]="5000"
@@ -43,12 +89,13 @@
                   question()?.vowel?.id !== selectedAnswer(),
                 'border-success': question()?.vowel?.id === vowel.id,
               }"
+             
             >
-              <span
+              <div class="position text-center"
                 matTooltipPosition="above"
                 [matTooltip]="vowel.symbol.names.join(', ')"
                 [matTooltipHideDelay]="5000"
-                >{{ vowel.letter }}</span
+                >{{ vowel.letter }}</div
               >
             </div>
           }

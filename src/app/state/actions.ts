@@ -46,7 +46,5 @@ export const actions = {
   practiceOpened: createAction(
     '[Quiz] Practice Opened',
     props<{ quizId: IQuizID }>(),
-  ),
-  restoreStateFailed: createAction('[App] Restore State Failed'),
-  saveState: createAction('[App] Save State', props<{ state: IState }>()),
+  )
 };
