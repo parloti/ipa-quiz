@@ -1,6 +1,6 @@
 import { Component, computed, input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { LogSignals } from 'src/app/utils/create-logging-effect';
+import { LogSignals } from 'src/app/utils/log-signals';
 import { IVowelID } from '../../models/ivowel';
 
 @LogSignals()

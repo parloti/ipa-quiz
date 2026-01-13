@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { doc, setDoc } from 'firebase/firestore';
 import { IState } from '../models/istate';
+import { logCloudDiff } from './cloud-logger';
 import { FirebaseService } from './firebase.service';
 import { INormalizedState, normalizeState } from './state-normalization';
 
@@ -45,6 +46,18 @@ export class CloudSyncService {
         Object.keys(changes as Record<string, unknown>).length === 0
       ) {
         return;
+      }
+
+      // Log changes in a readable, colorful group for debugging
+      try {
+        logCloudDiff(
+          this.constructor.name,
+          changes as Record<string, unknown>,
+          this.lastSentState as any,
+          normalizedState as any,
+        );
+      } catch {
+        // ignore logger errors
       }
 
       const db = this.firebaseService.getFirestore();

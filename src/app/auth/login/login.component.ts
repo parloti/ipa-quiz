@@ -55,6 +55,15 @@ export class LoginComponent {
     }
   }
 
+  async continueAnonymous() {
+    try {
+      await this.auth.signInAnonymously();
+      this.router.navigate(['/']);
+    } catch (e: any) {
+      this.snackBar.open(e.message, 'Close', { duration: 3000 });
+    }
+  }
+
   async onLogin() {
     if (this.loginForm.invalid) {
       return;

@@ -4,14 +4,21 @@ import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { NgIconComponent } from '@ng-icons/core';
-import { LogSignals } from 'src/app/utils/create-logging-effect';
+import { LogSignals } from 'src/app/utils/log-signals';
 import { IQuestion } from '../../models/iquestion';
 import { IVowel, IVowelID } from '../../models/ivowel';
 import { QuestionElement } from '../../models/question-element';
 
 @Component({
   selector: 'app-quiz-options',
-  imports: [MatRadioModule, NgClass, MatRipple, MatIconButton, NgIconComponent, KeyValuePipe],
+  imports: [
+    MatRadioModule,
+    NgClass,
+    MatRipple,
+    MatIconButton,
+    NgIconComponent,
+    KeyValuePipe,
+  ],
   templateUrl: './quiz-options.component.html',
 })
 @LogSignals()

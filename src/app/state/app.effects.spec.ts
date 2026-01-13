@@ -53,32 +53,7 @@ describe('AppEffectsService', () => {
   });
 
   describe('loadState$', () => {
-    it('should restore state from localStorage if available', async () => {
-      const mockState = {
-        quizzes: {
-          'quiz-1': {
-            id: 'quiz-1',
-            name: 'Test Quiz',
-            description: 'Test',
-            sessions: {},
-          },
-        },
-      };
-      localStorage.setItem('state', JSON.stringify(mockState));
-
-      actions$ = of({ type: '@ngrx/effects/init' });
-
-      const result = await new Promise<Action>(resolve => {
-        effects.loadState$.subscribe(action => resolve(action));
-      });
-
-      expect(result.type).toBe(actions.restoreState.type);
-      localStorage.removeItem('state');
-    });
-
-    it('should return restoreStateFailed if no state in localStorage', async () => {
-      localStorage.removeItem('state');
-
+    it('should emit restoreStateFailed since localStorage persistence is removed', async () => {
       actions$ = of({ type: '@ngrx/effects/init' });
 
       const result = await new Promise<Action>(resolve => {
@@ -86,19 +61,6 @@ describe('AppEffectsService', () => {
       });
 
       expect(result.type).toBe(actions.restoreStateFailed.type);
-    });
-
-    it('should return restoreStateFailed if localStorage contains invalid JSON', async () => {
-      localStorage.setItem('state', 'invalid json');
-
-      actions$ = of({ type: '@ngrx/effects/init' });
-
-      const result = await new Promise<Action>(resolve => {
-        effects.loadState$.subscribe(action => resolve(action));
-      });
-
-      expect(result.type).toBe(actions.restoreStateFailed.type);
-      localStorage.removeItem('state');
     });
   });
 
@@ -154,78 +116,7 @@ describe('AppEffectsService', () => {
     });
   });
 
-  describe('saveState$', () => {
-    it('should persist state to localStorage after initial skips', async () => {
-      const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
-
-      actions$ = of(actions.restoreStateFailed());
-      const subscription = effects.saveState$.subscribe();
-
-      const state1: IState = {
-        quizzes: {},
-        currentQuizId: undefined,
-        version: 1,
-      } as any;
-      const state2: IState = {
-        quizzes: {},
-        currentQuizId: 'quiz-1' as any,
-        version: 1,
-      } as any;
-      const state3: IState = {
-        quizzes: {},
-        currentQuizId: 'quiz-2' as any,
-        version: 1,
-      } as any;
-
-      quizService.state$.next(state1);
-      quizService.state$.next(state2);
-      quizService.state$.next(state3);
-
-      await new Promise<void>(resolve => setTimeout(resolve, 0));
-
-      expect(setItemSpy).toHaveBeenCalledWith('state', JSON.stringify(state3));
-
-      subscription.unsubscribe();
-    });
-
-    it('should handle localStorage.setItem throwing', async () => {
-      const errorSpy = vi
-        .spyOn(console, 'error')
-        .mockImplementation(() => undefined);
-      vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
-        throw new Error('nope');
-      });
-
-      actions$ = of(actions.restoreStateFailed());
-      const subscription = effects.saveState$.subscribe();
-
-      const state1: IState = {
-        quizzes: {},
-        currentQuizId: undefined,
-        version: 1,
-      } as any;
-      const state2: IState = {
-        quizzes: {},
-        currentQuizId: 'quiz-1' as any,
-        version: 1,
-      } as any;
-      const state3: IState = {
-        quizzes: {},
-        currentQuizId: 'quiz-2' as any,
-        version: 1,
-      } as any;
-
-      quizService.state$.next(state1);
-      quizService.state$.next(state2);
-      quizService.state$.next(state3);
-
-      await new Promise<void>(resolve => setTimeout(resolve, 0));
-
-      expect(errorSpy).toHaveBeenCalled();
-
-      subscription.unsubscribe();
-    });
-  });
+  // LocalStorage persistence removed — no saveState$ effect to test.
 
   describe('openQuiz$', () => {
     it('should navigate to quiz-home when openQuiz action is dispatched', async () => {

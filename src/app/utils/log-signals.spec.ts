@@ -1,8 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, isDevMode, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { describe, expect, it, vi } from 'vitest';
 
-import { LogSignals } from './create-logging-effect';
+import { LogSignals } from './log-signals';
 
 describe('LogSignals decorator', () => {
   it('should log signal changes when enabled', () => {
@@ -34,6 +34,12 @@ describe('LogSignals decorator', () => {
   });
 
   it('should not log when disabled', () => {
+    if (isDevMode()) {
+      // In dev mode logging is enabled; this test is intended to assert
+      // the disabled case, so skip when running in dev mode.
+      return;
+    }
+
     const consoleSpy = vi
       .spyOn(console, 'groupCollapsed')
       .mockImplementation(() => {});

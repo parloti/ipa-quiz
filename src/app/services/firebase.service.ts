@@ -5,7 +5,11 @@ import {
   initializeApp,
   type FirebaseOptions,
 } from 'firebase/app';
-import { Firestore, getFirestore } from 'firebase/firestore';
+import {
+  enableIndexedDbPersistence,
+  Firestore,
+  getFirestore,
+} from 'firebase/firestore';
 import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
@@ -14,13 +18,25 @@ export class FirebaseService {
   private db: Firestore | undefined;
 
   init(): FirebaseApp | undefined {
-    if (this.app) return this.app;
+    if (this.app) {
+      return this.app;
+    }
     const cfg = environment.firebaseConfig as FirebaseOptions | undefined;
-    if (!cfg) return undefined;
+    if (!cfg) {
+      return undefined;
+    }
     try {
       this.app = initializeApp(cfg);
       try {
         this.db = getFirestore(this.app);
+        // Enable IndexedDB persistence for offline support on the web.
+        // If persistence cannot be enabled (multiple tabs or unsupported), ignore.
+        try {
+          // enableIndexedDbPersistence returns a Promise
+          enableIndexedDbPersistence(this.db).catch(() => {});
+        } catch {
+          // ignore
+        }
       } catch {
         // ignore
       }
@@ -38,9 +54,13 @@ export class FirebaseService {
   }
 
   getFirestore(): Firestore | undefined {
-    if (this.db) return this.db;
+    if (this.db) {
+      return this.db;
+    }
     const app = this.init();
-    if (!app) return undefined;
+    if (!app) {
+      return undefined;
+    }
     try {
       this.db = getFirestore(app);
       return this.db;

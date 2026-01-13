@@ -9,14 +9,12 @@ import {
 import { Action } from '@ngrx/store';
 import {
   concatMap,
-  distinctUntilChanged,
   exhaustMap,
   filter,
   map,
   mergeMap,
-  skip,
   tap,
-  withLatestFrom,
+  withLatestFrom
 } from 'rxjs';
 import { debounceTime, filter as rxFilter } from 'rxjs/operators';
 import { IQuiz } from '../models/iquiz';
@@ -47,25 +45,18 @@ export class AppEffects {
       ofType(ROOT_EFFECTS_INIT),
       tap(() => {
         try {
-          // Initialize Firebase auth and attempt anonymous sign-in if configured
+          // Initialize Firebase auth. Do NOT auto-sign-in anonymously here;
+          // allow the user to choose anonymous sign-in from the login UI.
           this.firebaseAuth.init();
-          this.firebaseAuth.signInAnonymously().catch(() => {});
         } catch (e) {
           // ignore initialization errors
         }
       }),
       map(() => {
-        try {
-          const stringifiedState = localStorage.getItem('state');
-          if (stringifiedState !== null) {
-            const restoring = JSON.parse(stringifiedState);
-            if (restoring !== void 0) {
-              return actions.restoreState({ restoring });
-            }
-          }
-        } catch (error) {
-          console.error('Unable to retore state from local storage:', error);
-        }
+        // Local persistence via `localStorage` has been removed; rely on
+        // Firestore (with persistence) and in-memory state. Emit
+        // `restoreStateFailed` so the app continues with a fresh state.
+        console.info('LocalStorage persistence disabled; starting with fresh state');
         return actions.restoreStateFailed();
       }),
       filter(action => action !== void 0),
@@ -141,28 +132,9 @@ export class AppEffects {
     ),
   );
 
-  saveState$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(actions.restoreState, actions.restoreStateFailed),
-        exhaustMap(() =>
-          this.quizService.state$.pipe(
-            filter(state => state !== void 0),
-            skip(2),
-            distinctUntilChanged(),
-            map(state => {
-              try {
-                localStorage.setItem('state', JSON.stringify(state));
-                console.log('Saved state to local storage:', state);
-              } catch (error) {
-                console.error('Unable to save state to local storage:', error);
-              }
-            }),
-          ),
-        ),
-      ),
-    { dispatch: false },
-  );
+  // Local state persistence removed; Firestore persistence is enabled in
+  // `FirebaseService`. UI updates should be applied locally and Firestore
+  // will synchronize when available.
 
   // Debounced cloud sync: batches rapid changes and sends only diffs.
   cloudSync$ = createEffect(

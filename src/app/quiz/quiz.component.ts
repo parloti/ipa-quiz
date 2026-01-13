@@ -6,7 +6,7 @@ import { lucideCirclePlay } from '@ng-icons/lucide';
 import { ChartComponent } from '../chart/chart.component';
 import { IVowel, IVowelID } from '../models/ivowel';
 import { QuizService } from '../services/quiz.service';
-import { LogSignals } from '../utils/create-logging-effect';
+import { LogSignals } from '../utils/log-signals';
 import { QuizControlsComponent } from './components/quiz-controls.component';
 import { QuizOptionsComponent } from './components/quiz-options.component';
 import { QuizPromptComponent } from './components/quiz-prompt.component';

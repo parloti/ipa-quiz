@@ -109,7 +109,16 @@ describe('QuizOptionsComponent', () => {
     const playButton = fixture.debugElement.query(By.css('button'));
     expect(playButton).toBeTruthy();
 
-    playButton.nativeElement.click();
+    // The component emits `playSound$` when the audio element finishes
+    // playing (audio 'ended' event). Simulate that instead of relying on
+    // click handling which may be asynchronous in the test environment.
+    const audioEl = fixture.debugElement.query(By.css('audio'));
+    if (audioEl) {
+      audioEl.nativeElement.dispatchEvent(new Event('ended'));
+    } else {
+      // Fallback: click the button if no audio element is present
+      playButton.nativeElement.click();
+    }
 
     expect(playSpy).toHaveBeenCalledTimes(1);
 
