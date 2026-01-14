@@ -37,7 +37,7 @@ export const actions = {
   ),
   updateOptionSoundIndex: createAction(
     '[Quiz] Update Option Sound Played',
-    props<{ optionIndex: number; soundIndex: number }>(),
+    props<{ optionId: IVowelID; soundIndex: number }>(),
   ),
   restoreState: createAction(
     '[App] Restore State',

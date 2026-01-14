@@ -131,7 +131,7 @@ export const quizFeature = createFeature({
     }),
     immerOn(
       actions.updateOptionSoundIndex,
-      (state, { optionIndex, soundIndex }) => {
+      (state, { optionId, soundIndex }) => {
         const id = state.currentQuizId;
         if (!id) {
           return state;
@@ -145,7 +145,7 @@ export const quizFeature = createFeature({
         const index = session?.currentQuestionIndex;
         const questions = session?.questions;
         if (index !== void 0 && questions[index] !== void 0) {
-          questions[index].options[optionIndex].soundIndex = soundIndex;
+          questions[index].options[optionId].soundIndex = soundIndex;
         }
         return state;
       },

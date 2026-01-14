@@ -20,6 +20,7 @@ import { QuestionElement } from '../../../models/question-element';
     NgIconComponent,
     KeyValuePipe,
   ],
+  styleUrls: ['./quiz-options.component.scss'],
   templateUrl: './quiz-options.component.html',
 })
 export class QuizOptionsComponent {
@@ -40,7 +41,7 @@ export class QuizOptionsComponent {
     alias: 'selectAnswer',
   });
 
-  public readonly playSound$ = output<{ vowel: IVowel; optionIndex: number }>({
+  public readonly playSound$ = output<{ vowel: IVowel }>({
     alias: 'playSound',
   });
 
@@ -48,7 +49,17 @@ export class QuizOptionsComponent {
     this.selectAnswer$.emit(evt);
   }
 
-  protected onPlaySound(vowel: IVowel, optionIndex: number): void {
-    this.playSound$.emit({ vowel, optionIndex });
+  protected onPlaySound(vowel: IVowel): void {
+    this.playSound$.emit({ vowel });
+  }
+
+  protected abbreviateAuthorName(author: string | undefined): string {
+    if (!author) {
+      return '';
+    }
+    return author
+      .split(' ')
+      .map((word) => word[0] ?? '')
+      .join('');
   }
 }

@@ -21,10 +21,10 @@ export class QuizService {
     this.store$.dispatch(actions.practiceOpened({ quizId }));
   }
 
-  updateOptionSound(vowel: IVowel, optionIndex: number) {
+  updateOptionSound(vowel: IVowel) {
     const soundIndex = randomInteger(0, vowel.sounds?.length ?? 0);
     this.store$.dispatch(
-      actions.updateOptionSoundIndex({ optionIndex, soundIndex }),
+      actions.updateOptionSoundIndex({ optionId: vowel.id, soundIndex }),
     );
   }
 
@@ -139,7 +139,11 @@ export class QuizService {
 
     this._quizzes$ = this.store$
       .select(quizFeature.selectQuizzes)
-      .pipe(map(q => Object.values(q ?? {})));
+      .pipe(
+        map(q =>
+          Object.values(q ?? {}).sort((a, b) => a.id.localeCompare(b.id)),
+        ),
+      );
     this._openedQuiz$ = this.store$.select(quizFeature.selectCurrentQuiz);
     this._selectedAnswer$ = this.store$.select(
       quizFeature.selectCurrentQuestionSelectedAnswer,

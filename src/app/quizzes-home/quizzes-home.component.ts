@@ -1,4 +1,4 @@
-import { Component, Signal } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { IQuiz } from '../models/iquiz';
 import { QuizService } from '../services/quiz.service';
@@ -11,14 +11,14 @@ import { LogSignals } from '../utils/log-signals';
   styleUrl: './quizzes-home.component.scss',
 })
 export class QuizzesHomeComponent {
-  private _quizzes$: Signal<IQuiz[] | undefined>;
+  private readonly _quizzes$: Signal<IQuiz[] | undefined> = toSignal(
+    inject(QuizService).quizzes$,
+  );
   public get quizzes$(): Signal<IQuiz[] | undefined> {
     return this._quizzes$;
   }
 
-  constructor(private quizService: QuizService) {
-    this._quizzes$ = toSignal(this.quizService.quizzes$);
-  }
+  private readonly quizService = inject(QuizService);
 
   selectQuiz(quiz: IQuiz): void {
     this.quizService.openQuiz(quiz.id);

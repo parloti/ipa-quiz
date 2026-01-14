@@ -134,15 +134,7 @@ export class AppEffects {
   cloudSync$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(
-          actions.restoreState,
-          actions.addQuiz,
-          actions.addSession,
-          actions.answerCurrent,
-          actions.selectAnswer,
-          actions.updateQuestionSoundIndex,
-          actions.updateOptionSoundIndex,
-        ),
+        ofType(ROOT_EFFECTS_INIT),
         // Wait for the local state stream to emit the current state
         exhaustMap(() =>
           this.quizService.state$.pipe(

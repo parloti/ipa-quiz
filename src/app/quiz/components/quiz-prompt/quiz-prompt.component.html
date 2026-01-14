@@ -14,12 +14,7 @@
   <button
     mat-icon-button
     matRipple
-    (click)="
-      $event.preventDefault();
-      $event.stopPropagation();
-      audio.play();
-      onPlaySound(vowel)
-    "
+    (click)="$event.preventDefault(); $event.stopPropagation(); audio.play()"
   >
     <ng-icon name="lucideCirclePlay"></ng-icon>
   </button>

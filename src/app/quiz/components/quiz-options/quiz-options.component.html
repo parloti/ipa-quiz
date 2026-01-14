@@ -13,21 +13,111 @@
     @let option = item.value;
     @let isSelected = selectedAnswer === option.id;
     @let isCorrect = isAnswered && option.id === correctOptionId;
+
     <mat-radio-button
+      class="bg-light rounded-5 my-1"
       color="primary"
       [disabled]="isAnswered"
       [disabledInteractive]="true"
       [ngClass]="{
-        'border rounded-5': isAnswered && (isSelected || isCorrect),
+        border: isAnswered && (isSelected || isCorrect),
         'border-danger': isSelected && !isCorrect,
         'border-success': isCorrect,
       }"
       [value]="option.id"
     >
       @if (option.type === questionElement.Letter) {
-        {{ option.letter }}
+        <div class="align-items-center d-flex justify-content-between">
+          <div>{{ option.letter }}</div>
+
+          @if (isAnswered && isSelected && !isCorrect) {
+            @if (option.sounds!==void 0 && option.soundIndex!==void 0) {
+              <div class="d-flex me-4">
+                <button
+                  mat-icon-button
+                  matRipple
+                  (click)="
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    audio.play()
+                  "
+                >
+                  <ng-icon name="lucideCirclePlay"></ng-icon>
+                </button>
+                @let sound = option.sounds[option.soundIndex];
+
+                <span class="ms-2 d-inline-flex align-items-center gap-2">
+                  @if (sound.logoUrl) {
+                    <img
+                      height="18"
+                      [alt]="sound.sourceId"
+                      [src]="sound.logoUrl"
+                      [title]="sound.sourceTitle"
+                    />
+                  }
+                  <small>{{ abbreviateAuthorName(sound.author) }}</small>
+                </span>
+
+                <audio
+                  #audio
+                  preload="auto"
+                  [src]="sound.url"
+                  (ended)="onPlaySound(option)"
+                ></audio>
+              </div>
+            } @else {
+              <span class="alert alert-danger small" role="alert">
+                <ng-icon name="lucideAlertTriangle"></ng-icon>
+              </span>
+            }
+          }
+        </div>
       } @else if (option.type === questionElement.Name) {
-        {{ option.name }}
+        <div class="align-items-center d-flex justify-content-between">
+          <div>{{ option.name }}</div>
+
+          @if (isAnswered && isSelected && !isCorrect) {
+            @if (option.sounds!==void 0 && option.soundIndex!==void 0) {
+              <div class="d-flex me-4">
+                <button
+                  mat-icon-button
+                  matRipple
+                  (click)="
+                    $event.preventDefault();
+                    $event.stopPropagation();
+                    audio.play()
+                  "
+                >
+                  <ng-icon name="lucideCirclePlay"></ng-icon>
+                </button>
+                @let sound = option.sounds[option.soundIndex];
+
+                <span class="ms-2 d-inline-flex align-items-center gap-2">
+                  @if (sound.logoUrl) {
+                    <img
+                      height="18"
+                      [alt]="sound.sourceId"
+                      [src]="sound.logoUrl"
+                      [title]="sound.sourceTitle"
+                    />
+                  }
+                  <small>{{ abbreviateAuthorName(sound.author) }}</small>
+                </span>
+
+                <audio
+                  #audio
+                  preload="auto"
+                  [src]="sound.url"
+                  (ended)="onPlaySound(option)"
+                ></audio>
+              </div>
+            } @else {
+              <span class="alert alert-danger small" role="alert">
+                <ng-icon name="lucideAlertTriangle"></ng-icon>
+              </span>
+            }
+          }
+        </div>
       } @else if (
         option.type === questionElement.Sound  && option.sounds!==void 0 && option.soundIndex!==void 0
       ) {
@@ -58,7 +148,7 @@
           #audio
           preload="auto"
           [src]="sound.url"
-          (ended)="onPlaySound(option, $index)"
+          (ended)="onPlaySound(option)"
         ></audio>
       } @else {
         <p class="alert alert-danger" role="alert">

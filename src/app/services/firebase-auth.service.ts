@@ -12,9 +12,12 @@ import {
   type User,
 } from 'firebase/auth';
 import { BehaviorSubject } from 'rxjs';
+import { IQuestion } from '../models/iquestion';
 import { actions } from '../state/actions';
+import { enrichQuestionsWithSounds } from '../state/create-questions';
 import { CloudSyncService } from './cloud-sync.service';
 import { FirebaseService } from './firebase.service';
+import { PhonemeSoundsService } from './phoneme-sounds.service';
 
 /**
  * Lightweight Firebase Auth wrapper.
@@ -26,6 +29,7 @@ import { FirebaseService } from './firebase.service';
 export class FirebaseAuthService {
   private firebaseService = inject(FirebaseService);
   private cloudSync = inject(CloudSyncService);
+  private phonemeSoundsService = inject(PhonemeSoundsService);
   private store = inject(Store);
 
   private authInitialized = false;
@@ -123,6 +127,20 @@ export class FirebaseAuthService {
       );
       const remote = await this.cloudSync.fetchRemoteState();
       if (remote) {
+        // Enrich all questions with sounds before restoring state
+        const allQuestions: IQuestion[] = [];
+        for (const quiz of Object.values(remote.quizzes)) {
+          for (const session of Object.values(quiz.sessions ?? {})) {
+            allQuestions.push(...Object.values(session.questions ?? {}));
+          }
+        }
+        if (allQuestions.length > 0) {
+          await enrichQuestionsWithSounds(
+            allQuestions,
+            this.phonemeSoundsService,
+          );
+        }
+
         console.info(
           '[FirebaseAuth] remote state fetched, dispatching restoreState',
         );
