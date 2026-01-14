@@ -68,35 +68,49 @@
   </ng-container>
 
   <ng-container column="[4, last[" index="[13, last-8]" rows="[2, last[" vowel>
-    @for (vowels of vowelsByPosition | keyvalue; track $index) {
-      @if (answered()) {
+    @for (positionVowels of vowelsByPosition | keyvalue; track $index) {
+      @if (answered$()) {
+        @let vowels = positionVowels.value;
+        @let position = positionVowels.key;
+        @let vowelIds = vowelIdsByPosition[position];
+        @let selectedAnswer = selectedAnswer$();
+        @let question = question$();
+        @let questionVowelId = question?.vowel?.id;
+
         <div
           class="vowels bg-white rounded-circle d-flex"
-          [attr.vowels]="vowels.key"
+          [attr.vowels]="position"
+          [ngClass]="{
+            'z-1 position-relative':
+              (selectedAnswer !== undefined &&
+                vowelIds.includes(selectedAnswer)) ||
+              (questionVowelId !== undefined &&
+                vowelIds.includes(questionVowelId)),
+          }"
         >
-          @for (vowel of vowels.value; track $index) {
+          @for (vowel of vowels; track $index) {
             <div
               class="rounded-circle d-flex align-items-center justify-content-center"
               [attr.vowel]="vowel.name"
               [matTooltip]="vowel.name"
               [matTooltipHideDelay]="5000"
               [ngClass]="{
-                border:
-                  selectedAnswer() === vowel.id ||
-                  question()?.vowel?.id === vowel.id,
+                'border scale-50':
+                  selectedAnswer === vowel.id || questionVowelId === vowel.id,
                 'border-danger':
-                  selectedAnswer() === vowel.id &&
-                  question()?.vowel?.id !== selectedAnswer(),
-                'border-success': question()?.vowel?.id === vowel.id,
+                  selectedAnswer === vowel.id &&
+                  questionVowelId !== selectedAnswer,
+                'border-success': questionVowelId === vowel.id,
               }"
-             
             >
-              <div class="position text-center"
+              <div
+                class="position text-center"
                 matTooltipPosition="above"
                 [matTooltip]="vowel.symbol.names.join(', ')"
                 [matTooltipHideDelay]="5000"
-                >{{ vowel.letter }}</div
               >
+                {{ vowel.letter }}
+              </div>
             </div>
           }
         </div>

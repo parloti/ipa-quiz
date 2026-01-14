@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { QuizControlsComponent } from './quiz-controls.component';
+import { QuizControlsComponent } from '../quiz-controls.component';
 
 describe('QuizControlsComponent', () => {
   let fixture: ComponentFixture<QuizControlsComponent>;

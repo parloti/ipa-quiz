@@ -9,7 +9,6 @@ export interface IVowel {
   // name: `${IConstriction} ${IPlacement}(( ${IShape})| )`;
   symbol: {
     entities: string[];
-    href: string;
     unicodes: string[];
     names: string[];
   };

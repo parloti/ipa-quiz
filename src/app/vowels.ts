@@ -8,7 +8,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#105;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close_front_unrounded_vowel",
       "unicodes": [
         "U+0069"
       ],
@@ -25,7 +24,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#121;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close_front_rounded_vowel",
       "unicodes": [
         "U+0079"
       ],
@@ -42,7 +40,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#616;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close_central_unrounded_vowel",
       "unicodes": [
         "U+0268"
       ],
@@ -59,7 +56,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#649;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close_central_rounded_vowel",
       "unicodes": [
         "U+0289"
       ],
@@ -76,7 +72,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#623;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close_back_unrounded_vowel",
       "unicodes": [
         "U+026f"
       ],
@@ -93,7 +88,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#117;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close_back_rounded_vowel",
       "unicodes": [
         "U+0075"
       ],
@@ -110,7 +104,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#618;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Near-close_near-front_unrounded_vowel",
       "unicodes": [
         "U+026a"
       ],
@@ -127,7 +120,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#655;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Near-close_near-front_rounded_vowel",
       "unicodes": [
         "U+028f"
       ],
@@ -144,7 +136,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#650;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Near-close_near-back_rounded_vowel",
       "unicodes": [
         "U+028a"
       ],
@@ -161,7 +152,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#101;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close-mid_front_unrounded_vowel",
       "unicodes": [
         "U+0065"
       ],
@@ -178,7 +168,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#248;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close-mid_front_rounded_vowel",
       "unicodes": [
         "U+00f8"
       ],
@@ -195,7 +184,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#600;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close-mid_central_unrounded_vowel",
       "unicodes": [
         "U+0258"
       ],
@@ -212,7 +200,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#629;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close-mid_central_rounded_vowel",
       "unicodes": [
         "U+0275"
       ],
@@ -229,7 +216,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#612;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close-mid_back_unrounded_vowel",
       "unicodes": [
         "U+0264"
       ],
@@ -246,7 +232,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#111;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Close-mid_back_rounded_vowel",
       "unicodes": [
         "U+006f"
       ],
@@ -264,7 +249,6 @@ export const VOWELS: IVowel[] = [
         "&#101;",
         "&#798;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Mid_front_unrounded_vowel",
       "unicodes": [
         "U+0065",
         "U+031e"
@@ -284,7 +268,6 @@ export const VOWELS: IVowel[] = [
         "&#248;",
         "&#798;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Mid_front_rounded_vowel",
       "unicodes": [
         "U+00f8",
         "U+031e"
@@ -303,7 +286,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#601;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Mid_central_vowel",
       "unicodes": [
         "U+0259"
       ],
@@ -321,7 +303,6 @@ export const VOWELS: IVowel[] = [
         "&#612;",
         "&#798;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Mid_back_unrounded_vowel",
       "unicodes": [
         "U+0264",
         "U+031e"
@@ -341,7 +322,6 @@ export const VOWELS: IVowel[] = [
         "&#111;",
         "&#798;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Mid_back_rounded_vowel",
       "unicodes": [
         "U+006f",
         "U+031e"
@@ -360,7 +340,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#603;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open-mid_front_unrounded_vowel",
       "unicodes": [
         "U+025b"
       ],
@@ -377,7 +356,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#339;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open-mid_front_rounded_vowel",
       "unicodes": [
         "U+0153"
       ],
@@ -394,7 +372,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#604;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open-mid_central_unrounded_vowel",
       "unicodes": [
         "U+025c"
       ],
@@ -411,7 +388,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#606;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open-mid_central_rounded_vowel",
       "unicodes": [
         "U+025e"
       ],
@@ -428,7 +404,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#652;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open-mid_back_unrounded_vowel",
       "unicodes": [
         "U+028c"
       ],
@@ -445,7 +420,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#596;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open-mid_back_rounded_vowel",
       "unicodes": [
         "U+0254"
       ],
@@ -462,7 +436,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#230;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Near-open_front_unrounded_vowel",
       "unicodes": [
         "U+00e6"
       ],
@@ -479,7 +452,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#592;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Near-open_central_vowel",
       "unicodes": [
         "U+0250"
       ],
@@ -496,7 +468,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#97;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open_front_unrounded_vowel",
       "unicodes": [
         "U+0061"
       ],
@@ -513,7 +484,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#630;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open_front_rounded_vowel",
       "unicodes": [
         "U+0276"
       ],
@@ -530,7 +500,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#228;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open_central_unrounded_vowel",
       "unicodes": [
         "U+00e4"
       ],
@@ -547,7 +516,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#593;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open_back_unrounded_vowel",
       "unicodes": [
         "U+0251"
       ],
@@ -564,7 +532,6 @@ export const VOWELS: IVowel[] = [
       "entities": [
         "&#594;"
       ],
-      "href": "https://en.wikipedia.org/wiki/Open_back_rounded_vowel",
       "unicodes": [
         "U+0252"
       ],

@@ -5,8 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { IQuestion } from '../models/iquestion';
-import { IVowelID } from '../models/ivowel';
+import { IVowel, IVowelID } from '../models/ivowel';
 import { VOWELS } from '../vowels';
+
+const vowelsByPosition = Object.groupBy(VOWELS, vowel =>
+  vowel.name.replace(/ (un)*rounded$/, ''),
+);
 
 @Component({
   selector: 'app-chart',
@@ -25,18 +29,39 @@ import { VOWELS } from '../vowels';
 })
 export class ChartComponent {
   /* v8 ignore next -- @preserve */
-  public readonly answered = input.required<boolean | undefined>();
+  public readonly answered$ = input.required<boolean | undefined>({
+    alias: 'answered',
+  });
 
   /* v8 ignore next -- @preserve */
-  public readonly selectedAnswer = input.required<IVowelID | undefined>();
-  public readonly question = input.required<IQuestion | undefined>();
+  public readonly selectedAnswer$ = input.required<IVowelID | undefined>({
+    alias: 'selectedAnswer',
+  });
+  public readonly question$ = input.required<IQuestion | undefined>({
+    alias: 'question',
+  });
+  protected readonly vowelsByPosition = vowelsByPosition;
 
-  /* v8 ignore next -- @preserve */
-  private readonly _vowelsByPosition = Object.groupBy(VOWELS, vowel =>
-    vowel.name.replace(/ (un)*rounded$/, ''),
+  protected readonly vowelIdsByPosition = Object.fromEntries(
+    Object.entries(vowelsByPosition)
+      .filter((entry): entry is [string, IVowel[]] => entry[1] !== void 0)
+      .reduce(
+        (prev, [position, vowels]): [string, IVowelID[]][] => {
+          const ids = vowels?.map(vowel => vowel.id) ?? ([] as IVowelID[]);
+          const newEntry = [position, ids] as [string, IVowelID[]];
+
+          const accumulated = [...prev, newEntry];
+
+          return accumulated;
+        },
+        [] as [string, IVowelID[]][],
+      ),
   );
-
-  public get vowelsByPosition() {
-    return this._vowelsByPosition;
-  }
 }
+
+// [
+//       ...prev,
+//       [
+//         position,
+//         vowels?.map(vowel => vowel.id) as any),
+//       ],

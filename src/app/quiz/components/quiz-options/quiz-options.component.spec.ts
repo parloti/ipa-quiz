@@ -3,10 +3,10 @@ import { MatRadioChange } from '@angular/material/radio';
 import { By } from '@angular/platform-browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { IQuestion } from '../../models/iquestion';
-import { IVowel, IVowelID } from '../../models/ivowel';
-import { QuestionElement } from '../../models/question-element';
-import { QuizOptionsComponent } from './quiz-options.component';
+import { IQuestion } from '../../../models/iquestion';
+import { IVowel, IVowelID } from '../../../models/ivowel';
+import { QuestionElement } from '../../../models/question-element';
+import { QuizOptionsComponent } from '../quiz-options.component';
 
 describe('QuizOptionsComponent', () => {
   let fixture: ComponentFixture<QuizOptionsComponent>;

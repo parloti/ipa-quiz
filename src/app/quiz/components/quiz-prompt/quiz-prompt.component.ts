@@ -4,9 +4,9 @@ import { MatIconButton } from '@angular/material/button';
 import { MatRipple } from '@angular/material/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { LogSignals } from 'src/app/utils/log-signals';
-import { IQuestion } from '../../models/iquestion';
-import { IVowel } from '../../models/ivowel';
-import { QuestionElement } from '../../models/question-element';
+import { IQuestion } from '../../../models/iquestion';
+import { IVowel } from '../../../models/ivowel';
+import { QuestionElement } from '../../../models/question-element';
 
 @LogSignals()
 @Component({

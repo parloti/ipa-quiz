@@ -7,9 +7,9 @@ import { ChartComponent } from '../chart/chart.component';
 import { IVowel, IVowelID } from '../models/ivowel';
 import { QuizService } from '../services/quiz.service';
 import { LogSignals } from '../utils/log-signals';
-import { QuizControlsComponent } from './components/quiz-controls.component';
-import { QuizOptionsComponent } from './components/quiz-options.component';
-import { QuizPromptComponent } from './components/quiz-prompt.component';
+import { QuizControlsComponent } from './components/quiz-controls/quiz-controls.component';
+import { QuizOptionsComponent } from './components/quiz-options/quiz-options.component';
+import { QuizPromptComponent } from './components/quiz-prompt/quiz-prompt.component';
 
 @LogSignals()
 @Component({
