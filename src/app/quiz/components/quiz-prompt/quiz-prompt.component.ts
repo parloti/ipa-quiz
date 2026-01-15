@@ -1,17 +1,15 @@
 import { LowerCasePipe } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
-import { MatRipple } from '@angular/material/core';
-import { NgIconComponent } from '@ng-icons/core';
 import { LogSignals } from 'src/app/utils/log-signals';
 import { IQuestion } from '../../../models/iquestion';
 import { IVowel } from '../../../models/ivowel';
 import { QuestionElement } from '../../../models/question-element';
+import { SoundPlayerComponent } from '../sound-player/sound-player.component';
 
 @LogSignals()
 @Component({
   selector: 'app-quiz-prompt',
-  imports: [LowerCasePipe, MatRipple, MatIconButton, NgIconComponent],
+  imports: [LowerCasePipe, SoundPlayerComponent],
   templateUrl: './quiz-prompt.component.html',
 })
 export class QuizPromptComponent {

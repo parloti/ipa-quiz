@@ -1,25 +1,17 @@
 import { KeyValuePipe, NgClass } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { MatIconButton } from '@angular/material/button';
-import { MatRipple } from '@angular/material/core';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
 import { NgIconComponent } from '@ng-icons/core';
 import { LogSignals } from 'src/app/utils/log-signals';
 import { IQuestion } from '../../../models/iquestion';
 import { IVowel, IVowelID } from '../../../models/ivowel';
 import { QuestionElement } from '../../../models/question-element';
+import { SoundPlayerComponent } from '../sound-player/sound-player.component';
 
 @LogSignals()
 @Component({
   selector: 'app-quiz-options',
-  imports: [
-    MatRadioModule,
-    NgClass,
-    MatRipple,
-    MatIconButton,
-    NgIconComponent,
-    KeyValuePipe,
-  ],
+  imports: [MatRadioModule, NgClass, NgIconComponent,KeyValuePipe, SoundPlayerComponent],
   styleUrls: ['./quiz-options.component.scss'],
   templateUrl: './quiz-options.component.html',
 })
@@ -51,15 +43,5 @@ export class QuizOptionsComponent {
 
   protected onPlaySound(vowel: IVowel): void {
     this.playSound$.emit({ vowel });
-  }
-
-  protected abbreviateAuthorName(author: string | undefined): string {
-    if (!author) {
-      return '';
-    }
-    return author
-      .split(' ')
-      .map((word) => word[0] ?? '')
-      .join('');
   }
 }

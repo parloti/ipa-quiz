@@ -26,90 +26,27 @@
       }"
       [value]="option.id"
     >
-      @if (option.type === questionElement.Letter) {
+      @if (
+        option.type === questionElement.Letter ||
+        option.type === questionElement.Name
+      ) {
         <div class="align-items-center d-flex justify-content-between">
-          <div>{{ option.letter }}</div>
+          <div>
+            {{
+              option.type === questionElement.Letter
+                ? option.letter
+                : option.name
+            }}
+          </div>
 
           @if (isAnswered && isSelected && !isCorrect) {
             @if (option.sounds!==void 0 && option.soundIndex!==void 0) {
               <div class="d-flex me-4">
-                <button
-                  mat-icon-button
-                  matRipple
-                  (click)="
-                    $event.preventDefault();
-                    $event.stopPropagation();
-                    audio.play()
-                  "
-                >
-                  <ng-icon name="lucideCirclePlay"></ng-icon>
-                </button>
-                @let sound = option.sounds[option.soundIndex];
-
-                <span class="ms-2 d-inline-flex align-items-center gap-2">
-                  @if (sound.logoUrl) {
-                    <img
-                      height="18"
-                      [alt]="sound.sourceId"
-                      [src]="sound.logoUrl"
-                      [title]="sound.sourceTitle"
-                    />
-                  }
-                  <small>{{ abbreviateAuthorName(sound.author) }}</small>
-                </span>
-
-                <audio
-                  #audio
-                  preload="auto"
-                  [src]="sound.url"
-                  (ended)="onPlaySound(option)"
-                ></audio>
-              </div>
-            } @else {
-              <span class="alert alert-danger small" role="alert">
-                <ng-icon name="lucideAlertTriangle"></ng-icon>
-              </span>
-            }
-          }
-        </div>
-      } @else if (option.type === questionElement.Name) {
-        <div class="align-items-center d-flex justify-content-between">
-          <div>{{ option.name }}</div>
-
-          @if (isAnswered && isSelected && !isCorrect) {
-            @if (option.sounds!==void 0 && option.soundIndex!==void 0) {
-              <div class="d-flex me-4">
-                <button
-                  mat-icon-button
-                  matRipple
-                  (click)="
-                    $event.preventDefault();
-                    $event.stopPropagation();
-                    audio.play()
-                  "
-                >
-                  <ng-icon name="lucideCirclePlay"></ng-icon>
-                </button>
-                @let sound = option.sounds[option.soundIndex];
-
-                <span class="ms-2 d-inline-flex align-items-center gap-2">
-                  @if (sound.logoUrl) {
-                    <img
-                      height="18"
-                      [alt]="sound.sourceId"
-                      [src]="sound.logoUrl"
-                      [title]="sound.sourceTitle"
-                    />
-                  }
-                  <small>{{ abbreviateAuthorName(sound.author) }}</small>
-                </span>
-
-                <audio
-                  #audio
-                  preload="auto"
-                  [src]="sound.url"
-                  (ended)="onPlaySound(option)"
-                ></audio>
+                <app-sound-player
+                  [abbreviateAuthor]="true"
+                  [sound]="option.sounds[option.soundIndex]"
+                  (played)="onPlaySound(option)"
+                ></app-sound-player>
               </div>
             } @else {
               <span class="alert alert-danger small" role="alert">
@@ -121,35 +58,10 @@
       } @else if (
         option.type === questionElement.Sound  && option.sounds!==void 0 && option.soundIndex!==void 0
       ) {
-        <button
-          mat-icon-button
-          matRipple
-          (click)="
-            $event.preventDefault(); $event.stopPropagation(); audio.play()
-          "
-        >
-          <ng-icon name="lucideCirclePlay"></ng-icon>
-        </button>
-        @let sound = option.sounds[option.soundIndex];
-
-        <span class="ms-2 d-inline-flex align-items-center gap-2">
-          @if (sound.logoUrl) {
-            <img
-              height="18"
-              [alt]="sound.sourceId"
-              [src]="sound.logoUrl"
-              [title]="sound.sourceTitle"
-            />
-          }
-          <small>{{ sound.author }}</small>
-        </span>
-
-        <audio
-          #audio
-          preload="auto"
-          [src]="sound.url"
-          (ended)="onPlaySound(option)"
-        ></audio>
+        <app-sound-player
+          [sound]="option.sounds[option.soundIndex]"
+          (played)="onPlaySound(option)"
+        ></app-sound-player>
       } @else {
         <p class="alert alert-danger" role="alert">
           ERROR: Ops! Something went wrong.
