@@ -1,0 +1,311 @@
+{
+  "version": 2,
+  "generatedAt": "2026-01-11T11:50:31.928Z",
+  "sourceId": "wikipedia",
+  "voiceId": "default",
+  "path": "sounds/wikipedia",
+  "count": 33,
+  "files": [
+    {
+      "file": "00E4.mp3",
+      "stem": "00E4",
+      "url": "sounds/wikipedia/00E4.mp3",
+      "codepoints": [
+        228
+      ],
+      "chars": "ä"
+    },
+    {
+      "file": "00E6.mp3",
+      "stem": "00E6",
+      "url": "sounds/wikipedia/00E6.mp3",
+      "codepoints": [
+        230
+      ],
+      "chars": "æ"
+    },
+    {
+      "file": "00F8_031E.mp3",
+      "stem": "00F8_031E",
+      "url": "sounds/wikipedia/00F8_031E.mp3",
+      "codepoints": [
+        248,
+        798
+      ],
+      "chars": "ø̞"
+    },
+    {
+      "file": "00F8.mp3",
+      "stem": "00F8",
+      "url": "sounds/wikipedia/00F8.mp3",
+      "codepoints": [
+        248
+      ],
+      "chars": "ø"
+    },
+    {
+      "file": "006F_031E.mp3",
+      "stem": "006F_031E",
+      "url": "sounds/wikipedia/006F_031E.mp3",
+      "codepoints": [
+        111,
+        798
+      ],
+      "chars": "o̞"
+    },
+    {
+      "file": "006F.mp3",
+      "stem": "006F",
+      "url": "sounds/wikipedia/006F.mp3",
+      "codepoints": [
+        111
+      ],
+      "chars": "o"
+    },
+    {
+      "file": "025B.mp3",
+      "stem": "025B",
+      "url": "sounds/wikipedia/025B.mp3",
+      "codepoints": [
+        603
+      ],
+      "chars": "ɛ"
+    },
+    {
+      "file": "025C.mp3",
+      "stem": "025C",
+      "url": "sounds/wikipedia/025C.mp3",
+      "codepoints": [
+        604
+      ],
+      "chars": "ɜ"
+    },
+    {
+      "file": "025E.mp3",
+      "stem": "025E",
+      "url": "sounds/wikipedia/025E.mp3",
+      "codepoints": [
+        606
+      ],
+      "chars": "ɞ"
+    },
+    {
+      "file": "026A.mp3",
+      "stem": "026A",
+      "url": "sounds/wikipedia/026A.mp3",
+      "codepoints": [
+        618
+      ],
+      "chars": "ɪ"
+    },
+    {
+      "file": "026F.mp3",
+      "stem": "026F",
+      "url": "sounds/wikipedia/026F.mp3",
+      "codepoints": [
+        623
+      ],
+      "chars": "ɯ"
+    },
+    {
+      "file": "028A.mp3",
+      "stem": "028A",
+      "url": "sounds/wikipedia/028A.mp3",
+      "codepoints": [
+        650
+      ],
+      "chars": "ʊ"
+    },
+    {
+      "file": "028C.mp3",
+      "stem": "028C",
+      "url": "sounds/wikipedia/028C.mp3",
+      "codepoints": [
+        652
+      ],
+      "chars": "ʌ"
+    },
+    {
+      "file": "028F.mp3",
+      "stem": "028F",
+      "url": "sounds/wikipedia/028F.mp3",
+      "codepoints": [
+        655
+      ],
+      "chars": "ʏ"
+    },
+    {
+      "file": "0061.mp3",
+      "stem": "0061",
+      "url": "sounds/wikipedia/0061.mp3",
+      "codepoints": [
+        97
+      ],
+      "chars": "a"
+    },
+    {
+      "file": "0065_031E.mp3",
+      "stem": "0065_031E",
+      "url": "sounds/wikipedia/0065_031E.mp3",
+      "codepoints": [
+        101,
+        798
+      ],
+      "chars": "e̞"
+    },
+    {
+      "file": "0065.mp3",
+      "stem": "0065",
+      "url": "sounds/wikipedia/0065.mp3",
+      "codepoints": [
+        101
+      ],
+      "chars": "e"
+    },
+    {
+      "file": "0069.mp3",
+      "stem": "0069",
+      "url": "sounds/wikipedia/0069.mp3",
+      "codepoints": [
+        105
+      ],
+      "chars": "i"
+    },
+    {
+      "file": "0075.mp3",
+      "stem": "0075",
+      "url": "sounds/wikipedia/0075.mp3",
+      "codepoints": [
+        117
+      ],
+      "chars": "u"
+    },
+    {
+      "file": "0079.mp3",
+      "stem": "0079",
+      "url": "sounds/wikipedia/0079.mp3",
+      "codepoints": [
+        121
+      ],
+      "chars": "y"
+    },
+    {
+      "file": "0153.mp3",
+      "stem": "0153",
+      "url": "sounds/wikipedia/0153.mp3",
+      "codepoints": [
+        339
+      ],
+      "chars": "œ"
+    },
+    {
+      "file": "0250.mp3",
+      "stem": "0250",
+      "url": "sounds/wikipedia/0250.mp3",
+      "codepoints": [
+        592
+      ],
+      "chars": "ɐ"
+    },
+    {
+      "file": "0251.mp3",
+      "stem": "0251",
+      "url": "sounds/wikipedia/0251.mp3",
+      "codepoints": [
+        593
+      ],
+      "chars": "ɑ"
+    },
+    {
+      "file": "0252.mp3",
+      "stem": "0252",
+      "url": "sounds/wikipedia/0252.mp3",
+      "codepoints": [
+        594
+      ],
+      "chars": "ɒ"
+    },
+    {
+      "file": "0254.mp3",
+      "stem": "0254",
+      "url": "sounds/wikipedia/0254.mp3",
+      "codepoints": [
+        596
+      ],
+      "chars": "ɔ"
+    },
+    {
+      "file": "0258.mp3",
+      "stem": "0258",
+      "url": "sounds/wikipedia/0258.mp3",
+      "codepoints": [
+        600
+      ],
+      "chars": "ɘ"
+    },
+    {
+      "file": "0259.mp3",
+      "stem": "0259",
+      "url": "sounds/wikipedia/0259.mp3",
+      "codepoints": [
+        601
+      ],
+      "chars": "ə"
+    },
+    {
+      "file": "0264 _031E.mp3",
+      "stem": "0264 _031E",
+      "url": "sounds/wikipedia/0264 _031E.mp3",
+      "codepoints": [
+        612,
+        798
+      ],
+      "chars": "ɤ̞"
+    },
+    {
+      "file": "0264.mp3",
+      "stem": "0264",
+      "url": "sounds/wikipedia/0264.mp3",
+      "codepoints": [
+        612
+      ],
+      "chars": "ɤ"
+    },
+    {
+      "file": "0268.mp3",
+      "stem": "0268",
+      "url": "sounds/wikipedia/0268.mp3",
+      "codepoints": [
+        616
+      ],
+      "chars": "ɨ"
+    },
+    {
+      "file": "0275.mp3",
+      "stem": "0275",
+      "url": "sounds/wikipedia/0275.mp3",
+      "codepoints": [
+        629
+      ],
+      "chars": "ɵ"
+    },
+    {
+      "file": "0276.mp3",
+      "stem": "0276",
+      "url": "sounds/wikipedia/0276.mp3",
+      "codepoints": [
+        630
+      ],
+      "chars": "ɶ"
+    },
+    {
+      "file": "0289.mp3",
+      "stem": "0289",
+      "url": "sounds/wikipedia/0289.mp3",
+      "codepoints": [
+        649
+      ],
+      "chars": "ʉ"
+    }
+  ]
+}
