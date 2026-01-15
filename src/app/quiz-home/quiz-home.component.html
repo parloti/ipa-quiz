@@ -4,35 +4,12 @@
   <section>
     <h2>Total</h2>
 
-    <span
-      class="ms-4 text-success"
-      matBadgeOverlap="false"
-      matTooltip="Correct"
-      [matBadge]="totalStats$()?.correct"
-      ><strong>✓</strong></span
-    >
-    <span
-      class="ms-4 text-danger"
-      matBadgeOverlap="false"
-      matTooltip="Wrong"
-      [matBadge]="totalStats$()?.wrong"
-      ><strong>X</strong></span
-    >
-    <span
-      class="ms-4 text-warning"
-      matBadgeOverlap="false"
-      matTooltip="Longest Streak"
-      [matBadge]="totalStats$()?.longestStreak"
-      ><strong>ϟ</strong></span
-    >
-
-    <span
-      class="ms-4 text-warning"
-      matBadgeOverlap="false"
-      matTooltip="Current Streak"
-      [matBadge]="totalStats$()?.currentStreak"
-      ><strong>🗲</strong></span
-    >
+    <app-stat-badges
+      [correct]="totalStats$()?.correct ?? 0"
+      [current]="totalStats$()?.currentStreak ?? 0"
+      [longest]="totalStats$()?.longestStreak ?? 0"
+      [wrong]="totalStats$()?.wrong ?? 0"
+    ></app-stat-badges>
   </section>
 
   <section class="d-flex flex-column overflow-hidden">
@@ -41,35 +18,12 @@
       @let firstIncompleted = (statsBySession$()?.[0]?.answered ?? 0) < 10;
       @for (stats of statsBySession$(); track $index) {
         <div>
-          <span
-            class="ms-4 text-success"
-            matBadgeOverlap="false"
-            matTooltip="Correct"
-            [matBadge]="stats.correct"
-            ><strong>✓</strong></span
-          >
-          <span
-            class="ms-4 text-danger"
-            matBadgeOverlap="false"
-            matTooltip="Wrong"
-            [matBadge]="stats.wrong"
-            ><strong>X</strong></span
-          >
-          <span
-            class="ms-4 text-warning"
-            matBadgeOverlap="false"
-            matTooltip="Longest Streak"
-            [matBadge]="stats.longestStreak"
-            ><strong>ϟ</strong></span
-          >
-
-          <span
-            class="ms-4 text-warning"
-            matBadgeOverlap="false"
-            matTooltip="Current Streak"
-            [matBadge]="stats.currentStreak"
-            ><strong>🗲</strong></span
-          >
+          <app-stat-badges
+            [correct]="stats.correct"
+            [current]="stats.currentStreak"
+            [longest]="stats.longestStreak"
+            [wrong]="stats.wrong"
+          ></app-stat-badges>
         </div>
         @if ($count > 0 && firstIncompleted && $index === 0) {
           <span class="text-secondary small"><sup>Incomplete</sup> </span>

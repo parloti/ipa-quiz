@@ -2,7 +2,11 @@ import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatRadioChange } from '@angular/material/radio';
 import { provideIcons } from '@ng-icons/core';
-import { lucideAlertTriangle, lucideCirclePlay } from '@ng-icons/lucide';
+import {
+  lucideAlertTriangle,
+  lucideCirclePlay,
+  lucideSkipForward,
+} from '@ng-icons/lucide';
 import { ChartComponent } from '../chart/chart.component';
 import { IVowel, IVowelID } from '../models/ivowel';
 import { QuizService } from '../services/quiz.service';
@@ -22,7 +26,9 @@ import { QuizPromptComponent } from './components/quiz-prompt/quiz-prompt.compon
     ChartComponent,
   ],
   styleUrl: './quiz.component.scss',
-  viewProviders: [provideIcons({ lucideCirclePlay, lucideAlertTriangle })],
+  viewProviders: [
+    provideIcons({ lucideCirclePlay, lucideAlertTriangle, lucideSkipForward }),
+  ],
 })
 export class QuizComponent {
   protected readonly selectedAnswer$ = toSignal(
@@ -62,8 +68,7 @@ export class QuizComponent {
     this.quizService.goToNewSession();
   }
 
-  protected selectAnswer(evt: MatRadioChange) {
-    const selectedAnswer = evt.value as IVowelID;
+  protected selectAnswer(selectedAnswer: IVowelID) {
     this.quizService.selectAnswer(selectedAnswer);
   }
 
@@ -71,11 +76,11 @@ export class QuizComponent {
     this.quizService.previousQuestion();
   }
 
-  protected updateOptionSound(vowel: IVowel): void {
-    this.quizService.updateOptionSound(vowel);
+  protected nextOptionSound(vowel: IVowel): void {
+    this.quizService.nextOptionSound(vowel);
   }
 
-  protected updateQuestionSound(vowel: IVowel): void {
-    this.quizService.updateQuestionSound(vowel);
+  protected nextQuestionSound(vowel: IVowel): void {
+    this.quizService.nextQuestionSound(vowel);
   }
 }

@@ -13,7 +13,7 @@
 ) {
   <app-sound-player
     [sound]="vowel.sounds[vowel.soundIndex]"
-    (played)="onPlaySound(vowel)"
+    (next)="onNextSound(vowel)"
   ></app-sound-player>
 } @else {
   <p class="alert alert-danger" role="alert">

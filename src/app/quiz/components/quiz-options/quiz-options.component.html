@@ -45,7 +45,7 @@
                 <app-sound-player
                   [abbreviateAuthor]="true"
                   [sound]="option.sounds[option.soundIndex]"
-                  (played)="onPlaySound(option)"
+                  (next)="onNextSound(option)"
                 ></app-sound-player>
               </div>
             } @else {
@@ -60,7 +60,7 @@
       ) {
         <app-sound-player
           [sound]="option.sounds[option.soundIndex]"
-          (played)="onPlaySound(option)"
+          (next)="onNextSound(option)"
         ></app-sound-player>
       } @else {
         <p class="alert alert-danger" role="alert">

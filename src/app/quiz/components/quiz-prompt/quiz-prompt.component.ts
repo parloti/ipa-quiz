@@ -16,7 +16,7 @@ export class QuizPromptComponent {
   /* v8 ignore next -- @preserve */
   public readonly question$ = input.required<IQuestion>({ alias: 'question' });
 
-  public readonly playSound$ = output<IVowel>({ alias: 'playSound' });
+  public readonly nextSound$ = output<IVowel>({ alias: 'nextSound' });
 
   protected readonly isLetterQuestion$ = computed(
     () => this.question$().type === QuestionElement.Letter,
@@ -30,7 +30,7 @@ export class QuizPromptComponent {
     () => this.question$().type === QuestionElement.Sound,
   );
 
-  protected onPlaySound(vowel: IVowel): void {
-    this.playSound$.emit(vowel);
+  protected onNextSound(vowel: IVowel): void {
+    this.nextSound$.emit(vowel);
   }
 }

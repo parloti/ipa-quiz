@@ -1,9 +1,8 @@
 # TODO
 
 - Adicionar meta de SMA
-
-- Tirar random audio sequence
 - Bandeiras indicando lingua de presença (EN, PT, IT, DE) https://www.vulgarlang.com/ipa/
+
 - Exemplos de uso
 - Toltip nas peguntas/opçoes
 - corrigira cor da pontuaçãoes de acordo com a cor dis iconess.

@@ -1,0 +1,28 @@
+<span
+  class="ms-4 text-success correct"
+  matBadgeOverlap="false"
+  matTooltip="Correct"
+  [matBadge]="correct()"
+  ><strong>&#x2713;&#xFE0E;</strong></span
+>
+<span
+  class="ms-4 text-danger wrong"
+  matBadgeOverlap="false"
+  matTooltip="Wrong"
+  [matBadge]="wrong()"
+  ><strong>&#x274C;&#xFE0E;</strong></span
+>
+<span
+  class="ms-4 text-warning streak"
+  matBadgeOverlap="false"
+  matTooltip="Longest Streak"
+  [matBadge]="longest()"
+  ><strong>&#x1F525;&#xFE0E;</strong></span
+>
+<span
+  class="ms-4 text-warning streak"
+  matBadgeOverlap="false"
+  matTooltip="Current Streak"
+  [matBadge]="current()"
+  ><strong>&#x1F3C6;&#xFE0E;</strong></span
+>

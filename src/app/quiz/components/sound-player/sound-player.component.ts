@@ -18,11 +18,13 @@ import { PhonemeSoundRef } from '../../../models/phoneme-sound';
 export class SoundPlayerComponent {
   public readonly sound = input.required<PhonemeSoundRef>();
   public readonly abbreviateAuthor = input<boolean>(false);
-  public readonly played = output<void>();
+  public readonly next = output<void>();
 
   protected readonly authorName = computed(() => {
     const s = this.sound();
-    if (!s.author) return '';
+    if (!s.author) {
+      return '';
+    }
     if (this.abbreviateAuthor()) {
       return s.author
         .split(' ')
@@ -32,7 +34,9 @@ export class SoundPlayerComponent {
     return s.author;
   });
 
-  protected onEnded(): void {
-    this.played.emit();
+  protected onNext(evt: Event): void {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.next.emit();
   }
 }

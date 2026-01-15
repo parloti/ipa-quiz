@@ -17,15 +17,15 @@
 
       <app-quiz-prompt
         [question]="question"
-        (playSound)="updateQuestionSound($event)"
+        (nextSound)="nextQuestionSound($event)"
       ></app-quiz-prompt>
 
       <app-quiz-options
         [answered]="answered"
         [question]="question"
         [selectedAnswer]="selectedAnswer"
-        (playSound)="updateOptionSound($event.vowel)"
-        (selectAnswer)="selectAnswer($event)"
+        (nextSound)="nextOptionSound($event.vowel)"
+        (selectAnswer)="selectAnswer($event.value)"
       ></app-quiz-options>
 
       <app-quiz-controls

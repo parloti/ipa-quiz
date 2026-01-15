@@ -13,6 +13,7 @@ import { IMovingAverage } from '../models/imoving-average';
 import { IQuizID } from '../models/iquiz';
 import { IStatistics } from '../models/istatistics';
 import { QuizService } from '../services/quiz.service';
+import { StatBadgesComponent } from '../shared/stat-badges/stat-badges.component';
 import { LogSignals } from '../utils/log-signals';
 
 @LogSignals()
@@ -27,6 +28,7 @@ import { LogSignals } from '../utils/log-signals';
     PercentPipe,
     MatCardModule,
     NgIcon,
+    StatBadgesComponent,
   ],
   viewProviders: [provideIcons({ lucideChartSpline })],
 })

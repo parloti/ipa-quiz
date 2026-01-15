@@ -6,6 +6,10 @@
   <ng-icon name="lucideCirclePlay"></ng-icon>
 </button>
 
+<button class="ms-1" mat-icon-button matRipple (click)="onNext($event)">
+  <ng-icon name="lucideSkipForward"></ng-icon>
+</button>
+
 <span class="ms-2 d-inline-flex align-items-center gap-2">
   @if (sound().logoUrl) {
     <img
@@ -18,4 +22,4 @@
   <small>{{ authorName() }}</small>
 </span>
 
-<audio #audio preload="auto" [src]="sound().url" (ended)="onEnded()"></audio>
+<audio #audio preload="auto" [src]="sound().url"></audio>

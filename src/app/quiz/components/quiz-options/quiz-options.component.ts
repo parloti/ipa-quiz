@@ -11,7 +11,13 @@ import { SoundPlayerComponent } from '../sound-player/sound-player.component';
 @LogSignals()
 @Component({
   selector: 'app-quiz-options',
-  imports: [MatRadioModule, NgClass, NgIconComponent,KeyValuePipe, SoundPlayerComponent],
+  imports: [
+    MatRadioModule,
+    NgClass,
+    NgIconComponent,
+    KeyValuePipe,
+    SoundPlayerComponent,
+  ],
   styleUrls: ['./quiz-options.component.scss'],
   templateUrl: './quiz-options.component.html',
 })
@@ -33,15 +39,15 @@ export class QuizOptionsComponent {
     alias: 'selectAnswer',
   });
 
-  public readonly playSound$ = output<{ vowel: IVowel }>({
-    alias: 'playSound',
+  public readonly nextSound$ = output<{ vowel: IVowel }>({
+    alias: 'nextSound',
   });
 
   protected onSelectAnswer(evt: MatRadioChange): void {
     this.selectAnswer$.emit(evt);
   }
 
-  protected onPlaySound(vowel: IVowel): void {
-    this.playSound$.emit({ vowel });
+  protected onNextSound(vowel: IVowel): void {
+    this.nextSound$.emit({ vowel });
   }
 }

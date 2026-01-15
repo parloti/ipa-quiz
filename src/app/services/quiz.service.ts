@@ -21,15 +21,28 @@ export class QuizService {
     this.store$.dispatch(actions.practiceOpened({ quizId }));
   }
 
-  updateOptionSound(vowel: IVowel) {
-    const soundIndex = randomInteger(0, vowel.sounds?.length ?? 0);
+
+  nextOptionSound(vowel: IVowel) {
+    const currentForType = vowel as IVowel & { soundIndex?: number };
+    const sounds = vowel.sounds ?? [];
+    if (sounds.length === 0) return;
+
+    const currentIndex = currentForType.soundIndex ?? 0;
+    const soundIndex = (currentIndex + 1) % sounds.length;
+
     this.store$.dispatch(
       actions.updateOptionSoundIndex({ optionId: vowel.id, soundIndex }),
     );
   }
 
-  updateQuestionSound(vowel: IVowel) {
-    const soundIndex = randomInteger(0, vowel.sounds?.length ?? 0);
+  nextQuestionSound(vowel: IVowel) {
+    const currentForType = vowel as IVowel & { soundIndex?: number };
+    const sounds = vowel.sounds ?? [];
+    if (sounds.length === 0) return;
+
+    const currentIndex = currentForType.soundIndex ?? 0;
+    const soundIndex = (currentIndex + 1) % sounds.length;
+
     this.store$.dispatch(actions.updateQuestionSoundIndex({ soundIndex }));
   }
 
