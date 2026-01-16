@@ -1,22 +1,27 @@
 @let vowel = question$().vowel;
-@if (isLetterQuestion$()) {
-  <p>
-    <span>{{ vowel.letter }}</span> -
-    <span class="symbol-name">{{
-      vowel.symbol.names.join(', ') | lowercase
-    }}</span>
-  </p>
-} @else if (isNameQuestion$()) {
-  <p>{{ vowel.name }}</p>
-} @else if (
-  isSoundQuestion$() && vowel.sounds!==void 0 && vowel.soundIndex!==void 0
-) {
-  <app-sound-player
-    [sound]="vowel.sounds[vowel.soundIndex]"
-    (next)="onNextSound(vowel)"
-  ></app-sound-player>
-} @else {
-  <p class="alert alert-danger" role="alert">
-    ERROR: Ops! Something went wrong.
-  </p>
-}
+
+<div class="d-flex align-items-center gap-1">
+  <div>{{ index$() + 1 }})</div>
+
+  @if (isLetterQuestion$()) {
+    <div>
+      <span>{{ vowel.letter }}</span> -
+      <span class="symbol-name">{{
+        vowel.symbol.names.join(', ') | lowercase
+      }}</span>
+    </div>
+  } @else if (isNameQuestion$()) {
+    <div>{{ vowel.name }}</div>
+  } @else if (
+    isSoundQuestion$() && vowel.sounds!==void 0 && vowel.soundIndex!==void 0
+  ) {
+    <app-sound-player
+      [sound]="vowel.sounds[vowel.soundIndex]"
+      (next)="onNextSound(vowel)"
+    ></app-sound-player>
+  } @else {
+    <p class="alert alert-danger" role="alert">
+      ERROR: Ops! Something went wrong.
+    </p>
+  }
+</div>

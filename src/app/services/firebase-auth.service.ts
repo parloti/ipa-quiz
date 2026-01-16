@@ -106,12 +106,12 @@ export class FirebaseAuthService {
       return;
     }
 
+    let idToken: string | undefined;
     try {
-      const idToken = await user.getIdToken();
-      this.cloudSync.setUser(user.uid, idToken);
+      idToken = await user.getIdToken();
     } catch (e) {
       console.warn('Failed to obtain ID token for cloud sync', e);
-      this.cloudSync.setUser(user.uid);
+      idToken = undefined;
     }
 
     console.info('[FirebaseAuth] detected user', {
@@ -125,7 +125,7 @@ export class FirebaseAuthService {
         '[FirebaseAuth] attempting to fetch remote state for',
         user.uid,
       );
-      const remote = await this.cloudSync.fetchRemoteState();
+      const remote = await this.cloudSync.fetchRemoteState(user.uid);
       if (remote) {
         // Enrich all questions with sounds before restoring state
         const allQuestions: IQuestion[] = [];
@@ -151,6 +151,13 @@ export class FirebaseAuthService {
     } catch (e) {
       // non-fatal
       console.warn('Failed to restore remote state', e);
+    }
+
+    // Now that we've attempted to restore remote state, enable cloud sync for this user
+    try {
+      this.cloudSync.setUser(user.uid, idToken);
+    } catch (e) {
+      // setUser is simple, but ignore errors just in case
     }
   }
 }

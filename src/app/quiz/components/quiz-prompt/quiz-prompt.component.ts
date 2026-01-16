@@ -15,6 +15,7 @@ import { SoundPlayerComponent } from '../sound-player/sound-player.component';
 export class QuizPromptComponent {
   /* v8 ignore next -- @preserve */
   public readonly question$ = input.required<IQuestion>({ alias: 'question' });
+  public readonly index$ = input.required<number>({ alias: 'index' });
 
   public readonly nextSound$ = output<IVowel>({ alias: 'nextSound' });
 

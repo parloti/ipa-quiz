@@ -1,13 +1,3 @@
-.hidden {
-  visibility: hidden;
+.lang-examples {
+  height: 1lh;
 }
-
-.symbol-name {
-  display: inline-block;
-  text-transform: lowercase;
-
-  &::first-letter {
-    text-transform: uppercase;
-  }
-}
-

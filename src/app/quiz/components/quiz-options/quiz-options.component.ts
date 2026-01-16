@@ -23,7 +23,12 @@ import { SoundPlayerComponent } from '../sound-player/sound-player.component';
 })
 export class QuizOptionsComponent {
   /* v8 ignore next -- @preserve */
-  public readonly question$ = input.required<IQuestion>({ alias: 'question' });
+  public readonly options$ = input.required<IQuestion['options']>({
+    alias: 'options',
+  });
+  public readonly correctOptionId$ = input.required<IVowelID>({
+    alias: 'correctOptionId',
+  });
 
   public readonly questionElement = QuestionElement;
 

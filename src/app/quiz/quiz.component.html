@@ -1,28 +1,30 @@
-<div class="quiz-container">
-  @let quiz = openedQuiz$();
-  @let index = index$();
-  @let question = question$();
-  @let selectedAnswer = selectedAnswer$();
-  @let answered = answered$();
-  @let finished = finished$();
-  @let questionsLength = questionsLength$();
+@let quiz = openedQuiz$();
+@let index = index$();
+@let question = question$();
+@let examplesByLangs = examplesByLangs$();
+@let selectedAnswer = selectedAnswer$();
+@let answered = answered$();
+@let finished = finished$();
+@let questionsLength = questionsLength$();
 
+<div class="d-flex flex-column justify-content-between h-100">
   @if (
     quiz !== void 0 && index !== void 0 && question !== void 0 && questionsLength !== void 0
   ) {
     <div>
       <h1>{{ quiz.name }}</h1>
 
-      <p>Question {{ index + 1 }}</p>
-
       <app-quiz-prompt
+        [index]="index"
         [question]="question"
         (nextSound)="nextQuestionSound($event)"
       ></app-quiz-prompt>
 
       <app-quiz-options
+        class="d-block mt-1 ms-1"
         [answered]="answered"
-        [question]="question"
+        [correctOptionId]="question.vowel.id"
+        [options]="question.options"
         [selectedAnswer]="selectedAnswer"
         (nextSound)="nextOptionSound($event.vowel)"
         (selectAnswer)="selectAnswer($event.value)"
@@ -41,11 +43,52 @@
       ></app-quiz-controls>
     </div>
 
-    <app-chart
-      [answered]="answered"
-      [question]="question"
-      [selectedAnswer]="selectedAnswer"
-    ></app-chart>
+    <div class="d-flex flex-column">
+      @if (answered && examplesByLangs.length > 0) {
+        <div class="d-flex flex-column gap-2 small">
+          @for (byLang of examplesByLangs; track $index) {
+            @if ((byLang.examples?.length ?? 0) > 0) {
+              <div
+                class="text-muted d-flex flex-wrap row-gap-1 lh-1 overflow-hidden lang-examples"
+                [matTooltip]="byLang.title"
+                [matTooltipHideDelay]="5000"
+              >
+                <img
+                  alt="{{ byLang.code }}"
+                  src="/flags/{{ byLang.cc }}.svg"
+                  style="
+                    height: 1em;
+                    vertical-align: middle;
+                    margin-right: 0.5rem;
+                  "
+                />
+                @for (example of byLang.examples; track $index) {
+                  <span>
+                    @if (!$first) {
+                      <span class="mx-2 text-dark">•</span>
+                    }
+                    <span [textContent]="example.word"> </span>
+                    <em class="ms-1" [textContent]="example.transcription"></em>
+                  </span>
+                }
+              </div>
+
+              @if (!$last) {
+                <mat-divider></mat-divider>
+              }
+            }
+          }
+        </div>
+
+        <mat-divider class="my-3"></mat-divider>
+      }
+
+      <app-chart
+        [answered]="answered"
+        [question]="question"
+        [selectedAnswer]="selectedAnswer"
+      ></app-chart>
+    </div>
   } @else {
     <p class="alert alert-danger" role="alert">
       ERROR: Ops! Something went wrong.

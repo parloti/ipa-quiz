@@ -41,10 +41,11 @@ export class CloudSyncService {
    * Fetch the user's remote normalized state from Firestore and return a
    * denormalized `IState` suitable for restoring into the store.
    */
-  public async fetchRemoteState(): Promise<
-    import('../models/istate').IState | undefined
-  > {
-    if (!this.uid) {
+  public async fetchRemoteState(
+    uid?: string,
+  ): Promise<import('../models/istate').IState | undefined> {
+    const useUid = uid ?? this.uid;
+    if (!useUid) {
       return undefined;
     }
     const db = this.firebaseService.getFirestore();
@@ -53,10 +54,10 @@ export class CloudSyncService {
     }
 
     try {
-      const userDocRef = doc(db, 'users', this.uid);
+      const userDocRef = doc(db, 'users', useUid);
       const snap = await getDoc(userDocRef);
       console.info('[CloudSync] fetched user doc', {
-        uid: this.uid,
+        uid: useUid,
         exists: snap.exists(),
       });
       if (!snap.exists()) {

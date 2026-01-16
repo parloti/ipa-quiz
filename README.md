@@ -2,10 +2,9 @@
 
 - Adicionar meta de SMA
 - Bandeiras indicando lingua de presença (EN, PT, IT, DE) https://www.vulgarlang.com/ipa/
-
 - Exemplos de uso
 - Toltip nas peguntas/opçoes
-- corrigira cor da pontuaçãoes de acordo com a cor dis iconess.
+
 - Conrrigri longest streak
 - Grafico de acerto / evolução sma
 - Mapa de error Ativos (correta) e passivos (escolhida)
@@ -15,6 +14,8 @@
 - Teste de posição no grafico
 - Remover primeiro incompelto da SMA
 - Delay to show error message
+- Mapea minha voz para os sons (usar gravação local)
+- Permitir escolher por linguas de presença (criar curso com tal configuração)
 
 # IpaQuiz
 

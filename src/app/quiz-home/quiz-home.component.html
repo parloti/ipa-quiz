@@ -1,44 +1,50 @@
-<div class="d-flex flex-column h-100">
-  <h1>Quiz Stats</h1>
+<div class="d-flex flex-column h-100 justify-content-between">
+  <div class="d-flex flex-column gap-3">
+    <section>
+      <h1>Quiz Stats</h1>
 
-  <section>
-    <h2>Total</h2>
+      <h2>Total</h2>
 
-    <app-stat-badges
-      [correct]="totalStats$()?.correct ?? 0"
-      [current]="totalStats$()?.currentStreak ?? 0"
-      [longest]="totalStats$()?.longestStreak ?? 0"
-      [wrong]="totalStats$()?.wrong ?? 0"
-    ></app-stat-badges>
-  </section>
+      <app-stat-badges
+        [correct]="totalStats$()?.correct ?? 0"
+        [current]="totalStats$()?.currentStreak ?? 0"
+        [longest]="totalStats$()?.longestStreak ?? 0"
+        [wrong]="totalStats$()?.wrong ?? 0"
+      ></app-stat-badges>
+    </section>
 
-  <section class="d-flex flex-column overflow-hidden">
-    <h2>Sessions</h2>
-    <div class="overflow-auto pt-1">
-      @let firstIncompleted = (statsBySession$()?.[0]?.answered ?? 0) < 10;
-      @for (stats of statsBySession$(); track $index) {
-        <div>
-          <app-stat-badges
-            [correct]="stats.correct"
-            [current]="stats.currentStreak"
-            [longest]="stats.longestStreak"
-            [wrong]="stats.wrong"
-          ></app-stat-badges>
-        </div>
-        @if ($count > 0 && firstIncompleted && $index === 0) {
-          <span class="text-secondary small"><sup>Incomplete</sup> </span>
+    <section class="d-flex flex-column overflow-hidden">
+      <h2>Sessions</h2>
+      <div class="overflow-auto pt-1">
+        @let firstIncompleted = (statsBySession$()?.[0]?.answered ?? 0) < 10;
+        @for (stats of statsBySession$(); track $index) {
+          <div>
+            <app-stat-badges
+              [correct]="stats.correct"
+              [current]="stats.currentStreak"
+              [longest]="stats.longestStreak"
+              [wrong]="stats.wrong"
+            ></app-stat-badges>
+          </div>
+          @if ($count > 0 && firstIncompleted && $index === 0) {
+            <span class="text-secondary small"><sup>Incomplete</sup> </span>
+          }
+          @if (
+            [10, 25, 50, 100].includes($index + 1 - (firstIncompleted ? 1 : 0))
+          ) {
+            <span class="text-secondary small"
+              ><sup>{{
+                'SMA' + ($index + 1 - (firstIncompleted ? 1 : 0))
+              }}</sup>
+            </span>
+          }
         }
-        @if (
-          [10, 25, 50, 100].includes($index + 1 - (firstIncompleted ? 1 : 0))
-        ) {
-          <span class="text-secondary small"
-            ><sup>{{ 'SMA' + ($index + 1 - (firstIncompleted ? 1 : 0)) }}</sup>
-          </span>
-        }
-      }
-    </div>
+      </div>
+    </section>
+  </div>
 
-    <div>
+  <div class="d-flex flex-column gap-3">
+    <section>
       <hr class="mat-divider" />
       @for (average of movingAverages$(); track $index) {
         <div class="ms-4">
@@ -47,15 +53,15 @@
           ><span> {{ average.value | percent: '2.2-2' }}</span>
         </div>
       }
-    </div>
-  </section>
+    </section>
 
-  <button
-    class="flex-shrink-0"
-    color="primary"
-    mat-raised-button
-    (click)="practice()"
-  >
-    Practice
-  </button>
+    <button
+      class="flex-shrink-0"
+      color="primary"
+      mat-raised-button
+      (click)="practice()"
+    >
+      Practice
+    </button>
+  </div>
 </div>

@@ -96,19 +96,8 @@ function collectVowelsNeedingSounds(questions: readonly IQuestion[]) {
   const vowelsNeedingSounds = new Map<IVowelID, IVowel>();
 
   for (const question of questions) {
-    if (question.type === QuestionElement.Sound) {
-      vowelsNeedingSounds.set(question.vowel.id, question.vowel);
-    }
     for (const option of Object.values(question.options ?? {})) {
-      // If the *question* is a sound prompt, we still want to be able to play
-      // the sound for any selected option after answering (even if the option
-      // is displayed as Letter/Name).
-      if (
-        option.type === QuestionElement.Sound ||
-        question.type === QuestionElement.Sound
-      ) {
-        vowelsNeedingSounds.set(option.id, option);
-      }
+      vowelsNeedingSounds.set(option.id, option);
     }
   }
 
@@ -144,15 +133,10 @@ export async function enrichQuestionsWithSounds(
       }
     }
     for (const option of Object.values(question.options ?? {})) {
-      if (
-        option.type === QuestionElement.Sound ||
-        question.type === QuestionElement.Sound
-      ) {
-        const sounds = soundsByVowelId.get(option.id);
-        if (sounds && sounds?.length > 0) {
-          option.sounds = sounds;
-          option.soundIndex ??= randomInteger(0, sounds.length);
-        }
+      const sounds = soundsByVowelId.get(option.id);
+      if (sounds && sounds?.length > 0) {
+        option.sounds = sounds;
+        option.soundIndex ??= randomInteger(0, sounds.length);
       }
     }
   }
