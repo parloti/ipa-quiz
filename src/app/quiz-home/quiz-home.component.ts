@@ -8,7 +8,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { lucideChartSpline } from '@ng-icons/lucide';
-import { map } from 'rxjs';
 import { IMovingAverage } from '../models/imoving-average';
 import { IQuizID } from '../models/iquiz';
 import { IStatistics } from '../models/istatistics';
@@ -36,9 +35,7 @@ export class QuizHomeComponent {
   private readonly quizService = inject(QuizService);
 
   private readonly _statsBySession$: Signal<IStatistics[] | undefined> =
-    toSignal(
-      this.quizService.statsBySession$.pipe(map(v => [...(v ?? [])].reverse())),
-    );
+    toSignal(this.quizService.statsBySession$);
   public get statsBySession$(): Signal<IStatistics[] | undefined> {
     return this._statsBySession$;
   }

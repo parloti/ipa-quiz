@@ -6,6 +6,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-stat-badges',
   imports: [MatBadgeModule, MatTooltipModule],
   templateUrl: './stat-badges.component.html',
+  styleUrl: './stat-badges.component.scss',
 })
 export class StatBadgesComponent {
   public readonly correct = input.required<number>();

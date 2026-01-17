@@ -240,6 +240,12 @@ export const quizFeature = createFeature({
         if (id !== void 0) {
           return sessions[id];
         }
+        const notFinished = Object.values(sessions).find(session =>
+          Object.values(session.questions).some(question => !question.answered),
+        );
+        if (notFinished !== void 0) {
+          return notFinished;
+        }
         return Object.values(sessions).at(-1);
       },
     );
@@ -282,90 +288,77 @@ export const quizFeature = createFeature({
     const selectStatsBySession = createSelector(
       quizSelectors.selectQuizSessions,
       sessions =>
-        Object.values(sessions ?? {}).map(session => {
-          const questions = Object.values(session.questions);
-          const stat = questions.reduce(
-            (acc, curr) => {
-              if (curr.answered) {
-                acc.answered++;
-              }
-              if (curr.selectedAnswer !== void 0) {
-                if (curr.selectedAnswer === curr.vowel.id) {
-                  acc.correct++;
-                } else {
-                  acc.wrong++;
+        Object.values(sessions ?? {})
+          .sort((a, b) => a.creationDate.localeCompare(b.creationDate))
+          .map(session => {
+            const questions = Object.values(session.questions);
+            const stat = questions.reduce(
+              (acc, curr) => {
+                acc.seen.add(curr.vowel.id);
+
+                if (curr.answered) {
+                  acc.answered++;
+
+                  if (curr.selectedAnswer === curr.vowel.id) {
+                    acc.correct++;
+                    acc.currentStreak++;
+                    acc.longestStreak = Math.max(
+                      acc.longestStreak,
+                      acc.currentStreak,
+                    );
+                  } else if (curr.selectedAnswer !== void 0) {
+                    acc.wrong++;
+                    acc.currentStreak = 0;
+                  }
                 }
-              }
 
-              acc.seen.add(curr.vowel.id);
+                return acc;
+              },
+              {
+                answered: 0,
+                correct: 0,
+                seen: new Set<IVowelID>(),
+                wrong: 0,
+                currentStreak: 0,
+                longestStreak: 0,
+              },
+            );
 
-              if (curr.answered) {
-                if (curr.selectedAnswer === curr.vowel.id) {
-                  acc.currentStreak++;
-                  acc.longestStreak = Math.max(
-                    acc.longestStreak,
-                    acc.currentStreak,
-                  );
-                } else {
-                  acc.currentStreak = 0;
-                }
-              }
-
-              return acc;
-            },
-            {
-              answered: 0,
-              correct: 0,
-              seen: new Set<IVowelID>(),
-              wrong: 0,
-              currentStreak: 0,
-              longestStreak: 0,
-            },
-          );
-
-          const itens = questions.length;
-          const seenLength = stat.seen.size;
-          return {
-            ...stat,
-            seenLength,
-            itens,
-            unSeen: itens - seenLength,
-          } satisfies IStatistics;
-        }),
+            const itens = questions.length;
+            const seenLength = stat.seen.size;
+            return {
+              ...stat,
+              seenLength,
+              itens,
+              unSeen: itens - seenLength,
+            } satisfies IStatistics;
+          })
+          .reverse(),
     );
 
     const selectTotalStats = createSelector(
       quizSelectors.selectQuizSessions,
       sessions => {
-        if (sessions === void 0) {
-          return void 0;
-        }
-        const stats = Object.values(sessions)
+        const stats = Object.values(sessions ?? {})
+          .sort((a, b) => a.creationDate.localeCompare(b.creationDate))
           .map(session => Object.values(session.questions))
           .flat(1)
           .reduce(
             (acc, curr) => {
-              if (curr.answered) {
-                acc.answered++;
-              }
-              if (curr.selectedAnswer !== void 0) {
-                if (curr.selectedAnswer === curr.vowel.id) {
-                  acc.correct++;
-                } else {
-                  acc.wrong++;
-                }
-              }
-
               acc.seen.add(curr.vowel.id);
 
               if (curr.answered) {
+                acc.answered++;
+
                 if (curr.selectedAnswer === curr.vowel.id) {
+                  acc.correct++;
                   acc.currentStreak++;
                   acc.longestStreak = Math.max(
                     acc.longestStreak,
                     acc.currentStreak,
                   );
-                } else {
+                } else if (curr.selectedAnswer !== void 0) {
+                  acc.wrong++;
                   acc.currentStreak = 0;
                 }
               }

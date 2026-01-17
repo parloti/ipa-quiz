@@ -1,0 +1,29 @@
+:host ::ng-deep {
+  .correct {
+    .mat-badge-content {
+      background-color: var(--bs-success);
+    }
+  }
+
+  .wrong {
+    .mat-badge-content {
+      background-color: var(--bs-danger);
+    }
+  }
+
+  .current {
+    color: #ff6700;
+
+    .mat-badge-content {
+      background-color: #ff6700;
+    }
+  }
+
+  .longest {
+    color: #b29600;
+
+    .mat-badge-content {
+      background-color: #b29600;
+    }
+  }
+}

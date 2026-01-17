@@ -8,6 +8,7 @@ import {
 } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import {
+  combineLatest,
   concatMap,
   exhaustMap,
   filter,
@@ -163,9 +164,33 @@ export class AppEffects {
   practiceOpened$ = createEffect(() =>
     this.actions$.pipe(
       ofType(actions.practiceOpened),
-      withLatestFrom(this.quizService.session$),
-      filter(([, session]) => session === void 0),
-      map(() => actions.goToNewSession()),
+      withLatestFrom(
+        combineLatest({
+          currentSession: this.quizService.currentSession$,
+          notFinished: this.quizService.openedQuiz$.pipe(
+            filter((quiz): quiz is IQuiz => quiz !== void 0),
+            map(quiz =>
+              Object.values(quiz.sessions).find(session =>
+                Object.values(session.questions).some(
+                  question => !question.answered,
+                ),
+              ),
+            ),
+          ),
+        }),
+      ),
+      filter(
+        ([, { currentSession, notFinished }]) =>
+          currentSession === void 0 || notFinished !== void 0,
+      ),
+      map(([, { notFinished }]) =>
+        notFinished === void 0
+          ? actions.goToNewSession()
+          : actions.openSession({
+              quizId: notFinished.quizId,
+              sessionId: notFinished.id,
+            }),
+      ),
     ),
   );
 

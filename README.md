@@ -1,11 +1,8 @@
 # TODO
 
 - Adicionar meta de SMA
-- Bandeiras indicando lingua de presença (EN, PT, IT, DE) https://www.vulgarlang.com/ipa/
-- Exemplos de uso
-- Toltip nas peguntas/opçoes
+- Toltip nas perguntas/opções
 
-- Conrrigri longest streak
 - Grafico de acerto / evolução sma
 - Mapa de error Ativos (correta) e passivos (escolhida)
 - Mais tipos de exercicios (cada vogal aredondada vs não arredondados, cada altura vs todas as Posteridade, cada Posteridade vs todas as alturas, testar apenas se é arredondada, qual a altura e qual a posteridade)
@@ -16,6 +13,9 @@
 - Delay to show error message
 - Mapea minha voz para os sons (usar gravação local)
 - Permitir escolher por linguas de presença (criar curso com tal configuração)
+- Adicionar estatisticas também na execução do quiz.
+- normaliar estado
+- permitir rever sessões anteriores
 
 # IpaQuiz
 

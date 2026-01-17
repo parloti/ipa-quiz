@@ -11,7 +11,6 @@ import { IStatistics } from '../models/istatistics';
 import { IVowel, IVowelID } from '../models/ivowel';
 import { actions } from '../state/actions';
 import { quizFeature } from '../state/quiz-feature';
-import { randomInteger } from '../utils/random-integer';
 
 @Injectable({
   providedIn: 'root',
@@ -100,9 +99,9 @@ export class QuizService {
     return this._state$;
   }
 
-  private readonly _session$: Observable<ISession | undefined>;
-  public get session$(): Observable<ISession | undefined> {
-    return this._session$;
+  private readonly _currentSession$: Observable<ISession | undefined>;
+  public get currentSession$(): Observable<ISession | undefined> {
+    return this._currentSession$;
   }
 
   private readonly _questions$: Observable<IQuestion[] | undefined>;
@@ -162,7 +161,9 @@ export class QuizService {
       quizFeature.selectCurrentQuestionSelectedAnswer,
     );
     this._state$ = this.store$.select(quizFeature.selectQuizState);
-    this._session$ = this.store$.select(quizFeature.selectCurrentSession);
+    this._currentSession$ = this.store$.select(
+      quizFeature.selectCurrentSession,
+    );
     this._questions$ = this.store$
       .select(quizFeature.selectSessionQuestions)
       .pipe(map(q => (q ? Object.values(q) : undefined)));

@@ -21,7 +21,7 @@ describe('QuizService', () => {
     expect(service.quizzes$).toBeDefined();
     expect(service.finished$).toBeDefined();
     expect(service.openedQuiz$).toBeDefined();
-    expect(service.session$).toBeDefined();
+    expect(service.currentSession$).toBeDefined();
     expect(service.questions$).toBeDefined();
     expect(service.question$).toBeDefined();
     expect(service.currentQuestionIndex$).toBeDefined();

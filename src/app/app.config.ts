@@ -1,10 +1,12 @@
 import {
   ApplicationConfig,
+  importProvidersFrom,
   isDevMode,
   provideBrowserGlobalErrorListeners,
   provideEnvironmentInitializer,
   provideZonelessChangeDetection,
 } from '@angular/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {
   provideRouter,
@@ -24,6 +26,7 @@ import 'hammerjs';
 import { routes } from './app.routes';
 import { CustomReuseStrategy } from './reuse-strategy';
 import { routerDebugTracing } from './router-debug-tracing';
+import { serviceWorkerUpdateInitializer } from './service-worker-update';
 import { AppEffects } from './state/app.effects';
 import { provideMetaReducer } from './state/meta-reducers';
 import { quizFeature } from './state/quiz-feature';
@@ -33,9 +36,11 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideZonelessChangeDetection(),
     provideAnimationsAsync(),
+    importProvidersFrom(MatSnackBarModule),
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
     provideEnvironmentInitializer(routerDebugTracing),
+    provideEnvironmentInitializer(serviceWorkerUpdateInitializer),
     provideServiceWorker('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',

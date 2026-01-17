@@ -52,10 +52,11 @@
                 class="text-muted d-flex flex-wrap row-gap-1 lh-1 overflow-hidden lang-examples"
                 [matTooltip]="byLang.title"
                 [matTooltipHideDelay]="5000"
+                [title]="byLang.title"
               >
                 <img
                   alt="{{ byLang.code }}"
-                  src="/flags/{{ byLang.cc }}.svg"
+                  src="flags/{{ byLang.cc }}.svg"
                   style="
                     height: 1em;
                     vertical-align: middle;

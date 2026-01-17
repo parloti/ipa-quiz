@@ -11,7 +11,7 @@
     </button>
   </div>
   <div class="flex-1">
-    @if (isFinished$()) {
+    @if (isFinished$() && isLastQuestion$()) {
       <button
         class="w-100"
         color="warn"
